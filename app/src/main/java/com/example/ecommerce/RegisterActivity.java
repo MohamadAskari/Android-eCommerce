@@ -14,6 +14,12 @@ public class RegisterActivity extends AppCompatActivity {
     private Button signup_btn;
     private EditText inputfirstname, inputlastname, inputusername, inputemail, inputphonenumber, inputpass, inputconfirmpass;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_register);
+    }
+
     /*FirebaseDatabase rootNode;
     DatabaseReference reference;
 
