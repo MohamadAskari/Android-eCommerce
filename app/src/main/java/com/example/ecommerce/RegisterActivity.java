@@ -4,24 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.util.List;
 
 public class RegisterActivity extends AppCompatActivity {
 
     private Button signup_btn;
     private EditText inputfirstname, inputlastname, inputusername, inputemail, inputphonenumber, inputpass, inputconfirmpass;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
-    }
-
-    /*FirebaseDatabase rootNode;
-    DatabaseReference reference;
+    DataBaseHelper dataBaseHelper;
 
 
     @Override
@@ -37,19 +30,16 @@ public class RegisterActivity extends AppCompatActivity {
         inputphonenumber = (EditText)findViewById(R.id.phonenumber_register);
         inputpass = (EditText)findViewById(R.id.password_register);
         inputconfirmpass = (EditText)findViewById(R.id.password_confirmation_register);
+        dataBaseHelper = new DataBaseHelper(this);
 
-        signup_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CreateAccount();
-            }
-        });
+        signup_btn.setOnClickListener(v -> CreateAccount());
+
     }
 
     private void CreateAccount() {
+        String username = inputusername.getText().toString();
         String firstname = inputfirstname.getText().toString();
         String lastname = inputlastname.getText().toString();
-        String username = inputusername.getText().toString();
         String email = inputemail.getText().toString();
         String phonenumber = inputphonenumber.getText().toString();
         String pass = inputpass.getText().toString();
@@ -63,16 +53,30 @@ public class RegisterActivity extends AppCompatActivity {
             Toast.makeText(this, "Your password and confirmation password do not match", Toast.LENGTH_LONG).show();
         }
         else {
-            //validatephoneNumber(phonenumber);
-            rootNode = FirebaseDatabase.getInstance();
-            reference = rootNode.getReference("users");
+            Client newClient = new Client(username, firstname, lastname, email, phonenumber, pass);
+            //check if username already exists
+            boolean UsernameExists = checkIfExists(newClient);
+            if(!UsernameExists){
+                boolean succeed = dataBaseHelper.addClient(newClient);
+                if(succeed) {
+                    Toast.makeText(this, "Sign in was successful, Welcome " + newClient.getUserName(), Toast.LENGTH_LONG).show();
+                    //go to the next activity...
 
-            reference.setValue("abc");
-            Toast.makeText(this, "Done", Toast.LENGTH_LONG).show();
+                }
+                else
+                    Toast.makeText(this, "Failed to add", Toast.LENGTH_LONG).show();
+            }
+            else
+                Toast.makeText(this, "This Username is already taken, pick a new one", Toast.LENGTH_LONG).show();
         }
     }
 
-    private void validatephoneNumber(String phonenumber) {
-
-    }*/
+    private boolean checkIfExists(Client client){
+        List<Client> clients = dataBaseHelper.getEveryClient();
+        for(Client c : clients){
+            if(c.getUserName().equalsIgnoreCase(client.getUserName()))
+                return true;
+        }
+        return false;
+    }
 }
