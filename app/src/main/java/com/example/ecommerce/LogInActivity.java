@@ -28,8 +28,16 @@ public class LogInActivity extends AppCompatActivity {
         login_btn.setOnClickListener(v -> {
             String username = inputUsername.getText().toString();
             String password = inputPassword.getText().toString();
+            List<Admin> admins = dataBaseHelper.getAdmins();
             List<Client> clients = dataBaseHelper.getEveryClient();
             boolean flag = true;
+            for (Admin admin : admins){
+                if(admin.getUsername().equalsIgnoreCase(username) && admin.getPassword().equals(password)){
+                    Toast.makeText(this, "Welcome back " + admin.getUsername(), Toast.LENGTH_LONG).show();
+                    flag = false;
+                    //go to the next activity...
+                }
+            }
             for (Client client : clients){
                 if(client.getUserName().equalsIgnoreCase(username) && client.getPassword().equals(password)){
                     Toast.makeText(this, "Welcome back " + client.getUserName(), Toast.LENGTH_LONG).show();

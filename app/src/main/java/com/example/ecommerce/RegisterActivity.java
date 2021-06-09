@@ -78,8 +78,13 @@ public class RegisterActivity extends AppCompatActivity {
 
     private boolean checkIfExists(Client client){
         List<Client> clients = dataBaseHelper.getEveryClient();
+        List<Admin> admins = dataBaseHelper.getAdmins();
         for(Client c : clients){
             if(c.getUserName().equalsIgnoreCase(client.getUserName()))
+                return true;
+        }
+        for (Admin a : admins){
+            if(a.getUsername().equalsIgnoreCase(a.getUsername()))
                 return true;
         }
         return false;
