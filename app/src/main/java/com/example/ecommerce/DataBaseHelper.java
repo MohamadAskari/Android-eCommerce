@@ -21,18 +21,21 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String CLIENT_PASSWORD = "CLIENT_PASSWORD";
     public static final String IS_SELLER = "IS_SELLER";
     public static final String CLIENT_TABLE = "CLIENT_TABLE";
-
+    public static final String ADMIN_USERNAME = "ADMIN_USERNAME";
+    public static final String ADMIN_PASSWORD = "ADMIN_PASSWORD";
+    public static final String ADMIN_TABLE = "ADMIN_TABLE";
 
     public DataBaseHelper(@Nullable Context context) {
-        super(context, "clients.db", null, 1);
+        super(context, "database.db", null, 1);
     }
 
     //creating the table
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String onCreateTableString = "CREATE TABLE " + CLIENT_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + CLIENT_USERNAME + " TEXT , " + CLIENT_FIRSTNAME + " TEXT, " + CLIENT_LASTNAME + " TEXT, " + CLIENT_EMAIL + " TEXT, " + CLIENT_PHONENUMBER + " TEXT, " + CLIENT_PASSWORD + " TEXT, " + IS_SELLER + " BOOLEAN ) ";
-
-        db.execSQL(onCreateTableString);
+        String onCreateTableString_Users = "CREATE TABLE " + CLIENT_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + CLIENT_USERNAME + " TEXT , " + CLIENT_FIRSTNAME + " TEXT, " + CLIENT_LASTNAME + " TEXT, " + CLIENT_EMAIL + " TEXT, " + CLIENT_PHONENUMBER + " TEXT, " + CLIENT_PASSWORD + " TEXT, " + IS_SELLER + " BOOLEAN ) ";
+        String onCreateTableString_Admins = "CREATE TABLE " + ADMIN_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + ADMIN_USERNAME + " TEXT , " + ADMIN_PASSWORD + " TEXT ) ";
+        db.execSQL(onCreateTableString_Users);
+        db.execSQL(onCreateTableString_Admins);
     }
 
     @Override
@@ -41,6 +44,18 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
     //method to add a new client
+    public boolean addAdmin(Admin admin) {
+        SQLiteDatabase DB = this.getWritableDatabase();
+        ContentValues CV = new ContentValues();
+
+        CV.put(ADMIN_USERNAME, admin.getUsername());
+        CV.put(ADMIN_PASSWORD, admin.getPassword());
+
+        long added = DB.insert(ADMIN_TABLE, null, CV);
+
+        return added != -1;
+    }
+
     public boolean addClient(Client client){
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues CV = new ContentValues();
@@ -56,6 +71,32 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         long added = DB.insert(CLIENT_TABLE, null, CV);
 
         return added != -1;
+    }
+
+    public List<Admin> getAdmins(){
+        List<Admin> admins = new ArrayList<>();
+        String query = "SELECT * FROM " + ADMIN_TABLE;
+
+        SQLiteDatabase DB = this.getReadableDatabase();
+
+        Cursor cursor = DB.rawQuery(query, null);
+
+        if(cursor.moveToFirst()){
+            //loop through the table of clients
+            do {
+                String UserName = cursor.getString(1);
+                String Password = cursor.getString(2);
+                Admin admin = new Admin(UserName, Password);
+                admins.add(admin);
+
+            } while (cursor.moveToNext());
+        }
+        else{
+            //task failed, list will be empty
+        }
+        cursor.close();
+        DB.close();
+        return admins;
     }
 
     public List<Client> getEveryClient(){
