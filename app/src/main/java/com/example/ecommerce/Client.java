@@ -7,14 +7,16 @@ public class Client {
     private String Email;
     private String PhoneNumber;
     private String Password;
+    private boolean IsSeller;
 
-    public Client(String userName, String firstName, String lastName, String email, String phoneNumber, String password) {
+    public Client(String userName, String firstName, String lastName, String email, String phoneNumber, String password, boolean is_Seller) {
         UserName = userName;
         FirstName = firstName;
         LastName = lastName;
         Email = email;
         PhoneNumber = phoneNumber;
         Password = password;
+        IsSeller = is_Seller;
     }
 
     public Client() {
@@ -68,6 +70,14 @@ public class Client {
         Password = password;
     }
 
+    public boolean isSeller() {
+        return IsSeller;
+    }
+
+    public void setSeller(boolean seller) {
+        IsSeller = seller;
+    }
+
     @Override
     public String toString() {
         return "Client{" +
@@ -77,6 +87,7 @@ public class Client {
                 ", Email='" + Email + '\'' +
                 ", PhoneNumber='" + PhoneNumber + '\'' +
                 ", Password='" + Password + '\'' +
+                ", IsSeller=" + IsSeller +
                 '}';
     }
 }

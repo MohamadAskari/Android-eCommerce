@@ -19,7 +19,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String CLIENT_EMAIL = "CLIENT_EMAIL";
     public static final String CLIENT_PHONENUMBER = "CLIENT_PHONENUMBER";
     public static final String CLIENT_PASSWORD = "CLIENT_PASSWORD";
-    public static final String CLIENT_TYPE = "CLIENT_TYPE";
+    public static final String IS_SELLER = "IS_SELLER";
     public static final String CLIENT_TABLE = "CLIENT_TABLE";
 
 
@@ -30,7 +30,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     //creating the table
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String onCreateTableString = "CREATE TABLE " + CLIENT_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + CLIENT_USERNAME + " TEXT , " + CLIENT_FIRSTNAME + " TEXT, " + CLIENT_LASTNAME + " TEXT, " + CLIENT_EMAIL + " TEXT, " + CLIENT_PHONENUMBER + " TEXT, " + CLIENT_PASSWORD + " TEXT, " + CLIENT_TYPE + " TEXT) ";
+        String onCreateTableString = "CREATE TABLE " + CLIENT_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + CLIENT_USERNAME + " TEXT , " + CLIENT_FIRSTNAME + " TEXT, " + CLIENT_LASTNAME + " TEXT, " + CLIENT_EMAIL + " TEXT, " + CLIENT_PHONENUMBER + " TEXT, " + CLIENT_PASSWORD + " TEXT, " + IS_SELLER + " BOOLEAN ) ";
 
         db.execSQL(onCreateTableString);
     }
@@ -51,6 +51,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         CV.put(CLIENT_EMAIL, client.getEmail());
         CV.put(CLIENT_PHONENUMBER, client.getPhoneNumber());
         CV.put(CLIENT_PASSWORD, client.getPassword());
+        CV.put(IS_SELLER, client.isSeller());
 
         long added = DB.insert(CLIENT_TABLE, null, CV);
 
@@ -76,8 +77,9 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 String Email = cursor.getString(4);
                 String PhoneNumber = cursor.getString(5);
                 String Password = cursor.getString(6);
+                boolean isSeller = cursor.getInt(7) == 1;
                 //Client Type(Seller or Ordinary Client) should be considered too
-                Client client = new Client(UserName, FirstName, LastName, Email, PhoneNumber, Password);
+                Client client = new Client(UserName, FirstName, LastName, Email, PhoneNumber, Password, isSeller);
                 clients.add(client);
 
             } while (cursor.moveToNext());
