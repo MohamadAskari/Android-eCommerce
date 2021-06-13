@@ -1,9 +1,10 @@
 package com.example.ecommerce;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Intent;
+
+import androidx.navigation.Navigation;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -35,16 +36,14 @@ public class MainActivity extends AppCompatActivity {
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_main, new LogInFragment()).commit();
+                Navigation.findNavController(MainActivity.this, R.id.fragment_main).navigate(R.id.action_registerFragment_to_logInFragment);
             }
         });
 
         register_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_main, new RegisterFragment()).commit();
+                Navigation.findNavController(MainActivity.this, R.id.fragment_main).navigate(R.id.action_logInFragment_to_registerFragment);
             }
         });
     }
