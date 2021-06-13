@@ -1,5 +1,6 @@
 package com.example.ecommerce;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -40,6 +41,8 @@ public class LogInFragment extends Fragment {
                 if(admin.getUsername().equalsIgnoreCase(username) && admin.getPassword().equals(password)){
                     Toast.makeText(getActivity(), "Welcome back " + admin.getUsername(), Toast.LENGTH_LONG).show();
                     flag = false;
+                    Intent intent = new Intent(getActivity(), HomeActivity.class);
+                    startActivity(intent);
                     //go to the next activity...
                 }
             }

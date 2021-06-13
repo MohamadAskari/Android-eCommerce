@@ -89,7 +89,7 @@ public class RegisterFragment extends Fragment {
                 return true;
         }
         for (Admin a : admins){
-            if(a.getUsername().equalsIgnoreCase(a.getUsername()))
+            if(a.getUsername().equalsIgnoreCase(client.getUserName()))
                 return true;
         }
         return false;
