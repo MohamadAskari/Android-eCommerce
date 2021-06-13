@@ -1,6 +1,8 @@
 package com.example.ecommerce;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.Navigation;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
         dataBaseHelper = new DataBaseHelper(this);
 
-        if(dataBaseHelper.getAdmins().isEmpty()){
+        if (dataBaseHelper.getAdmins().isEmpty()) {
             Admin admin1 = new Admin("Ali_Ghasemi", "2710376601");
             Admin admin2 = new Admin("Mohamad_Askari", "2710380773");
 
@@ -28,17 +30,21 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        login_btn = (Button) findViewById(R.id.log_in_btn);
-        register_btn = (Button) findViewById(R.id.register_btn);
+        login_btn = findViewById(R.id.log_in_btn);
+        register_btn = findViewById(R.id.register_btn);
 
-        login_btn.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, LogInActivity.class);
-            startActivity(intent);
+        login_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_registerFragment_to_logInFragment);
+            }
         });
 
-        register_btn.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
-            startActivity(intent);
+        register_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_logInFragment_to_registerFragment);
+            }
         });
     }
 }
