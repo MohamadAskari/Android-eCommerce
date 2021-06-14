@@ -4,12 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -18,6 +20,7 @@ public class LogInFragment extends Fragment {
 
     private Button login_btn;
     private EditText inputUsername, inputPassword;
+    private TextView forgotPassword;
     DataBaseHelper dataBaseHelper;
 
 
@@ -29,6 +32,7 @@ public class LogInFragment extends Fragment {
         login_btn = view.findViewById(R.id.login_btn);
         inputUsername = view.findViewById(R.id.username_login);
         inputPassword = view.findViewById(R.id.password_login);
+        forgotPassword = view.findViewById(R.id.forgot_password_textView);
         dataBaseHelper = new DataBaseHelper(getActivity());
 
         login_btn.setOnClickListener(v -> {
@@ -55,6 +59,12 @@ public class LogInFragment extends Fragment {
             }
             if(flag)
                 Toast.makeText(getActivity(),"Invalid Username or Password", Toast.LENGTH_LONG).show();
+        });
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(getActivity(), R.id.fragment_main).navigate(R.id.action_logInFragment_to_fragment_forgot_password);
+            }
         });
 
         return view;

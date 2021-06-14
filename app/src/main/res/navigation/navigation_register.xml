@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_logInFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_logInFragment_to_fragment_forgot_password"
+            app:destination="@id/fragment_forgot_password" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -21,6 +24,15 @@
         tools:layout="@layout/fragment_register" >
         <action
             android:id="@+id/action_registerFragment_to_logInFragment"
+            app:destination="@id/logInFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_forgot_password"
+        android:name="com.example.ecommerce.fragment_forgot_password"
+        android:label="fragment_forgot_password"
+        tools:layout="@layout/fragment_forgot_password" >
+        <action
+            android:id="@+id/action_fragment_forgot_password_to_logInFragment"
             app:destination="@id/logInFragment" />
     </fragment>
 </navigation>

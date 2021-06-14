@@ -54,6 +54,18 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
+                  <entry key="fragment_forgot_password">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="201" />
+                            <option name="y" value="310" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="logInFragment">
                     <value>
                       <LayoutPositions>
@@ -80,8 +92,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="214" />
-                            <option name="y" value="2" />
+                            <option name="x" value="215" />
+                            <option name="y" value="-5" />
                           </Point>
                         </option>
                         <option name="myPositions">
