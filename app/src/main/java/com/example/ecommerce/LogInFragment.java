@@ -35,6 +35,7 @@ public class LogInFragment extends Fragment {
         forgotPassword = view.findViewById(R.id.forgot_password_textView);
         dataBaseHelper = new DataBaseHelper(getActivity());
 
+
         login_btn.setOnClickListener(v -> {
             String username = inputUsername.getText().toString();
             String password = inputPassword.getText().toString();

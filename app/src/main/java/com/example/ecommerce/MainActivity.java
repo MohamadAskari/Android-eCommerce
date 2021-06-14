@@ -33,10 +33,14 @@ public class MainActivity extends AppCompatActivity {
         login_btn = findViewById(R.id.log_in_btn);
         register_btn = findViewById(R.id.register_btn);
 
+        login_btn.setEnabled(false);
+
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(MainActivity.this, R.id.fragment_main).navigate(R.id.action_registerFragment_to_logInFragment);
+                login_btn.setEnabled(false);
+                register_btn.setEnabled(true);
             }
         });
 
@@ -44,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(MainActivity.this, R.id.fragment_main).navigate(R.id.action_logInFragment_to_registerFragment);
+                register_btn.setEnabled(false);
+                login_btn.setEnabled(true);
             }
         });
     }
