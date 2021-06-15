@@ -132,4 +132,14 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         DB.close();
         return clients;
     }
+
+    public boolean updatePassword(Client client, String newPassword) {
+        SQLiteDatabase DB = this.getWritableDatabase();
+        ContentValues CV = new ContentValues();
+        CV.put(CLIENT_PASSWORD, newPassword);
+
+        long updated = DB.update(CLIENT_TABLE, CV, CLIENT_USERNAME + " = ?" , new String[] {client.getUserName()});
+
+        return updated != -1;
+    }
 }
