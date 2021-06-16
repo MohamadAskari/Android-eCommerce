@@ -30,7 +30,7 @@
         android:ems="10"
         android:hint="Search..."
         android:inputType="textPersonName"
-        android:paddingStart="10"
+        android:paddingStart="10dp"
         app:layout_constraintEnd_toStartOf="@id/profile_dropdown"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
