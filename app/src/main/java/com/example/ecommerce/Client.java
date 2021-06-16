@@ -8,6 +8,7 @@ public class Client {
     private String PhoneNumber;
     private String Password;
     private boolean IsSeller;
+    private int Login_count;
 
     public Client(String userName, String firstName, String lastName, String email, String phoneNumber, String password, boolean is_Seller) {
         UserName = userName;
@@ -17,6 +18,18 @@ public class Client {
         PhoneNumber = phoneNumber;
         Password = password;
         IsSeller = is_Seller;
+        Login_count = 1;
+    }
+
+    public Client(String userName, String firstName, String lastName, String email, String phoneNumber, String password, boolean isSeller,  int login_count) {
+        UserName = userName;
+        FirstName = firstName;
+        LastName = lastName;
+        Email = email;
+        PhoneNumber = phoneNumber;
+        Password = password;
+        IsSeller = isSeller;
+        Login_count = login_count;
     }
 
     public Client() {
@@ -76,6 +89,14 @@ public class Client {
 
     public void setSeller(boolean seller) {
         IsSeller = seller;
+    }
+
+    public int getLogin_count() {
+        return Login_count;
+    }
+
+    public void setLogin_count(int login_count) {
+        this.Login_count = login_count;
     }
 
     @Override

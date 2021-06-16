@@ -21,9 +21,28 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String CLIENT_PASSWORD = "CLIENT_PASSWORD";
     public static final String IS_SELLER = "IS_SELLER";
     public static final String CLIENT_TABLE = "CLIENT_TABLE";
+    public static final String CLIENT_LOGINCOUNT = "CLIENT_LOGINCOUNT";
     public static final String ADMIN_USERNAME = "ADMIN_USERNAME";
     public static final String ADMIN_PASSWORD = "ADMIN_PASSWORD";
     public static final String ADMIN_TABLE = "ADMIN_TABLE";
+    public static final String PRODUCTS_TABLE = "PRODUCTS_TABLE";
+    public static final String ELECTRONIC_TABLE = "ELECTRONIC_TABLE";
+    public static final String FASHION_TABLE = "FASHION_TABLE";
+    public static final String HOME_TABLE = "HOME_TABLE";
+    public static final String SPORTS_TABLE = "SPORTS_TABLE";
+    public static final String MOTORS_TABLE = "MOTORS_TABLE";
+    public static final String REALSTATE_TABLE = "REALSTATE_TABLE";
+    public static final String ENTERTAINMENT_TABLE = "ENTERTAINMENT_TABLE";
+    public static final String PRODUCT_NAME = "PRODUCT_NAME";
+    public static final String PRODUCT_PRICE = "PRODUCT_PRICE";
+    public static final String PRODUCT_CATEGORY = "PRODUCT_CATEGORY";
+    public static final String PRODUCT_SUBCATEGORY = "PRODUCT_SUBCATEGORY";
+    public static final String PRODUCT_SELLER = "PRODUCT_SELLER";
+    public static final String PRODUCT_DESCRIPTION = "PRODUCT_DESCRIPTION";
+
+
+
+
 
     public DataBaseHelper(@Nullable Context context) {
         super(context, "database.db", null, 1);
@@ -32,10 +51,29 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     //creating the table
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String onCreateTableString_Users = "CREATE TABLE " + CLIENT_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + CLIENT_USERNAME + " TEXT , " + CLIENT_FIRSTNAME + " TEXT, " + CLIENT_LASTNAME + " TEXT, " + CLIENT_EMAIL + " TEXT, " + CLIENT_PHONENUMBER + " TEXT, " + CLIENT_PASSWORD + " TEXT, " + IS_SELLER + " BOOLEAN ) ";
+        String onCreateTableString_Users = "CREATE TABLE " + CLIENT_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + CLIENT_USERNAME + " TEXT , " + CLIENT_FIRSTNAME + " TEXT, " + CLIENT_LASTNAME + " TEXT, " + CLIENT_EMAIL + " TEXT, " + CLIENT_PHONENUMBER + " TEXT, " + CLIENT_PASSWORD + " TEXT, " + IS_SELLER + " BOOLEAN, " + CLIENT_LOGINCOUNT + " TEXT ) ";
         String onCreateTableString_Admins = "CREATE TABLE " + ADMIN_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + ADMIN_USERNAME + " TEXT , " + ADMIN_PASSWORD + " TEXT ) ";
+        String onCreateTableString_Products = "CREATE TABLE " + PRODUCTS_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_CATEGORY + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT ) ";
+        String onCreateTableString_Electronics = "CREATE TABLE " + ELECTRONIC_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT ) ";
+        String onCreateTableString_Fashion = "CREATE TABLE " + FASHION_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT ) ";
+        String onCreateTableString_Home = "CREATE TABLE " + HOME_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT ) ";
+        String onCreateTableString_Sports = "CREATE TABLE " + SPORTS_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT ) ";
+        String onCreateTableString_Motors = "CREATE TABLE " + MOTORS_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT ) ";
+        String onCreateTableString_Realstate = "CREATE TABLE " + REALSTATE_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT ) ";
+        String onCreateTableString_Entertainment = "CREATE TABLE " + ENTERTAINMENT_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT ) ";
+
+
         db.execSQL(onCreateTableString_Users);
         db.execSQL(onCreateTableString_Admins);
+        db.execSQL(onCreateTableString_Products);
+        db.execSQL(onCreateTableString_Electronics);
+        db.execSQL(onCreateTableString_Fashion);
+        db.execSQL(onCreateTableString_Home);
+        db.execSQL(onCreateTableString_Sports);
+        db.execSQL(onCreateTableString_Motors);
+        db.execSQL(onCreateTableString_Realstate);
+        db.execSQL(onCreateTableString_Entertainment);
+
     }
 
     @Override
@@ -67,6 +105,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         CV.put(CLIENT_PHONENUMBER, client.getPhoneNumber());
         CV.put(CLIENT_PASSWORD, client.getPassword());
         CV.put(IS_SELLER, client.isSeller());
+        CV.put(CLIENT_LOGINCOUNT, client.getLogin_count());
 
         long added = DB.insert(CLIENT_TABLE, null, CV);
 
@@ -99,6 +138,14 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return admins;
     }
 
+    public boolean updateLoginCount(Client client, String newCount){
+        SQLiteDatabase DB = this.getWritableDatabase();
+        ContentValues CV = new ContentValues();
+        CV.put(CLIENT_LOGINCOUNT, newCount);
+        long updated =  DB.update(CLIENT_TABLE, CV, CLIENT_USERNAME + " = ?" , new String[] {client.getUserName()});
+        return updated != -1;
+    }
+
     public List<Client> getEveryClient(){
         List<Client> clients = new ArrayList<>();
 
@@ -119,8 +166,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 String PhoneNumber = cursor.getString(5);
                 String Password = cursor.getString(6);
                 boolean isSeller = cursor.getInt(7) == 1;
-                //Client Type(Seller or Ordinary Client) should be considered too
-                Client client = new Client(UserName, FirstName, LastName, Email, PhoneNumber, Password, isSeller);
+                String LoginCount = cursor.getString(8);
+                Client client = new Client(UserName, FirstName, LastName, Email, PhoneNumber, Password, isSeller, Integer.parseInt(LoginCount));
                 clients.add(client);
 
             } while (cursor.moveToNext());
