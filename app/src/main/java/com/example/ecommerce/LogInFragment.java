@@ -55,6 +55,8 @@ public class LogInFragment extends Fragment {
                 if(client.getUserName().equalsIgnoreCase(username) && client.getPassword().equals(password)){
                     Toast.makeText(getActivity(), "Welcome back " + client.getUserName(), Toast.LENGTH_LONG).show();
                     flag = false;
+                    Intent intent = new Intent(getActivity(), HomeActivity.class);
+                    startActivity(intent);
                     //go to the next activity...
                 }
             }
