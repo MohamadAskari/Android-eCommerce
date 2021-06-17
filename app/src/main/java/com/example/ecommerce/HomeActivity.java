@@ -13,11 +13,16 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeActivity extends AppCompatActivity {
 
     ChipNavigationBar bottomNav;
+    FloatingActionButton fab;
+
 
 
     @Override
@@ -26,6 +31,15 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         setCurrentFragment(new HomeFragment());
+
+        fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_add_product()).commit();
+            }
+        });
+
 
         bottomNav = findViewById(R.id.bottom_nav_bar);
         bottomNav.setOnItemSelectedListener(new ChipNavigationBar.OnItemSelectedListener() {
@@ -47,7 +61,6 @@ public class HomeActivity extends AppCompatActivity {
 
                 if (selectedFragment != null)
                     setCurrentFragment(selectedFragment);
-
             }
         });
 
