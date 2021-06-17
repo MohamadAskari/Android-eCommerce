@@ -1,5 +1,6 @@
 package com.example.ecommerce;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -70,8 +71,8 @@ public class RegisterFragment extends Fragment {
                 boolean succeed = dataBaseHelper.addClient(newClient);
                 if(succeed) {
                     Toast.makeText(getActivity(), "Sign in was successful, Welcome " + newClient.getUserName(), Toast.LENGTH_LONG).show();
-                    //go to the next activity...
-
+                    Intent intent = new Intent(getActivity(), HomeActivity.class);
+                    startActivity(intent);
                 }
                 else
                     Toast.makeText(getActivity(), "Failed to add", Toast.LENGTH_LONG).show();
