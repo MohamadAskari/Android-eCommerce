@@ -1,6 +1,7 @@
 package com.example.ecommerce;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -8,6 +9,7 @@ import androidx.navigation.Navigation;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -16,6 +18,7 @@ import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 public class HomeActivity extends AppCompatActivity {
 
     ChipNavigationBar bottomNav;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,5 +81,4 @@ public class HomeActivity extends AppCompatActivity {
     private void setCurrentFragment(Fragment fragment){
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
     }
-
 }
