@@ -1,137 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/appCompatImageView"
-        android:layout_width="230dp"
-        android:layout_height="230dp"
-        android:background="@drawable/buttons4"
-        android:elevation="5dp"
-        android:padding="63dp"
-        android:src="@drawable/no_image"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.031" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-    <android.widget.Button
-        android:id="@+id/fromgallery_btn"
-        android:layout_width="162dp"
-        android:layout_height="70dp"
-        android:layout_marginBottom="360dp"
-        android:background="@drawable/buttons2"
-        android:fontFamily="@font/montserrat_semibold"
-        android:text="From gallery"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.148"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appCompatImageView"
-        app:layout_constraintVertical_bias="0.29" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="250dp">
 
-    <android.widget.Button
-        android:id="@+id/takephoto_btn"
-        android:layout_width="162dp"
-        android:layout_height="70dp"
-        android:layout_marginBottom="352dp"
-        android:background="@drawable/buttons3"
-        android:fontFamily="@font/montserrat_semibold"
-        android:text="Take photo"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.244"
-        app:layout_constraintStart_toEndOf="@id/fromgallery_btn"
-        app:layout_constraintTop_toBottomOf="@+id/appCompatImageView"
-        app:layout_constraintVertical_bias="0.253" />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/appCompatImageView"
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:layout_margin="20dp"
+                android:layout_alignParentStart="true"
+                android:background="@drawable/buttons4"
+                android:elevation="5dp"
+                android:padding="60dp"
+                android:src="@drawable/no_image" />
+
+            <android.widget.Button
+                android:id="@+id/takephoto_btn"
+                android:layout_width="140dp"
+                android:layout_height="60dp"
+                android:layout_margin="40dp"
+                android:background="@drawable/buttons3"
+                android:fontFamily="@font/montserrat_semibold"
+                android:text="Take photo"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"/>
+
+            <android.widget.Button
+                android:id="@+id/fromgallery_btn"
+                android:layout_width="140dp"
+                android:layout_height="60dp"
+                android:layout_margin="40dp"
+                android:background="@drawable/buttons2"
+                android:fontFamily="@font/montserrat_semibold"
+                android:text="From gallery"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                />
 
 
-    <ScrollView
-        android:layout_width="408dp"
-        android:layout_height="396dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fromgallery_btn"
-        app:layout_constraintVertical_bias="1.0">
+        </RelativeLayout>
 
-        <LinearLayout
+
+        <EditText
+            android:id="@+id/product_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_margin="10dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:hint="Product name" />
 
-            <EditText
-                android:id="@+id/product_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:fontFamily="@font/montserrat_regular"
-                android:hint="Product name" />
+        <EditText
+            android:id="@+id/product_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:hint="Price" />
 
-            <EditText
-                android:id="@+id/product_price"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:fontFamily="@font/montserrat_regular"
-                android:hint="Price" />
-
-            <EditText
-                android:id="@+id/product_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="7dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:fontFamily="@font/montserrat_regular"
-                android:hint="Desciption (optional)" />
+        <EditText
+            android:id="@+id/product_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:fontFamily="@font/montserrat_regular"
+            android:hint="Desciption (optional)" />
 
 
-            <TextView
-                android:id="@+id/add_category_textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                android:layout_marginStart="14dp"
-                android:layout_marginBottom="14dp"
-                android:fontFamily="@font/montserrat_semibold"
-                android:text="Select a category"
-                android:textSize="20dp" />
+        <TextView
+            android:id="@+id/add_category_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:fontFamily="@font/montserrat_semibold"
+            android:text="Select a category"
+            android:textSize="20dp" />
 
-            <Spinner
-                android:id="@+id/parent_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="14dp" />
+        <Spinner
+            android:id="@+id/parent_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp" />
 
-            <TextView
-                android:id="@+id/add_subcategory_textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                android:layout_marginStart="14dp"
-                android:layout_marginBottom="14dp"
-                android:fontFamily="@font/montserrat_semibold"
-                android:text="Select a subcategory"
-                android:textSize="20dp" />
+        <TextView
+            android:id="@+id/add_subcategory_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:fontFamily="@font/montserrat_semibold"
+            android:text="Select a subcategory"
+            android:textSize="20dp" />
 
-            <Spinner
-                android:id="@+id/child_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="14dp" />
+        <Spinner
+            android:id="@+id/child_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp" />
 
-        </LinearLayout>
+    </LinearLayout>
 
-    </ScrollView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
