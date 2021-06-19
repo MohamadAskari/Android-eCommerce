@@ -16,6 +16,13 @@ public class Product {
         SubCategory = subCategory;
         Seller = seller;
     }
+    public Product(String name, String price, String category, String subCategory, String seller) {
+        Name = name;
+        Price = price;
+        Category = category;
+        SubCategory = subCategory;
+        Seller = seller;
+    }
 
     public String getName() {
         return Name;

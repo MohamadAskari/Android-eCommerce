@@ -13,6 +13,7 @@ import java.util.List;
 
 public class DataBaseHelper extends SQLiteOpenHelper {
 
+    // client
     public static final String CLIENT_USERNAME = "CLIENT_USERNAME";
     public static final String CLIENT_FIRSTNAME = "CLIENT_FIRSTNAME";
     public static final String CLIENT_LASTNAME = "CLIENT_LASTNAME";
@@ -22,9 +23,13 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String IS_SELLER = "IS_SELLER";
     public static final String CLIENT_TABLE = "CLIENT_TABLE";
     public static final String CLIENT_LOGINCOUNT = "CLIENT_LOGINCOUNT";
+
+    // admin
     public static final String ADMIN_USERNAME = "ADMIN_USERNAME";
     public static final String ADMIN_PASSWORD = "ADMIN_PASSWORD";
     public static final String ADMIN_TABLE = "ADMIN_TABLE";
+
+    // product
     public static final String PRODUCTS_TABLE = "PRODUCTS_TABLE";
     public static final String ELECTRONIC_TABLE = "ELECTRONIC_TABLE";
     public static final String FASHION_TABLE = "FASHION_TABLE";
@@ -188,5 +193,22 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         long updated = DB.update(CLIENT_TABLE, CV, CLIENT_USERNAME + " = ?" , new String[] {client.getUserName()});
 
         return updated != -1;
+    }
+
+    public boolean addProduct(Product product) {
+
+        SQLiteDatabase DB = this.getWritableDatabase();
+        ContentValues CV = new ContentValues();
+
+        CV.put(PRODUCT_NAME, product.getName());
+        CV.put(PRODUCT_PRICE, product.getPrice());
+        CV.put(PRODUCT_DESCRIPTION, product.getDescription());
+        CV.put(PRODUCT_CATEGORY, product.getCategory());
+        CV.put(PRODUCT_SUBCATEGORY, product.getSubCategory());
+        CV.put(PRODUCT_SELLER, product.getSeller());
+
+        long added = DB.insert(PRODUCTS_TABLE, null, CV);
+
+        return added != -1;
     }
 }

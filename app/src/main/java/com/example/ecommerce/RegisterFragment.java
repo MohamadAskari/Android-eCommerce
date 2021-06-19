@@ -39,13 +39,13 @@ public class RegisterFragment extends Fragment {
         inputconfirmpass = view.findViewById(R.id.password_confirmation_register);
         dataBaseHelper = new DataBaseHelper(getActivity());
 
-        signup_btn.setOnClickListener(v -> CreateAccount());
+        signup_btn.setOnClickListener(v -> createAccount());
 
 
         return view;
     }
 
-    private void CreateAccount() {
+    private void createAccount() {
         String username = inputusername.getText().toString();
         String firstname = inputfirstname.getText().toString();
         String lastname = inputlastname.getText().toString();
