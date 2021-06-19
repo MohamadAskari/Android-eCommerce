@@ -14,23 +14,30 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.fragment.app.Fragment;
 
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class fragment_add_product extends Fragment {
 
-    Spinner parent_spinner, child_spinner;
+    private Spinner parent_spinner, child_spinner;
     List<String> subcategories = new ArrayList<>();
+    private EditText inputproductname, inputproductprice, inputproductdescription;
+    private Button submit_btn;
+    DataBaseHelper dataBaseHelper;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -38,6 +45,13 @@ public class fragment_add_product extends Fragment {
 
         parent_spinner = view.findViewById(R.id.parent_spinner);
         child_spinner = view.findViewById(R.id.child_spinner);
+
+        inputproductname = view.findViewById(R.id.product_name);
+        inputproductprice = view.findViewById(R.id.product_price);
+        inputproductdescription = view.findViewById(R.id.product_description);
+        submit_btn = view.findViewById(R.id.submit_btn);
+
+        submit_btn.setOnClickListener(v -> submitProduct());
 
         List<String> categories = new ArrayList<>();
         categories.add("Electronics");
@@ -128,6 +142,38 @@ public class fragment_add_product extends Fragment {
 
         return view;
     }
+
+    private void submitProduct() {
+
+        String product_name = inputproductname.getText().toString();
+        String product_price = inputproductprice.getText().toString();
+        String product_description = inputproductdescription.getText().toString();
+        String product_category = parent_spinner.getSelectedItem().toString();
+        String product_subCategory = child_spinner.getSelectedItem().toString();
+        String product_seller = ((HomeActivity)getActivity()).getActiveUsername();
+
+        if(TextUtils.isEmpty(product_name) || TextUtils.isEmpty(product_price)){
+            Toast.makeText(getActivity(), "Please fill out all required fields", Toast.LENGTH_LONG).show();
+        }
+        else {
+            Product product;
+            if(TextUtils.isEmpty(product_description))
+                product = new Product(product_name, product_price, product_category, product_subCategory, product_seller);
+            else
+                product = new Product(product_name, product_price, product_description, product_category, product_subCategory, product_seller);
+
+            boolean succeed = dataBaseHelper.addProduct(product);
+
+            if(succeed) {
+                Toast.makeText(getActivity(), "Product added successfully ", Toast.LENGTH_LONG).show();
+            }
+            else
+                Toast.makeText(getActivity(), "Failed to add", Toast.LENGTH_LONG).show();
+        }
+
+
+    }
+
     public void fillSpinner(){
 
         ArrayAdapter<String> adapter_2 = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, subcategories);

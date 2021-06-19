@@ -107,6 +107,15 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp" />
 
+        <android.widget.Button
+            android:id="@+id/submit_btn"
+            android:layout_width="140dp"
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/buttons4"
+            android:fontFamily="@font/montserrat_semibold"
+            android:text="Submit" />
+
     </LinearLayout>
 
 </ScrollView>
