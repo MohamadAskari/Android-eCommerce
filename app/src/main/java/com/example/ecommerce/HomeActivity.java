@@ -20,10 +20,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeActivity extends AppCompatActivity {
 
+    String active_username;
     ChipNavigationBar bottomNav;
     FloatingActionButton fab;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +30,13 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         setCurrentFragment(new HomeFragment());
+
+        Bundle b = getIntent().getExtras();
+
+        if(b!=null)
+        {
+            active_username = (String) b.get("Active Username");
+        }
 
         fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -63,35 +69,13 @@ public class HomeActivity extends AppCompatActivity {
                     setCurrentFragment(selectedFragment);
             }
         });
-
-        /*BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        bottomNavigationView.setOnNavigationItemSelectedListener(navListener);*/
     }
-    /*private  BottomNavigationView.OnNavigationItemSelectedListener navListener =
-            new BottomNavigationView.OnNavigationItemSelectedListener() {
-                @Override
-                public boolean onNavigationItemSelected(@NonNull @org.jetbrains.annotations.NotNull MenuItem item) {
-                    Fragment selectedFragment = null;
-
-                    switch (item.getItemId()){
-                        case  R.id.home_menu:
-                            selectedFragment = new HomeFragment();
-                            break;
-                        case  R.id.categories_menu:
-                            selectedFragment = new CategoriesFragment();
-                            break;
-                        case  R.id.favorites_menu:
-                            selectedFragment = new FavoritesFragment();
-                            break;
-                    }
-
-                    setCurrentFragment(selectedFragment);
-
-                    return true;
-                }
-            };*/
 
     private void setCurrentFragment(Fragment fragment){
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
+    }
+
+    public String getActiveUsername(){
+        return active_username;
     }
 }

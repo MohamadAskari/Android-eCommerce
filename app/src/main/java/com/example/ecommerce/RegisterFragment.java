@@ -72,6 +72,8 @@ public class RegisterFragment extends Fragment {
                 if(succeed) {
                     Toast.makeText(getActivity(), "Sign in was successful, Welcome " + newClient.getUserName(), Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(getActivity(), HomeActivity.class);
+                    //pass the active user
+                    intent.putExtra("Active Username", username);
                     startActivity(intent);
                 }
                 else

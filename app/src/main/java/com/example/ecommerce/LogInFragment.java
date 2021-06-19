@@ -57,6 +57,7 @@ public class LogInFragment extends Fragment {
                     if (updated) {
                         Toast.makeText(getActivity(), "Welcome back " + client.getUserName(), Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(getActivity(), HomeActivity.class);
+                        intent.putExtra("Active Username", username);
                         startActivity(intent);
                     }
                     else

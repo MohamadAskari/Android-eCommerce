@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -22,16 +23,22 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
 
+    String active_username;
+    private EditText search_bar;
     private Spinner profile_spinner;
-    ImageSlider imageSlider;
+    private ImageSlider imageSlider;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+        active_username = ((HomeActivity)getActivity()).getActiveUsername();
+
         imageSlider = view.findViewById(R.id.image_slider);
         setImageSlider(imageSlider);
+
+        search_bar = view.findViewById(R.id.search_bar_main);
 
         profile_spinner = view.findViewById(R.id.profile_dropdown);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.profile_dropdown_items, R.layout.support_simple_spinner_dropdown_item);
