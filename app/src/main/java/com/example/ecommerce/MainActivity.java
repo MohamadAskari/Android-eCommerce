@@ -11,6 +11,7 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
+    String active_username;
     private Button login_btn, register_btn;
     DataBaseHelper dataBaseHelper;
 
@@ -25,8 +26,8 @@ public class MainActivity extends AppCompatActivity {
             Admin admin1 = new Admin("Ali_Ghasemi", "2710376601");
             Admin admin2 = new Admin("Mohamad_Askari", "2710380773");
 
-            boolean succeed1 = dataBaseHelper.addAdmin(admin1);
-            boolean succeed2 = dataBaseHelper.addAdmin(admin2);
+            dataBaseHelper.addAdmin(admin1);
+            dataBaseHelper.addAdmin(admin2);
         }
 
 
