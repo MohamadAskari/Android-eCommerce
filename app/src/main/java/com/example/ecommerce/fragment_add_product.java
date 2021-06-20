@@ -1,30 +1,17 @@
 package com.example.ecommerce;
 
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.AppCompatImageView;
 import androidx.fragment.app.Fragment;
 
-import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.PopupMenu;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -189,7 +176,7 @@ public class fragment_add_product extends Fragment {
                 if (updatedProductCount) {
                     Toast.makeText(getActivity(), "Product added successfully ", Toast.LENGTH_LONG).show();
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
-                    ((HomeActivity)getActivity()).showfab();
+                    ((HomeActivity)getActivity()).showFab();
                 }
                 else
                     Toast.makeText(getActivity(), "Task failed, try again", Toast.LENGTH_LONG).show();

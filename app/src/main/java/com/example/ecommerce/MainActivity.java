@@ -8,11 +8,12 @@ import androidx.navigation.Navigation;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
 
 public class MainActivity extends AppCompatActivity {
 
     String active_username;
-    private Button login_btn, register_btn;
+    private RadioButton login_btn, register_btn;
     DataBaseHelper dataBaseHelper;
 
     @Override
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         register_btn = findViewById(R.id.register_btn);
 
         login_btn.setEnabled(false);
+        login_btn.setChecked(true);
 
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
