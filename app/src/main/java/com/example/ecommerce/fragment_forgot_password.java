@@ -19,7 +19,7 @@ import java.util.List;
 public class fragment_forgot_password extends Fragment {
 
     private EditText username, password, confirm;
-    private Button confirm_btn;
+    private Button confirm_btn, back_btn;
     private DataBaseHelper dataBaseHelper;
 
     @Override
@@ -31,7 +31,16 @@ public class fragment_forgot_password extends Fragment {
         password = view.findViewById(R.id.password_forgotpassword);
         confirm = view.findViewById(R.id.confirm_forgotpassword);
         confirm_btn = view.findViewById(R.id.confirm_button_forgotpassword);
+        back_btn = view.findViewById(R.id.forgotpassword_back_button);
         dataBaseHelper = new DataBaseHelper(getActivity());
+
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(getActivity(), R.id.fragment_main).navigate(R.id.action_fragment_forgot_password_to_logInFragment);
+                ((MainActivity)getActivity()).showButtons();
+            }
+        });
 
         confirm_btn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -13,9 +13,9 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:defaultNavHost="true"
+        android:background="#E3D1CB"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/relative_layout"
@@ -40,7 +40,6 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"
             android:layout_marginStart="200dp"
-            android:background="@drawable/blue_out_line"
             android:checkedButton="@+id/offer"
             android:orientation="horizontal"
             tools:layout_editor_absoluteX="50dp">

@@ -60,4 +60,13 @@ public class MainActivity extends AppCompatActivity {
         login_btn.setVisibility(View.INVISIBLE);
         register_btn.setVisibility(View.INVISIBLE);
     }
+    public void showButtons(){
+        login_btn.setVisibility(View.VISIBLE);
+        register_btn.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onBackPressed() {
+
+    }
 }

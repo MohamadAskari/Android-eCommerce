@@ -86,6 +86,11 @@ public class HomeActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
     }
 
+    @Override
+    public void onBackPressed() {
+        
+    }
+
     public String getActiveUsername(){
         return active_username;
     }
