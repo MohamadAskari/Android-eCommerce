@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_margin="20dp"
-            android:background="@drawable/layout_bg_electronics">
+            android:background="@drawable/bg_electronics">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -60,7 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_margin="20dp"
-            android:background="@drawable/layout_bg_fashion">
+            android:background="@drawable/bg_fashion">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -96,7 +96,7 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_margin="20dp"
-            android:background="@drawable/layout_bg_sports">
+            android:background="@drawable/bg_sports">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -130,7 +130,7 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_margin="20dp"
-            android:background="@drawable/layout_bg_home">
+            android:background="@drawable/bg_home">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -166,7 +166,7 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_margin="20dp"
-            android:background="@drawable/layout_bg_motors">
+            android:background="@drawable/bg_motors">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -200,7 +200,7 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_margin="20dp"
-            android:background="@drawable/layout_bg_realstate">
+            android:background="@drawable/bg_realstate">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -236,7 +236,7 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_margin="20dp"
-            android:background="@drawable/layout_bg_entertainment">
+            android:background="@drawable/bg_entertainment">
 
             <TextView
                 android:layout_width="wrap_content"

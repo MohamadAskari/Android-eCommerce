@@ -10,6 +10,7 @@ import androidx.navigation.Navigation;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -23,6 +24,7 @@ public class HomeActivity extends AppCompatActivity {
     String active_username;
     ChipNavigationBar bottomNav;
     FloatingActionButton fab;
+    DataBaseHelper dataBaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,8 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         setCurrentFragment(new HomeFragment());
+
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         Bundle b = getIntent().getExtras();
 
@@ -39,8 +43,6 @@ public class HomeActivity extends AppCompatActivity {
         }
 
         fab = findViewById(R.id.fab);
-
-
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,6 +51,9 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        dataBaseHelper = new DataBaseHelper(this);
+        if(!dataBaseHelper.getClientByUsername(active_username).isSeller())
+            fab.hide();
 
         bottomNav = findViewById(R.id.bottom_nav_bar);
         bottomNav.setOnItemSelectedListener(new ChipNavigationBar.OnItemSelectedListener() {
@@ -56,23 +61,23 @@ public class HomeActivity extends AppCompatActivity {
             public void onItemSelected(int id) {
                 Fragment selectedFragment = null;
 
-                switch (id){
-                    case  R.id.home_menu:
+                switch (id) {
+                    case R.id.home_menu:
                         selectedFragment = new HomeFragment();
-                        fab.show();
                         break;
-                    case  R.id.categories_menu:
+                    case R.id.categories_menu:
                         selectedFragment = new CategoriesFragment();
-                        fab.show();
                         break;
-                    case  R.id.favorites_menu:
+                    case R.id.favorites_menu:
                         selectedFragment = new FavoritesFragment();
-                        fab.show();
                         break;
                 }
 
-                if (selectedFragment != null)
+                if (selectedFragment != null) {
                     setCurrentFragment(selectedFragment);
+                    if(dataBaseHelper.getClientByUsername(active_username).isSeller())
+                        fab.show();
+                }
             }
         });
     }
@@ -85,7 +90,7 @@ public class HomeActivity extends AppCompatActivity {
         return active_username;
     }
 
-    public void showfab(){
+    public void showFab(){
         fab.show();
     }
 }
