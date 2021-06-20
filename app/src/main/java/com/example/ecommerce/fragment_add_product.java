@@ -50,8 +50,7 @@ public class fragment_add_product extends Fragment {
         inputproductprice = view.findViewById(R.id.product_price);
         inputproductdescription = view.findViewById(R.id.product_description);
         submit_btn = view.findViewById(R.id.submit_btn);
-
-        submit_btn.setOnClickListener(v -> submitProduct());
+        dataBaseHelper = new DataBaseHelper(getActivity());
 
         List<String> categories = new ArrayList<>();
         categories.add("Electronics");
@@ -71,65 +70,82 @@ public class fragment_add_product extends Fragment {
 
                 if(parent.getItemAtPosition(position).equals("Electronics")) {
                     subcategories.clear();
-                    subcategories.add("1");
-                    subcategories.add("2");
-                    subcategories.add("3");
-                    subcategories.add("4");
-                    subcategories.add("5");
+                    subcategories.add("Smart phones & Tablets");
+                    subcategories.add("PC & Laptops");
+                    subcategories.add("TV & Smart TV");
+                    subcategories.add("Smart watches");
+                    subcategories.add("Accessories");
+                    subcategories.add("Audio");
+                    subcategories.add("Gaming consoles");
+                    subcategories.add("Others");
                     fillSpinner();
                 }
                 else if(parent.getItemAtPosition(position).equals("Fashion")){
                     subcategories.clear();
-                    subcategories.add("6");
-                    subcategories.add("7");
-                    subcategories.add("8");
-                    subcategories.add("9");
-                    subcategories.add("10");
+                    subcategories.add("Women clothing");
+                    subcategories.add("Women shoes");
+                    subcategories.add("Men clothing");
+                    subcategories.add("Men shoes");
+                    subcategories.add("Kids clothing");
+                    subcategories.add("Kids shoes");
+                    subcategories.add("Handbags");
+                    subcategories.add("Jewelery");
+                    subcategories.add("Watches");
+                    subcategories.add("Accessories");
+                    subcategories.add("Others");
+
                     fillSpinner();
                 }
                 else if(parent.getItemAtPosition(position).equals("Sports")){
                     subcategories.clear();
-                    subcategories.add("11");
-                    subcategories.add("12");
-                    subcategories.add("13");
-                    subcategories.add("14");
-                    subcategories.add("15");
+                    subcategories.add("Fitness");
+                    subcategories.add("Running");
+                    subcategories.add("Hunting");
+                    subcategories.add("Winter sports");
+                    subcategories.add("Water sports");
+                    subcategories.add("Martial arts");
+                    subcategories.add("Others");
                     fillSpinner();
                 }
                 else if(parent.getItemAtPosition(position).equals("Home")){
                     subcategories.clear();
-                    subcategories.add("16");
-                    subcategories.add("17");
-                    subcategories.add("18");
-                    subcategories.add("19");
-                    subcategories.add("20");
+                    subcategories.add("Furniture");
+                    subcategories.add("Kitchen");
+                    subcategories.add("Smart home");
+                    subcategories.add("Yard & Garden");
+                    subcategories.add("Tools");
+                    subcategories.add("Home decoration");
+                    subcategories.add("Others");
                     fillSpinner();
                 }
                 else if(parent.getItemAtPosition(position).equals("Motors")){
                     subcategories.clear();
-                    subcategories.add("21");
-                    subcategories.add("22");
-                    subcategories.add("23");
-                    subcategories.add("24");
-                    subcategories.add("25");
+                    subcategories.add("Cars");
+                    subcategories.add("Motorcycles");
+                    subcategories.add("Tools");
+                    subcategories.add("Vehicle parts");
+                    subcategories.add("Others");
                     fillSpinner();
                 }
                 else if(parent.getItemAtPosition(position).equals("Real State")){
                     subcategories.clear();
-                    subcategories.add("26");
-                    subcategories.add("27");
-                    subcategories.add("28");
-                    subcategories.add("29");
-                    subcategories.add("30");
+                    subcategories.add("Office");
+                    subcategories.add("Department");
+                    subcategories.add("Store");
+                    subcategories.add("Villa");
+                    subcategories.add("Others");
                     fillSpinner();
                 }
                 else if(parent.getItemAtPosition(position).equals("Entertainment")){
                     subcategories.clear();
-                    subcategories.add("31");
-                    subcategories.add("32");
-                    subcategories.add("33");
-                    subcategories.add("34");
-                    subcategories.add("35");
+                    subcategories.add("Camping equipment");
+                    subcategories.add("Toys");
+                    subcategories.add("Pets");
+                    subcategories.add("Collectibles & Art");
+                    subcategories.add("Musical instruments");
+                    subcategories.add("Video games");
+                    subcategories.add("Books & Magazine");
+                    subcategories.add("Others");
                     fillSpinner();
                 }
             }
@@ -139,6 +155,8 @@ public class fragment_add_product extends Fragment {
 
             }
         });
+
+        submit_btn.setOnClickListener(v -> submitProduct());
 
         return view;
     }
@@ -165,12 +183,20 @@ public class fragment_add_product extends Fragment {
             boolean succeed = dataBaseHelper.addProduct(product);
 
             if(succeed) {
-                Toast.makeText(getActivity(), "Product added successfully ", Toast.LENGTH_LONG).show();
+                Client client = dataBaseHelper.getClientByUsername(product_seller);
+                int product_count = client.getProduct_count() + 1;
+                boolean updatedProductCount = dataBaseHelper.updateProductCount(client, String.valueOf(product_count));
+                if (updatedProductCount) {
+                    Toast.makeText(getActivity(), "Product added successfully ", Toast.LENGTH_LONG).show();
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+                    ((HomeActivity)getActivity()).showfab();
+                }
+                else
+                    Toast.makeText(getActivity(), "Task failed, try again", Toast.LENGTH_LONG).show();
             }
             else
                 Toast.makeText(getActivity(), "Failed to add", Toast.LENGTH_LONG).show();
         }
-
 
     }
 
@@ -180,4 +206,5 @@ public class fragment_add_product extends Fragment {
         adapter_2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         child_spinner.setAdapter(adapter_2);
     }
+
 }

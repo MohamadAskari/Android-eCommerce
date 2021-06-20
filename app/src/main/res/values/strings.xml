@@ -3,7 +3,7 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string name="your_string_here"><u>Forgot your password?</u></string>
+    <string name="forgot_password"><u>Forgot your password?</u></string>
     <string name="electronics">Electronics</string>
     <string name="expand_all">Expand All</string>
     <string name="categories">CATEGORIES</string>

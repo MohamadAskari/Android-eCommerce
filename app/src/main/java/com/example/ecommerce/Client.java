@@ -9,6 +9,7 @@ public class Client {
     private String Password;
     private boolean IsSeller;
     private int Login_count;
+    private int Product_count;
 
     public Client(String userName, String firstName, String lastName, String email, String phoneNumber, String password, boolean is_Seller) {
         UserName = userName;
@@ -19,9 +20,10 @@ public class Client {
         Password = password;
         IsSeller = is_Seller;
         Login_count = 1;
+        Product_count = 0;
     }
 
-    public Client(String userName, String firstName, String lastName, String email, String phoneNumber, String password, boolean isSeller,  int login_count) {
+    public Client(String userName, String firstName, String lastName, String email, String phoneNumber, String password, boolean isSeller,  int login_count, int product_count) {
         UserName = userName;
         FirstName = firstName;
         LastName = lastName;
@@ -30,6 +32,7 @@ public class Client {
         Password = password;
         IsSeller = isSeller;
         Login_count = login_count;
+        Product_count = product_count;
     }
 
     public Client() {
@@ -99,16 +102,11 @@ public class Client {
         this.Login_count = login_count;
     }
 
-    @Override
-    public String toString() {
-        return "Client{" +
-                "UserName='" + UserName + '\'' +
-                ", FirstName='" + FirstName + '\'' +
-                ", LastName='" + LastName + '\'' +
-                ", Email='" + Email + '\'' +
-                ", PhoneNumber='" + PhoneNumber + '\'' +
-                ", Password='" + Password + '\'' +
-                ", IsSeller=" + IsSeller +
-                '}';
+    public int getProduct_count() {
+        return Product_count;
+    }
+
+    public void setProduct_count(int product_count) {
+        Product_count = product_count;
     }
 }

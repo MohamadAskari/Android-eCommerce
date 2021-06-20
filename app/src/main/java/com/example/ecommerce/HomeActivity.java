@@ -39,10 +39,13 @@ public class HomeActivity extends AppCompatActivity {
         }
 
         fab = findViewById(R.id.fab);
+
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new fragment_add_product()).commit();
+                fab.hide();
             }
         });
 
@@ -56,12 +59,15 @@ public class HomeActivity extends AppCompatActivity {
                 switch (id){
                     case  R.id.home_menu:
                         selectedFragment = new HomeFragment();
+                        fab.show();
                         break;
                     case  R.id.categories_menu:
                         selectedFragment = new CategoriesFragment();
+                        fab.show();
                         break;
                     case  R.id.favorites_menu:
                         selectedFragment = new FavoritesFragment();
+                        fab.show();
                         break;
                 }
 
@@ -77,5 +83,9 @@ public class HomeActivity extends AppCompatActivity {
 
     public String getActiveUsername(){
         return active_username;
+    }
+
+    public void showfab(){
+        fab.show();
     }
 }

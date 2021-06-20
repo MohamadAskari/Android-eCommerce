@@ -8,6 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -112,8 +113,12 @@
             android:layout_width="140dp"
             android:layout_height="60dp"
             android:layout_margin="10dp"
+            android:drawableStart="@drawable/ic_baseline_add_24"
+            android:paddingStart="15dp"
+            android:paddingEnd="12dp"
             android:background="@drawable/buttons4"
             android:fontFamily="@font/montserrat_semibold"
+            android:textSize="17dp"
             android:text="Submit" />
 
     </LinearLayout>

@@ -54,4 +54,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    public void hideButtons(){
+        login_btn.setVisibility(View.INVISIBLE);
+        register_btn.setVisibility(View.INVISIBLE);
+    }
 }

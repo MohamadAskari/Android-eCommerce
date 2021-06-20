@@ -58,6 +58,7 @@ public class LogInFragment extends Fragment {
                         Toast.makeText(getActivity(), "Welcome back " + client.getUserName(), Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(getActivity(), HomeActivity.class);
                         intent.putExtra("Active Username", username);
+                        intent.putExtra("Is Seller", client.isSeller());
                         startActivity(intent);
                     }
                     else
@@ -73,6 +74,7 @@ public class LogInFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(getActivity(), R.id.fragment_main).navigate(R.id.action_logInFragment_to_fragment_forgot_password);
+                ((MainActivity)getActivity()).hideButtons();
             }
         });
 

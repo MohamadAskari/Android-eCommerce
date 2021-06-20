@@ -23,6 +23,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String IS_SELLER = "IS_SELLER";
     public static final String CLIENT_TABLE = "CLIENT_TABLE";
     public static final String CLIENT_LOGINCOUNT = "CLIENT_LOGINCOUNT";
+    public static final String SELLER_PRODUCT_COUNT = "SELLER_PRODUCT_COUNT";
 
     // admin
     public static final String ADMIN_USERNAME = "ADMIN_USERNAME";
@@ -46,9 +47,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String PRODUCT_DESCRIPTION = "PRODUCT_DESCRIPTION";
 
 
-
-
-
     public DataBaseHelper(@Nullable Context context) {
         super(context, "database.db", null, 1);
     }
@@ -56,7 +54,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     //creating the table
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String onCreateTableString_Users = "CREATE TABLE " + CLIENT_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + CLIENT_USERNAME + " TEXT , " + CLIENT_FIRSTNAME + " TEXT, " + CLIENT_LASTNAME + " TEXT, " + CLIENT_EMAIL + " TEXT, " + CLIENT_PHONENUMBER + " TEXT, " + CLIENT_PASSWORD + " TEXT, " + IS_SELLER + " BOOLEAN, " + CLIENT_LOGINCOUNT + " TEXT ) ";
+        String onCreateTableString_Users = "CREATE TABLE " + CLIENT_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + CLIENT_USERNAME + " TEXT , " + CLIENT_FIRSTNAME + " TEXT, " + CLIENT_LASTNAME + " TEXT, " + CLIENT_EMAIL + " TEXT, " + CLIENT_PHONENUMBER + " TEXT, " + CLIENT_PASSWORD + " TEXT, " + IS_SELLER + " BOOLEAN, " + CLIENT_LOGINCOUNT + " TEXT, " + SELLER_PRODUCT_COUNT + " TEXT ) ";
         String onCreateTableString_Admins = "CREATE TABLE " + ADMIN_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + ADMIN_USERNAME + " TEXT , " + ADMIN_PASSWORD + " TEXT ) ";
         String onCreateTableString_Products = "CREATE TABLE " + PRODUCTS_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_CATEGORY + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT ) ";
         String onCreateTableString_Electronics = "CREATE TABLE " + ELECTRONIC_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT ) ";
@@ -111,6 +109,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         CV.put(CLIENT_PASSWORD, client.getPassword());
         CV.put(IS_SELLER, client.isSeller());
         CV.put(CLIENT_LOGINCOUNT, client.getLogin_count());
+        CV.put(SELLER_PRODUCT_COUNT, client.getProduct_count());
 
         long added = DB.insert(CLIENT_TABLE, null, CV);
 
@@ -151,6 +150,14 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return updated != -1;
     }
 
+    public boolean updateProductCount(Client client, String newCount){
+        SQLiteDatabase DB = this.getWritableDatabase();
+        ContentValues CV = new ContentValues();
+        CV.put(SELLER_PRODUCT_COUNT, newCount);
+        long updated =  DB.update(CLIENT_TABLE, CV, CLIENT_USERNAME + " = ?" , new String[] {client.getUserName()});
+        return updated != -1;
+    }
+
     public List<Client> getEveryClient(){
         List<Client> clients = new ArrayList<>();
 
@@ -172,7 +179,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 String Password = cursor.getString(6);
                 boolean isSeller = cursor.getInt(7) == 1;
                 String LoginCount = cursor.getString(8);
-                Client client = new Client(UserName, FirstName, LastName, Email, PhoneNumber, Password, isSeller, Integer.parseInt(LoginCount));
+                String ProductCount = cursor.getString(9);
+                Client client = new Client(UserName, FirstName, LastName, Email, PhoneNumber, Password, isSeller, Integer.parseInt(LoginCount), Integer.parseInt(ProductCount));
                 clients.add(client);
 
             } while (cursor.moveToNext());
@@ -197,6 +205,39 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     public boolean addProduct(Product product) {
 
+        boolean addedProductToCategory = false;
+
+        switch (product.getCategory()) {
+            case "Electronics": {
+                addedProductToCategory = this.addProductToCategory(ELECTRONIC_TABLE, product);
+                break;
+            }
+            case "Fashion": {
+                addedProductToCategory = this.addProductToCategory(FASHION_TABLE, product);
+                break;
+            }
+            case "Sports": {
+                addedProductToCategory = this.addProductToCategory(SPORTS_TABLE, product);
+                break;
+            }
+            case "Home": {
+                addedProductToCategory = this.addProductToCategory(HOME_TABLE, product);
+                break;
+            }
+            case "Motors": {
+                addedProductToCategory = this.addProductToCategory(MOTORS_TABLE, product);
+                break;
+            }
+            case "Real State": {
+                addedProductToCategory = this.addProductToCategory(REALSTATE_TABLE, product);
+                break;
+            }
+            case "Entertainment": {
+                addedProductToCategory = this.addProductToCategory(ENTERTAINMENT_TABLE, product);
+                break;
+            }
+        }
+
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues CV = new ContentValues();
 
@@ -209,6 +250,35 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         long added = DB.insert(PRODUCTS_TABLE, null, CV);
 
+        return (added != -1) && (addedProductToCategory);
+    }
+
+    public boolean addProductToCategory(String TableName, Product product){
+        SQLiteDatabase DB = this.getWritableDatabase();
+        ContentValues CV = new ContentValues();
+
+        CV.put(PRODUCT_NAME, product.getName());
+        CV.put(PRODUCT_PRICE, product.getPrice());
+        CV.put(PRODUCT_DESCRIPTION, product.getDescription());
+        CV.put(PRODUCT_SUBCATEGORY, product.getSubCategory());
+        CV.put(PRODUCT_SELLER, product.getSeller());
+
+        long added = DB.insert(TableName, null, CV);
+
         return added != -1;
+    }
+
+    public Client getClientByUsername(String username){
+        Client client;
+        List<Client> clients = this.getEveryClient();
+        for (Client c : clients){
+            if(c.getUserName().equalsIgnoreCase(username)){
+                client = new Client(username, c.getFirstName(), c.getLastName(),
+                        c.getEmail(), c.getPhoneNumber(), c.getPassword(),
+                        c.isSeller(), c.getLogin_count(), c.getProduct_count());
+                return client;
+            }
+        }
+        return null;
     }
 }

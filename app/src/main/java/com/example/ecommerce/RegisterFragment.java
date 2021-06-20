@@ -41,7 +41,6 @@ public class RegisterFragment extends Fragment {
 
         signup_btn.setOnClickListener(v -> createAccount());
 
-
         return view;
     }
 
@@ -74,6 +73,7 @@ public class RegisterFragment extends Fragment {
                     Intent intent = new Intent(getActivity(), HomeActivity.class);
                     //pass the active user
                     intent.putExtra("Active Username", username);
+                    intent.putExtra("Is Seller", newClient.isSeller());
                     startActivity(intent);
                 }
                 else
