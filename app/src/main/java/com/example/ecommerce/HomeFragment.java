@@ -3,6 +3,8 @@ package com.example.ecommerce;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import android.view.LayoutInflater;
@@ -11,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -23,10 +24,15 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
 
-    String active_username;
+    private String active_username;
     private EditText search_bar;
     private Spinner profile_spinner;
     private ImageSlider imageSlider;
+    private List<Product> productList = new ArrayList<>();
+    DataBaseHelper dataBaseHelper;
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager layoutManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,6 +60,18 @@ public class HomeFragment extends Fragment {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+
+        dataBaseHelper = new DataBaseHelper(getActivity());
+        productList = dataBaseHelper.getAllProducts();
+
+        recyclerView = view.findViewById(R.id.lv_productList);
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
+        mAdapter = new RecyclerViewAdapter(productList, getActivity());
+        recyclerView.setAdapter(mAdapter);
+
+
         return view;
     }
 
@@ -64,5 +82,6 @@ public class HomeFragment extends Fragment {
         slideModels.add(new SlideModel(R.drawable.image3, null, ScaleTypes.CENTER_CROP));
         imageSlider.setImageList(slideModels, ScaleTypes.CENTER_CROP);
     }
+
 
 }

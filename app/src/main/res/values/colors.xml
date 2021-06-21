@@ -5,6 +5,7 @@
     <color name="purple_200">#9E8EB1</color>
     <color name="light_purple">#FFBB86FC</color>
     <color name="dark_purple">#6F0FB3</color>
+    <color name="very_light_blue">#B8E1E6</color>
     <color name="light_blue">#2C8DDA</color>
     <color name="dark_blue">#3404A1</color>
     <color name="teal_200">#FF03DAC5</color>
@@ -15,4 +16,6 @@
     <color name="pink">	#FF1493</color>
     <color name="dark_gray">#5D5A56</color>
     <color name="transparent_blue">#660000EE</color>
+    <color name="very_light_yellow">#FDFFBE</color>
+
 </resources>
