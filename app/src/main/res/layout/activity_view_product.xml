@@ -17,7 +17,7 @@
             android:layout_height="?actionBarSize">
 
             <ImageView
-                android:id="@+id/back_icon"
+                android:id="@+id/view_product_back_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_baseline_arrow_back_24"
@@ -46,46 +46,69 @@
                 android:orientation="vertical">
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/appCompatImageView"
+                android:id="@+id/view_product_image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:background="@drawable/bg_buttons4"
                 android:elevation="5dp"
-                android:padding="60dp"
                 android:src="@drawable/no_image">
 
             </androidx.appcompat.widget.AppCompatImageView>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="50dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:orientation="horizontal">
+                android:layout_marginEnd="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/view_product_category"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_buttons5"
+                        android:layout_marginStart="10dp"
+                        android:padding="5dp"
+                        android:layout_gravity="center_vertical"
+                        android:text="Categorie"
+                        android:fontFamily="@font/josefinsans__regular" />
+
+                    <TextView
+                        android:id="@+id/view_product_subcategory"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_buttons5"
+                        android:layout_marginStart="10dp"
+                        android:padding="5dp"
+                        android:layout_gravity="center_vertical"
+                        android:text="Sub Categorie"
+                        android:fontFamily="@font/josefinsans__regular" />
+
+                </LinearLayout>
 
                 <TextView
-                    android:id="@+id/product_category"
+                    android:id="@+id/view_product_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_alignParentEnd="true"
                     android:layout_marginStart="10dp"
                     android:layout_gravity="center_vertical"
-                    android:text="Categorie"
-                    android:fontFamily="@font/josefinsans__regular" />
+                    android:gravity="right"
+                    android:text="Price"
+                    android:textSize="20dp"
+                    android:fontFamily="@font/josefinsans_bold" />
 
-                <TextView
-                    android:id="@+id/product_subcategory"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_gravity="center_vertical"
-                    android:text="Sub Categorie"
-                    android:fontFamily="@font/josefinsans__regular" />
+            </RelativeLayout>
 
-            </LinearLayout>
 
             <TextView
-                android:id="@+id/product_name"
+                android:id="@+id/view_product_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
@@ -95,6 +118,7 @@
                 android:fontFamily="@font/josefinsans_bold" />
 
             <TextView
+                android:id="@+id/view_product_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
@@ -102,6 +126,10 @@
                 android:textSize="15dp"
                 android:fontFamily="@font/josefinsans_bold" />
 
+            <RelativeLayout
+                android:id="@+id/empty_rl"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"/>
 
             </LinearLayout>
 

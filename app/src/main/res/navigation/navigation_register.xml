@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_forgot_password"
-        android:name="com.example.ecommerce.fragment_forgot_password"
+        android:name="com.example.ecommerce.ForgotPasswordFragment"
         android:label="fragment_forgot_password"
         tools:layout="@layout/fragment_forgot_password" >
         <action

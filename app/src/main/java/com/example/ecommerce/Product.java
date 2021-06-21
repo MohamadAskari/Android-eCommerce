@@ -1,11 +1,13 @@
 package com.example.ecommerce;
 
 import android.net.Uri;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
-public class Product {
+public class Product implements Parcelable {
     private String Name;
     private String Price;
     private String Description;
@@ -21,7 +23,6 @@ public class Product {
         Category = category;
         SubCategory = subCategory;
         Seller = seller;
-        //ImageUrl = "https://www.whitehouse.gov/wp-content/uploads/2021/01/08_martin_van_buren.jpg";
     }
 
     // with image path
@@ -29,10 +30,10 @@ public class Product {
         ImageUrl = Uri.parse(imageUrl);
         Name = name;
         Price = price;
+        Description = description;
         Category = category;
         SubCategory = subCategory;
         Seller = seller;
-        //ImageUrl = "https://www.whitehouse.gov/wp-content/uploads/2021/01/08_martin_van_buren.jpg";
     }
 
     // with image Url
@@ -40,12 +41,50 @@ public class Product {
         ImageUrl = imageUrl;
         Name = name;
         Price = price;
+        Description = description;
         Category = category;
         SubCategory = subCategory;
         Seller = seller;
-        //ImageUrl = "https://www.whitehouse.gov/wp-content/uploads/2021/01/08_martin_van_buren.jpg";
     }
 
+
+    protected Product(Parcel in) {
+        Name = in.readString();
+        Price = in.readString();
+        Description = in.readString();
+        Category = in.readString();
+        SubCategory = in.readString();
+        Seller = in.readString();
+        ImageUrl = in.readParcelable(Uri.class.getClassLoader());
+    }
+
+    public static final Creator<Product> CREATOR = new Creator<Product>() {
+        @Override
+        public Product createFromParcel(Parcel in) {
+            return new Product(in);
+        }
+
+        @Override
+        public Product[] newArray(int size) {
+            return new Product[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(Name);
+        dest.writeString(Price);
+        dest.writeString(Description);
+        dest.writeString(Category);
+        dest.writeString(SubCategory);
+        dest.writeString(Seller);
+        dest.writeParcelable(ImageUrl, flags);
+    }
 
     public String getName() {
         return Name;
@@ -110,4 +149,5 @@ public class Product {
     public void setSeller(String seller) {
         Seller = seller;
     }
+
 }
