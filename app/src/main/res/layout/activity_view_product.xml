@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -36,19 +36,91 @@
 
         </RelativeLayout>
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/appCompatImageView"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:background="@drawable/bg_buttons4"
-            android:elevation="5dp"
-            android:padding="60dp"
-            android:src="@drawable/no_image">
+            android:layout_height="wrap_content">
 
-        </androidx.appcompat.widget.AppCompatImageView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/appCompatImageView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:background="@drawable/bg_buttons4"
+                android:elevation="5dp"
+                android:padding="60dp"
+                android:src="@drawable/no_image">
+
+            </androidx.appcompat.widget.AppCompatImageView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/product_category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:text="Categorie"
+                    android:fontFamily="@font/josefinsans__regular" />
+
+                <TextView
+                    android:id="@+id/product_subcategory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:text="Sub Categorie"
+                    android:fontFamily="@font/josefinsans__regular" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/product_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:text="Name"
+                android:textSize="25dp"
+                android:fontFamily="@font/josefinsans_bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:text="Description example 123 brrrrrrr"
+                android:textSize="15dp"
+                android:fontFamily="@font/josefinsans_bold" />
+
+
+            </LinearLayout>
+
+        </ScrollView>
 
     </LinearLayout>
 
-</ScrollView>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/view_seller_info_btn"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="20dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bg_electronics"
+        android:text="View Seller Info"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:fontFamily="@font/josefinsans_bold"
+        android:textAllCaps="false" />
+
+
+</RelativeLayout>
