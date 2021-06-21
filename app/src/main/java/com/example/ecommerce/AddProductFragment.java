@@ -14,6 +14,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.navigation.Navigation;
 
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -41,13 +43,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class fragment_add_product extends Fragment {
+public class AddProductFragment extends Fragment {
 
     private Spinner parent_spinner, child_spinner;
     private List<String> subcategories = new ArrayList<>();
     private EditText inputproductname, inputproductprice, inputproductdescription;
     private Button submit_btn, take_photo_btn, from_gallery_btn;
-    private ImageView product_pic;
+    private ImageView product_pic, back_btn;
     private Uri product_pic_url;
     private static final int CAMERA_PERM_CODE = 101;
     private static final int CAMERA_REQUEST_CODE = 102;
@@ -192,6 +194,13 @@ public class fragment_add_product extends Fragment {
             }
         });
 
+        back_btn = view.findViewById(R.id.add_product_back_icon);
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TO DO : Back Button
+            }
+        });
 
         submit_btn.setOnClickListener(v -> submitProduct());
 
@@ -323,7 +332,7 @@ public class fragment_add_product extends Fragment {
         else {
             Product product;
             if(TextUtils.isEmpty(product_description))
-                product = new Product(product_pic_url, product_name, product_price, null, product_category, product_subCategory, product_seller);
+                product = new Product(product_pic_url, product_name, product_price, "", product_category, product_subCategory, product_seller);
             else
                 product = new Product(product_pic_url, product_name, product_price, product_description, product_category, product_subCategory, product_seller);
 
@@ -353,5 +362,4 @@ public class fragment_add_product extends Fragment {
         adapter_2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         child_spinner.setAdapter(adapter_2);
     }
-
 }

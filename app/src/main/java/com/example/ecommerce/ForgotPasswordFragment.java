@@ -17,7 +17,7 @@ import android.widget.Toast;
 import java.util.List;
 
 
-public class fragment_forgot_password extends Fragment {
+public class ForgotPasswordFragment extends Fragment {
 
     private EditText username, password, confirm;
     private Button confirm_btn;

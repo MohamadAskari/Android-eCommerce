@@ -46,7 +46,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_add_product"
-        android:name="com.example.ecommerce.fragment_add_product"
+        android:name="com.example.ecommerce.AddProductFragment"
         android:label="fragment_add_product" >
         <action
             android:id="@+id/action_fragment_add_product_to_homeFragment"
