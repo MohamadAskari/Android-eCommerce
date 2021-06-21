@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeFragment">
+    tools:context=".HomeFragment"
+    android:background="@color/very_light_yellow" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,12 +15,12 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp">
+            android:layout_height="90dp">
 
             <EditText
                 android:id="@+id/search_bar_main"
                 android:layout_width="300dp"
-                android:layout_height="50dp"
+                android:layout_height="40dp"
                 android:layout_margin="20dp"
                 android:layout_alignParentStart="true"
                 android:background="@drawable/bg_search"
@@ -32,8 +33,8 @@
 
             <Spinner
                 android:id="@+id/profile_dropdown"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_margin="20dp"
                 android:layout_alignParentEnd="true"
                 android:background="@drawable/ic_baseline_account_circle_24"
@@ -46,11 +47,18 @@
             android:id="@+id/image_slider"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_margin="10dp"
-            app:iss_corner_radius="30"
+            android:layout_margin="5dp"
+            app:iss_corner_radius="5"
             app:iss_auto_cycle="true"
             app:iss_delay="0"
-            app:iss_period="1000" />
+            app:iss_period="1000" >
+
+        </com.denzcoskun.imageslider.ImageSlider>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/lv_productList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 

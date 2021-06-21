@@ -21,10 +21,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeActivity extends AppCompatActivity {
 
-    String active_username;
-    ChipNavigationBar bottomNav;
-    FloatingActionButton fab;
-    DataBaseHelper dataBaseHelper;
+    private String active_username;
+    private ChipNavigationBar bottomNav;
+    private FloatingActionButton fab;
+    private DataBaseHelper dataBaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

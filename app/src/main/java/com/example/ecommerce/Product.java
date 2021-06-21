@@ -1,5 +1,7 @@
 package com.example.ecommerce;
 
+import android.widget.ImageView;
+
 public class Product {
     private String Name;
     private String Price;
@@ -7,7 +9,18 @@ public class Product {
     private String Category;
     private String SubCategory;
     private String Seller;
+    private String Image;
 
+    public Product(String name, String price, String category, String subCategory, String seller) {
+        Name = name;
+        Price = price;
+        Category = category;
+        SubCategory = subCategory;
+        Seller = seller;
+        Image = "https://www.whitehouse.gov/wp-content/uploads/2021/01/08_martin_van_buren.jpg";
+    }
+
+    // with description
     public Product(String name, String price, String description, String category, String subCategory, String seller) {
         Name = name;
         Price = price;
@@ -15,14 +28,14 @@ public class Product {
         Category = category;
         SubCategory = subCategory;
         Seller = seller;
+        Image = "https://www.whitehouse.gov/wp-content/uploads/2021/01/08_martin_van_buren.jpg";
     }
-    public Product(String name, String price, String category, String subCategory, String seller) {
-        Name = name;
-        Price = price;
-        Category = category;
-        SubCategory = subCategory;
-        Seller = seller;
-    }
+
+    // with image
+
+
+    // with description and image
+
 
     public String getName() {
         return Name;
@@ -46,6 +59,14 @@ public class Product {
 
     public void setDescription(String description) {
         Description = description;
+    }
+
+    public String getImage() {
+        return Image;
+    }
+
+    public void setImage(String description) {
+        Image = description;
     }
 
     public String getCategory() {

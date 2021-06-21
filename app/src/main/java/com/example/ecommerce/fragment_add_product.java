@@ -1,9 +1,19 @@
 package com.example.ecommerce;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Bundle;
-
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +22,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.karumi.dexter.Dexter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +34,13 @@ import java.util.List;
 public class fragment_add_product extends Fragment {
 
     private Spinner parent_spinner, child_spinner;
-    List<String> subcategories = new ArrayList<>();
+    private List<String> subcategories = new ArrayList<>();
     private EditText inputproductname, inputproductprice, inputproductdescription;
-    private Button submit_btn;
+    private Button submit_btn, take_photo_btn, from_gallery_btn;
+    private ImageView imageView;
+    private final int REQUEST_PERMISSION = 100;
+    private final int REQUEST_IMAGE_CAPTURE = 1;
+    private final int REQUEST_PICK_IMAGE = 2;
     DataBaseHelper dataBaseHelper;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -143,9 +160,43 @@ public class fragment_add_product extends Fragment {
             }
         });
 
+        super.onCreate(savedInstanceState);
+
+        imageView = view.findViewById(R.id.product_image);
+        take_photo_btn = view.findViewById(R.id.takephoto_btn);
+        from_gallery_btn = view.findViewById(R.id.fromgallery_btn);
+        take_photo_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkCameraPermission();
+            }
+        });
+        from_gallery_btn.setOnClickListener(v -> openGallery());
+
+
+
         submit_btn.setOnClickListener(v -> submitProduct());
 
         return view;
+    }
+
+    private void checkCameraPermission() {
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[] {Manifest.permission.CAMERA}, REQUEST_PERMISSION);
+        }
+        else {
+            openCamera();
+        }
+    }
+
+
+    private void openGallery() {
+    }
+
+    private void openCamera() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivity(intent);
     }
 
     private void submitProduct() {

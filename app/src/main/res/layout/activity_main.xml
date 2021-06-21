@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/very_light_yellow">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_main"
@@ -13,7 +14,6 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:defaultNavHost="true"
-        android:background="#E3D1CB"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -27,11 +27,11 @@
         android:id="@+id/relative_layout"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="#E3D1CB"
         app:layout_constraintBottom_toTopOf="@id/fragment_main"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/very_light_yellow">
 
         <RadioGroup
             android:id="@+id/toggle"
@@ -74,6 +74,17 @@
                 android:text="Sign Up"
                 android:textColor="@color/white" />
         </RadioGroup>
+
+        <ImageView
+            android:id="@+id/forgotpassword_back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_baseline_arrow_back_24"
+            android:fontFamily="@font/montserrat_semibold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_margin="5dp"
+            android:clickable="true"/>
 
     </RelativeLayout>
 
