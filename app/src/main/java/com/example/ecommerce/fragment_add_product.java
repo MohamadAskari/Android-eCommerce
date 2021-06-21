@@ -2,22 +2,27 @@ package com.example.ecommerce;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.DialogInterface;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -26,9 +31,14 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.karumi.dexter.Dexter;
+import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class fragment_add_product extends Fragment {
@@ -37,10 +47,13 @@ public class fragment_add_product extends Fragment {
     private List<String> subcategories = new ArrayList<>();
     private EditText inputproductname, inputproductprice, inputproductdescription;
     private Button submit_btn, take_photo_btn, from_gallery_btn;
-    private ImageView imageView;
-    private final int REQUEST_PERMISSION = 100;
-    private final int REQUEST_IMAGE_CAPTURE = 1;
-    private final int REQUEST_PICK_IMAGE = 2;
+    private ImageView product_pic;
+    private Uri product_pic_url;
+    private static final int CAMERA_PERM_CODE = 101;
+    private static final int CAMERA_REQUEST_CODE = 102;
+    private static final int GALLERY_REQUEST_CODE = 105;
+    public static final int All_PERMS_CODE = 1101;
+    private String currentPhotoPath;
     DataBaseHelper dataBaseHelper;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -162,17 +175,22 @@ public class fragment_add_product extends Fragment {
 
         super.onCreate(savedInstanceState);
 
-        imageView = view.findViewById(R.id.product_image);
+        product_pic = view.findViewById(R.id.product_image);
         take_photo_btn = view.findViewById(R.id.takephoto_btn);
         from_gallery_btn = view.findViewById(R.id.fromgallery_btn);
         take_photo_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkCameraPermission();
+                askCameraPermission();
             }
         });
-        from_gallery_btn.setOnClickListener(v -> openGallery());
-
+        from_gallery_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent gallery_int = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(gallery_int, GALLERY_REQUEST_CODE);
+            }
+        });
 
 
         submit_btn.setOnClickListener(v -> submitProduct());
@@ -180,23 +198,114 @@ public class fragment_add_product extends Fragment {
         return view;
     }
 
-    private void checkCameraPermission() {
-        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)
+    private void askCameraPermission() {
+        /*if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(), new String[] {Manifest.permission.CAMERA}, REQUEST_PERMISSION);
+            ActivityCompat.requestPermissions(getActivity(), new String[] {Manifest.permission.CAMERA}, CAMERA_PERM_CODE);
         }
         else {
-            openCamera();
+            dispatchTakePictureIntent();
+        }*/
+
+        // Camera and Storage permission on same time
+        Log.d("TAG", "VerifyingPermission : Asking for permission ");
+
+
+        String[] permissions = {Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+
+        // index 0 = camera, index 1 = readStorage , index 2 = write Storage
+        if (ContextCompat.checkSelfPermission(getActivity().getApplicationContext(), permissions[0]) == PackageManager.PERMISSION_GRANTED
+
+                && ContextCompat.checkSelfPermission(getActivity().getApplicationContext(), permissions[1]) == PackageManager.PERMISSION_GRANTED
+                && ContextCompat.checkSelfPermission(getActivity().getApplicationContext(), permissions[2]) == PackageManager.PERMISSION_GRANTED) {
+
+            dispatchTakePictureIntent();
+        }
+        else {
+            ActivityCompat.requestPermissions(getActivity(), permissions, All_PERMS_CODE);
         }
     }
 
-
-    private void openGallery() {
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull @NotNull String[] permissions, @NonNull @NotNull int[] grantResults) {
+        if(requestCode == CAMERA_PERM_CODE){
+            if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                dispatchTakePictureIntent();
+            }
+        }
     }
 
-    private void openCamera() {
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivity(intent);
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
+        if(requestCode == CAMERA_REQUEST_CODE){
+            if(resultCode == Activity.RESULT_OK){
+                File f = new File(currentPhotoPath);
+                product_pic_url = Uri.fromFile(f);
+                product_pic.setImageURI(product_pic_url);
+                Log.d("tag", "Url Image : " + Uri.fromFile(f));
+
+                // add pic to gallery
+                Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+                Uri contentUri = Uri.fromFile(f);
+                mediaScanIntent.setData(contentUri);
+                getActivity().sendBroadcast(mediaScanIntent);
+            }
+        }
+        if(requestCode == GALLERY_REQUEST_CODE){
+            if(resultCode == Activity.RESULT_OK){
+                Uri contentUri = data.getData();
+                String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+                String imageFileName = "JPEG_" + timeStamp + "." + getFileExt(contentUri);
+                Log.d("tag", "Uri Gallery Image : " + imageFileName);
+                product_pic_url = contentUri;
+                product_pic.setImageURI(product_pic_url);
+            }
+        }
+    }
+
+    private String getFileExt(Uri contentUri) {
+        ContentResolver c = getActivity().getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(c.getType(contentUri));
+    }
+
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        //File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        currentPhotoPath = image.getAbsolutePath();
+        return image;
+    }
+
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        // Ensure that there's a camera activity to handle the intent
+        if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(getActivity(),
+                        "com.example.android.fileprovider",
+                        photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(takePictureIntent, CAMERA_REQUEST_CODE);
+            }
+        }
     }
 
     private void submitProduct() {
@@ -214,9 +323,9 @@ public class fragment_add_product extends Fragment {
         else {
             Product product;
             if(TextUtils.isEmpty(product_description))
-                product = new Product(product_name, product_price, product_category, product_subCategory, product_seller);
+                product = new Product(product_pic_url, product_name, product_price, null, product_category, product_subCategory, product_seller);
             else
-                product = new Product(product_name, product_price, product_description, product_category, product_subCategory, product_seller);
+                product = new Product(product_pic_url, product_name, product_price, product_description, product_category, product_subCategory, product_seller);
 
             boolean succeed = dataBaseHelper.addProduct(product);
 

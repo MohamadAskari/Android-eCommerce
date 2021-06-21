@@ -45,6 +45,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String PRODUCT_SUBCATEGORY = "PRODUCT_SUBCATEGORY";
     public static final String PRODUCT_SELLER = "PRODUCT_SELLER";
     public static final String PRODUCT_DESCRIPTION = "PRODUCT_DESCRIPTION";
+    public static final String PRODUCT_PIC = "PRODUCT_PIC";
 
 
     public DataBaseHelper(@Nullable Context context) {
@@ -56,14 +57,14 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String onCreateTableString_Users = "CREATE TABLE " + CLIENT_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + CLIENT_USERNAME + " TEXT , " + CLIENT_FIRSTNAME + " TEXT, " + CLIENT_LASTNAME + " TEXT, " + CLIENT_EMAIL + " TEXT, " + CLIENT_PHONENUMBER + " TEXT, " + CLIENT_PASSWORD + " TEXT, " + IS_SELLER + " BOOLEAN, " + CLIENT_LOGINCOUNT + " TEXT, " + SELLER_PRODUCT_COUNT + " TEXT ) ";
         String onCreateTableString_Admins = "CREATE TABLE " + ADMIN_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + ADMIN_USERNAME + " TEXT , " + ADMIN_PASSWORD + " TEXT ) ";
-        String onCreateTableString_Products = "CREATE TABLE " + PRODUCTS_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_CATEGORY + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT ) ";
-        String onCreateTableString_Electronics = "CREATE TABLE " + ELECTRONIC_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT ) ";
-        String onCreateTableString_Fashion = "CREATE TABLE " + FASHION_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT ) ";
-        String onCreateTableString_Home = "CREATE TABLE " + HOME_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT ) ";
-        String onCreateTableString_Sports = "CREATE TABLE " + SPORTS_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT ) ";
-        String onCreateTableString_Motors = "CREATE TABLE " + MOTORS_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT ) ";
-        String onCreateTableString_Realstate = "CREATE TABLE " + REALSTATE_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT ) ";
-        String onCreateTableString_Entertainment = "CREATE TABLE " + ENTERTAINMENT_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT ) ";
+        String onCreateTableString_Products = "CREATE TABLE " + PRODUCTS_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_CATEGORY + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT , " + PRODUCT_PIC + " TEXT ) ";
+        String onCreateTableString_Electronics = "CREATE TABLE " + ELECTRONIC_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT , " + PRODUCT_PIC + " TEXT ) ";
+        String onCreateTableString_Fashion = "CREATE TABLE " + FASHION_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT , " + PRODUCT_PIC + " TEXT ) ";
+        String onCreateTableString_Home = "CREATE TABLE " + HOME_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT , " + PRODUCT_PIC + " TEXT ) ";
+        String onCreateTableString_Sports = "CREATE TABLE " + SPORTS_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT , " + PRODUCT_PIC + " TEXT ) ";
+        String onCreateTableString_Motors = "CREATE TABLE " + MOTORS_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT , " + PRODUCT_PIC + " TEXT ) ";
+        String onCreateTableString_Realstate = "CREATE TABLE " + REALSTATE_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT , " + PRODUCT_PIC + " TEXT ) ";
+        String onCreateTableString_Entertainment = "CREATE TABLE " + ENTERTAINMENT_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT , " + PRODUCT_PIC + " TEXT ) ";
 
 
         db.execSQL(onCreateTableString_Users);
@@ -247,6 +248,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         CV.put(PRODUCT_CATEGORY, product.getCategory());
         CV.put(PRODUCT_SUBCATEGORY, product.getSubCategory());
         CV.put(PRODUCT_SELLER, product.getSeller());
+        CV.put(PRODUCT_PIC, product.getImagePath());
 
         long added = DB.insert(PRODUCTS_TABLE, null, CV);
 
@@ -262,6 +264,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         CV.put(PRODUCT_DESCRIPTION, product.getDescription());
         CV.put(PRODUCT_SUBCATEGORY, product.getSubCategory());
         CV.put(PRODUCT_SELLER, product.getSeller());
+        CV.put(PRODUCT_PIC, product.getImagePath());
 
         long added = DB.insert(TableName, null, CV);
 
@@ -299,7 +302,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 String Category = cursor.getString(4);;
                 String SubCategory = cursor.getString(5);
                 String Seller = cursor.getString(6);
-                Product product = new Product(Name, Price, Description, Category, SubCategory, Seller);
+                String ImagePath = cursor.getString(7);
+                Product product = new Product(ImagePath, Name, Price, Description, Category, SubCategory, Seller);
                 products.add(product);
 
             } while (cursor.moveToNext());

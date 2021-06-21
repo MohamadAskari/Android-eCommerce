@@ -1,6 +1,9 @@
 package com.example.ecommerce;
 
+import android.net.Uri;
 import android.widget.ImageView;
+
+import com.squareup.picasso.Picasso;
 
 public class Product {
     private String Name;
@@ -9,18 +12,8 @@ public class Product {
     private String Category;
     private String SubCategory;
     private String Seller;
-    private String Image;
+    private Uri ImageUrl;
 
-    public Product(String name, String price, String category, String subCategory, String seller) {
-        Name = name;
-        Price = price;
-        Category = category;
-        SubCategory = subCategory;
-        Seller = seller;
-        Image = "https://www.whitehouse.gov/wp-content/uploads/2021/01/08_martin_van_buren.jpg";
-    }
-
-    // with description
     public Product(String name, String price, String description, String category, String subCategory, String seller) {
         Name = name;
         Price = price;
@@ -28,13 +21,30 @@ public class Product {
         Category = category;
         SubCategory = subCategory;
         Seller = seller;
-        Image = "https://www.whitehouse.gov/wp-content/uploads/2021/01/08_martin_van_buren.jpg";
+        //ImageUrl = "https://www.whitehouse.gov/wp-content/uploads/2021/01/08_martin_van_buren.jpg";
     }
 
-    // with image
+    // with image path
+    public Product(String imageUrl, String name, String price, String description, String category, String subCategory, String seller) {
+        ImageUrl = Uri.parse(imageUrl);
+        Name = name;
+        Price = price;
+        Category = category;
+        SubCategory = subCategory;
+        Seller = seller;
+        //ImageUrl = "https://www.whitehouse.gov/wp-content/uploads/2021/01/08_martin_van_buren.jpg";
+    }
 
-
-    // with description and image
+    // with image Url
+    public Product(Uri imageUrl, String name, String price, String description, String category, String subCategory, String seller) {
+        ImageUrl = imageUrl;
+        Name = name;
+        Price = price;
+        Category = category;
+        SubCategory = subCategory;
+        Seller = seller;
+        //ImageUrl = "https://www.whitehouse.gov/wp-content/uploads/2021/01/08_martin_van_buren.jpg";
+    }
 
 
     public String getName() {
@@ -61,12 +71,20 @@ public class Product {
         Description = description;
     }
 
-    public String getImage() {
-        return Image;
+    public Uri getImageUrl() {
+        return ImageUrl;
     }
 
-    public void setImage(String description) {
-        Image = description;
+    public String getImagePath() {
+        return ImageUrl.toString();
+    }
+
+    public void setImageUrl(Uri imageUrl) {
+        ImageUrl = imageUrl;
+    }
+
+    public void setImageOnImageView(ImageView imageView){
+        Picasso.get().load(ImageUrl).into(imageView);
     }
 
     public String getCategory() {
