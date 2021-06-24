@@ -3,6 +3,8 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string name="username_taken"><font fgcolor='#EA2603'>Username is already taken</font></string>
+
     <string name="forgot_password"><u>Forgot your password?</u></string>
     <string name="electronics">Electronics</string>
     <string name="expand_all">Expand All</string>
@@ -14,7 +16,14 @@
     <string name="real_state">Real State</string>
     <string name="entertainment">Entertainment</string>
 
+    <string name="confirm_log_out_title">Log out</string>
+    <string name="confirm_log_out_message">Are you sure you want to log out?</string>
+    <string name="confirm_log_out">Yes</string>
+    <string name="cancel_log_out">Cancel</string>
+    
+    
     <string-array name="profile_dropdown_items">
+        <item><font fgcolor='#d3d3d3'><font size="20">Select</font></font></item>
         <item>Edit your profile</item>
         <item>Manage your products</item>
         <item>Setting</item>

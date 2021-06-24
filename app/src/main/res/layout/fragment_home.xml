@@ -38,6 +38,7 @@
                 android:layout_margin="20dp"
                 android:layout_alignParentEnd="true"
                 android:background="@drawable/ic_baseline_account_circle_24"
+                android:popupBackground="@drawable/bg_spinner"
                 android:dropDownVerticalOffset="-15dp"
                 android:spinnerMode="dropdown" />
 

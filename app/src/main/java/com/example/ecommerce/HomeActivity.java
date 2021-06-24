@@ -16,17 +16,20 @@ public class HomeActivity extends AppCompatActivity {
     private ChipNavigationBar bottomNav;
     private FloatingActionButton fab;
     private DataBaseHelper dataBaseHelper;
+    private Client ActiveClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        setCurrentFragment(new HomeFragment());
-
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         Bundle b = getIntent().getExtras();
+
+        ActiveClient = (Client) getIntent().getSerializableExtra("Active User");
+
+        setCurrentFragment(new HomeFragment(), ActiveClient);
 
         if(b!=null)
         {
@@ -65,7 +68,7 @@ public class HomeActivity extends AppCompatActivity {
                 }
 
                 if (selectedFragment != null) {
-                    setCurrentFragment(selectedFragment);
+                    setCurrentFragment(selectedFragment, ActiveClient);
                     if(dataBaseHelper.getClientByUsername(active_username).isSeller())
                         fab.show();
                 }
@@ -73,8 +76,16 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
-    private void setCurrentFragment(Fragment fragment){
+    private void setCurrentFragment(Fragment fragment, Client client){
+        Bundle bundle = sendData(client);
+        fragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
+    }
+
+    private Bundle sendData(Client client) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("Active User", client);
+        return bundle;
     }
 
     @Override
@@ -85,6 +96,8 @@ public class HomeActivity extends AppCompatActivity {
     public String getActiveUsername(){
         return active_username;
     }
+
+    public Client getActiveClient() { return ActiveClient; }
 
     public void showFab(){
         fab.show();

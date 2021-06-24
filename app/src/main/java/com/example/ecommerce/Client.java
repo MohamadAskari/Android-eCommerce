@@ -1,6 +1,8 @@
 package com.example.ecommerce;
 
-public class Client {
+import java.io.Serializable;
+
+public class Client implements Serializable {
     private String UserName;
     private String FirstName;
     private String LastName;

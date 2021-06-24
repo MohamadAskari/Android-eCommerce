@@ -74,6 +74,7 @@ public class RegisterFragment extends Fragment {
                     //pass the active user
                     intent.putExtra("Active Username", username);
                     intent.putExtra("Is Seller", newClient.isSeller());
+                    intent.putExtra("Active User", newClient);
                     startActivity(intent);
                 }
                 else

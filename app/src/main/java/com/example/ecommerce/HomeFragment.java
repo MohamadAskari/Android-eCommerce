@@ -1,7 +1,10 @@
 package com.example.ecommerce;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.models.SlideModel;
@@ -33,6 +37,7 @@ public class HomeFragment extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
+    private AlertDialog.Builder builder;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,20 +49,53 @@ public class HomeFragment extends Fragment {
         imageSlider = view.findViewById(R.id.image_slider);
         setImageSlider(imageSlider);
 
+        Client ActiveClient = ((HomeActivity)getActivity()).getActiveClient();
+
         search_bar = view.findViewById(R.id.search_bar_main);
 
         profile_spinner = view.findViewById(R.id.profile_dropdown);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.profile_dropdown_items, R.layout.support_simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         profile_spinner.setAdapter(adapter);
+        profile_spinner.setSelection(0);
         profile_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 ((TextView)view).setText(null);
+                String item = parent.getItemAtPosition(position).toString();
+                if(item.equals("Log out")){
+                    builder = new AlertDialog.Builder(getActivity());
+                    builder.setIcon(R.drawable.ic_baseline_warning_24);
+                    builder.setTitle(R.string.confirm_log_out_title);
+                    builder.setMessage(R.string.confirm_log_out_message);
+                    builder.setPositiveButton(R.string.confirm_log_out, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(getActivity(), MainActivity.class);
+                            startActivity(intent);
+                        }
+                    });
+                    builder.setNegativeButton(R.string.cancel_log_out, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //DO NOTHING
+                        }
+                    });
+
+                    builder.show();
+                    profile_spinner.setSelection(0);
+                }
+                else if(!item.equals("Select")) {
+                    Intent intent = new Intent(getActivity(), SpinnerOptionsActivity.class);
+                    intent.putExtra("Selected Item", item);
+                    intent.putExtra("Active User", ActiveClient);
+                    startActivity(intent);
+                }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
 
