@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/categoriesFragment"
-        android:name="com.example.ecommerce.CategoriesFragment"
+        android:name="com.example.ecommerce.Home.CategoriesFragment"
         android:label="fragment_categories"
         tools:layout="@layout/fragment_categories" >
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.ecommerce.HomeFragment"
+        android:name="com.example.ecommerce.Home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
-        android:name="com.example.ecommerce.FavoritesFragment"
+        android:name="com.example.ecommerce.Home.FavoritesFragment"
         android:label="fragment_favorites"
         tools:layout="@layout/fragment_favorites" >
         <action
@@ -46,7 +46,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_add_product"
-        android:name="com.example.ecommerce.AddProductFragment"
+        android:name="com.example.ecommerce.Home.AddProductFragment"
         android:label="fragment_add_product" >
         <action
             android:id="@+id/action_fragment_add_product_to_homeFragment"

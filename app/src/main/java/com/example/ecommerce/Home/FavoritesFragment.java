@@ -1,4 +1,4 @@
-package com.example.ecommerce;
+package com.example.ecommerce.Home;
 
 import android.os.Bundle;
 
@@ -8,12 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class ManageProductFragment extends Fragment {
+import com.example.ecommerce.R;
+
+public class FavoritesFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_manage_product, container, false);
+        View view = inflater.inflate(R.layout.fragment_favorites, container, false);
+
+
+        return view;
     }
 }

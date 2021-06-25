@@ -1,4 +1,4 @@
-package com.example.ecommerce;
+package com.example.ecommerce.Model;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +13,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.ecommerce.R;
+import com.example.ecommerce.ViewProduct.ViewProductActivity;
 
 import org.jetbrains.annotations.NotNull;
 

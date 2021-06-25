@@ -1,17 +1,26 @@
-package com.example.ecommerce;
+package com.example.ecommerce.Spinnner;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
+import android.text.SpannableString;
+import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.example.ecommerce.Home.HomeActivity;
+import com.example.ecommerce.Model.Client;
+import com.example.ecommerce.Model.DataBaseHelper;
+import com.example.ecommerce.R;
 
 import java.util.List;
 
@@ -80,7 +89,27 @@ public class EditProfileFragment extends Fragment {
         confirm_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TO DO
+
+                String firstname = firstName_et.getText().toString();
+                String lastname = lastName_et.getText().toString();
+                String username = username_et.getText().toString();
+                String email = email_et.getText().toString();
+                String phonenumber = phone_et.getText().toString();
+
+                if(TextUtils.isEmpty(firstname) || TextUtils.isEmpty(lastname) || TextUtils.isEmpty(username)
+                        || TextUtils.isEmpty(email) || TextUtils.isEmpty(phonenumber))
+                    Toast.makeText(getActivity(), "Please don't leave any field empty", Toast.LENGTH_SHORT).show();
+                else {
+                    boolean updated = dataBaseHelper.updateAllValues(ActiveClient, firstname, lastname, username, email, phonenumber);
+                    if (updated){
+                        Toast.makeText(getActivity(), "Applied changes successfully", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getActivity(), HomeActivity.class);
+                        Client UpdatedClient = dataBaseHelper.getClientByUsername(username);
+                        Toast.makeText(getActivity(), UpdatedClient.getUserName(), Toast.LENGTH_SHORT).show();
+                        intent.putExtra("Active User", UpdatedClient);
+                        startActivity(intent);
+                    }
+                }
             }
         });
 
@@ -90,15 +119,19 @@ public class EditProfileFragment extends Fragment {
                 if(!hasFocus){
                     boolean flag = false;
                     for(Client client : AllClients){
-                        if(client.getUserName().equalsIgnoreCase(username_et.getText().toString()))
+                        if(client.getUserName().equalsIgnoreCase(username_et.getText().toString()) && !client.getUserName().equalsIgnoreCase(ActiveClient.getUserName())) {
                             flag = true;
+                        }
                     }
                     if(flag){
-                        //TO DO
-                        String warning_text = username_et.getText().toString() + "    " + R.string.app_name;
-                        Toast.makeText(getActivity(), R.string.username_taken,Toast.LENGTH_LONG).show();
-                        username_et.setText(warning_text);
+                        String warning = getResources().getString(R.string.username_taken);
+                        SpannableString string2 = new SpannableString(warning);
+                        string2.setSpan(new ForegroundColorSpan(Color.RED), 0, warning.length(), 0 );
+                        Toast.makeText(getActivity(), string2,Toast.LENGTH_LONG).show();
+                        confirm_btn.setEnabled(false);
                     }
+                    else
+                        confirm_btn.setEnabled(true);
                 }
             }
         });

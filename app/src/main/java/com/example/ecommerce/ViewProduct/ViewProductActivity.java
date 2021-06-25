@@ -1,4 +1,4 @@
-package com.example.ecommerce;
+package com.example.ecommerce.ViewProduct;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -11,6 +11,9 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
+
+import com.example.ecommerce.Model.Product;
+import com.example.ecommerce.R;
 
 public class ViewProductActivity extends AppCompatActivity {
 

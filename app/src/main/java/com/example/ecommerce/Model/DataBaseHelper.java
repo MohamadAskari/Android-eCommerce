@@ -1,4 +1,4 @@
-package com.example.ecommerce;
+package com.example.ecommerce.Model;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -197,7 +197,23 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public boolean updatePassword(Client client, String newPassword) {
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues CV = new ContentValues();
+
         CV.put(CLIENT_PASSWORD, newPassword);
+
+        long updated = DB.update(CLIENT_TABLE, CV, CLIENT_USERNAME + " = ?" , new String[] {client.getUserName()});
+
+        return updated != -1;
+    }
+
+    public boolean updateAllValues(Client client, String firstname, String lastname, String username, String email, String phonenumber){
+        SQLiteDatabase DB = this.getWritableDatabase();
+        ContentValues CV = new ContentValues();
+
+        CV.put(CLIENT_FIRSTNAME, firstname);
+        CV.put(CLIENT_LASTNAME, lastname);
+        CV.put(CLIENT_USERNAME, username);
+        CV.put(CLIENT_EMAIL, email);
+        CV.put(CLIENT_PHONENUMBER, phonenumber);
 
         long updated = DB.update(CLIENT_TABLE, CV, CLIENT_USERNAME + " = ?" , new String[] {client.getUserName()});
 

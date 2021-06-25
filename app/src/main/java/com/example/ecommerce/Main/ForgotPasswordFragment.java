@@ -1,4 +1,4 @@
-package com.example.ecommerce;
+package com.example.ecommerce.Main;
 
 import android.os.Bundle;
 
@@ -11,8 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.example.ecommerce.Model.Client;
+import com.example.ecommerce.Model.DataBaseHelper;
+import com.example.ecommerce.R;
 
 import java.util.List;
 

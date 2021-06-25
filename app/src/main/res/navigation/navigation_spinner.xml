@@ -7,17 +7,17 @@
 
     <fragment
         android:id="@+id/editProfileFragment"
-        android:name="com.example.ecommerce.EditProfileFragment"
+        android:name="com.example.ecommerce.Spinnner.EditProfileFragment"
         android:label="fragment_edit_profile"
         tools:layout="@layout/fragment_edit_profile" />
     <fragment
         android:id="@+id/manageProductFragment"
-        android:name="com.example.ecommerce.ManageProductFragment"
+        android:name="com.example.ecommerce.Spinnner.ManageProductFragment"
         android:label="fragment_manage_product"
         tools:layout="@layout/fragment_manage_product" />
     <fragment
         android:id="@+id/settingFragment"
-        android:name="com.example.ecommerce.SettingFragment"
+        android:name="com.example.ecommerce.Spinnner.SettingFragment"
         android:label="fragment_setting"
         tools:layout="@layout/fragment_setting" />
 </navigation>

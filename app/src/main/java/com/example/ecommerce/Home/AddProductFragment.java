@@ -1,4 +1,4 @@
-package com.example.ecommerce;
+package com.example.ecommerce.Home;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -6,7 +6,7 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -15,10 +15,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.navigation.Navigation;
 
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
@@ -34,13 +31,15 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.squareup.picasso.Picasso;
+import com.example.ecommerce.Model.Client;
+import com.example.ecommerce.Model.DataBaseHelper;
+import com.example.ecommerce.Model.Product;
+import com.example.ecommerce.R;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -54,6 +53,8 @@ public class AddProductFragment extends Fragment {
     private Button submit_btn, take_photo_btn, from_gallery_btn;
     private ImageView product_pic, back_btn;
     private Uri product_pic_url;
+    private Client ActiveClient;
+    private boolean hasImage;
     private static final int CAMERA_PERM_CODE = 101;
     private static final int CAMERA_REQUEST_CODE = 102;
     private static final int GALLERY_REQUEST_CODE = 105;
@@ -65,14 +66,16 @@ public class AddProductFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_product, container, false);
 
+        ActiveClient = ((HomeActivity)getActivity()).getActiveClient();
+
         parent_spinner = view.findViewById(R.id.parent_spinner);
         child_spinner = view.findViewById(R.id.child_spinner);
-
         inputproductname = view.findViewById(R.id.product_name);
         inputproductprice = view.findViewById(R.id.product_price);
         inputproductdescription = view.findViewById(R.id.product_description);
         submit_btn = view.findViewById(R.id.submit_btn);
         dataBaseHelper = new DataBaseHelper(getActivity());
+        hasImage = false;
 
         List<String> categories = new ArrayList<>();
         categories.add("Electronics");
@@ -183,6 +186,7 @@ public class AddProductFragment extends Fragment {
         product_pic = view.findViewById(R.id.product_image);
         take_photo_btn = view.findViewById(R.id.takephoto_btn);
         from_gallery_btn = view.findViewById(R.id.fromgallery_btn);
+
         take_photo_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -253,6 +257,7 @@ public class AddProductFragment extends Fragment {
                 File f = new File(currentPhotoPath);
                 product_pic_url = Uri.fromFile(f);
                 product_pic.setImageURI(product_pic_url);
+                hasImage = true;
                 Log.d("tag", "Url Image : " + Uri.fromFile(f));
 
                 // add pic to gallery
@@ -268,6 +273,7 @@ public class AddProductFragment extends Fragment {
                 String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
                 String imageFileName = "JPEG_" + timeStamp + "." + getFileExt(contentUri);
                 Log.d("tag", "Uri Gallery Image : " + imageFileName);
+                hasImage = true;
                 product_pic_url = contentUri;
                 product_pic.setImageURI(product_pic_url);
             }
@@ -325,11 +331,13 @@ public class AddProductFragment extends Fragment {
         String product_description = inputproductdescription.getText().toString();
         String product_category = parent_spinner.getSelectedItem().toString();
         String product_subCategory = child_spinner.getSelectedItem().toString();
-        String product_seller = ((HomeActivity)getActivity()).getActiveUsername();
+        String product_seller = ActiveClient.getUserName();
 
         if(TextUtils.isEmpty(product_name) || TextUtils.isEmpty(product_price)){
             Toast.makeText(getActivity(), "Please fill out all required fields", Toast.LENGTH_LONG).show();
         }
+        else if(product_pic.getDrawable() == null || !hasImage)
+            Toast.makeText(getActivity(), "Please set a photo for your product", Toast.LENGTH_SHORT).show();
         else {
             Product product;
             if(TextUtils.isEmpty(product_description))

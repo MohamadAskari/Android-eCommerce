@@ -1,4 +1,4 @@
-package com.example.ecommerce;
+package com.example.ecommerce.Home;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,17 +18,23 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.models.SlideModel;
+import com.example.ecommerce.Main.MainActivity;
+import com.example.ecommerce.Model.Client;
+import com.example.ecommerce.Model.DataBaseHelper;
+import com.example.ecommerce.Model.Product;
+import com.example.ecommerce.Model.RecyclerViewAdapter;
+import com.example.ecommerce.R;
+import com.example.ecommerce.Spinnner.SpinnerOptionsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
 
-    private String active_username;
+//    private String active_username;
     private EditText search_bar;
     private Spinner profile_spinner;
     private ImageSlider imageSlider;
@@ -38,18 +44,19 @@ public class HomeFragment extends Fragment {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private AlertDialog.Builder builder;
+    private Client ActiveClient;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        active_username = ((HomeActivity)getActivity()).getActiveUsername();
+//        active_username = ((HomeActivity)getActivity()).getActiveUsername();
 
         imageSlider = view.findViewById(R.id.image_slider);
         setImageSlider(imageSlider);
 
-        Client ActiveClient = ((HomeActivity)getActivity()).getActiveClient();
+        ActiveClient = ((HomeActivity)getActivity()).getActiveClient();
 
         search_bar = view.findViewById(R.id.search_bar_main);
 

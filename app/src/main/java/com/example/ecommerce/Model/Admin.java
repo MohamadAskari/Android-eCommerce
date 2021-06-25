@@ -1,4 +1,4 @@
-package com.example.ecommerce;
+package com.example.ecommerce.Model;
 
 public class Admin {
     private String username;

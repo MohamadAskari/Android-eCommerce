@@ -1,4 +1,4 @@
-package com.example.ecommerce;
+package com.example.ecommerce.Main;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +13,12 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.ecommerce.Home.HomeActivity;
+import com.example.ecommerce.Model.Admin;
+import com.example.ecommerce.Model.Client;
+import com.example.ecommerce.Model.DataBaseHelper;
+import com.example.ecommerce.R;
 
 import java.util.List;
 
@@ -71,9 +77,11 @@ public class RegisterFragment extends Fragment {
                 if(succeed) {
                     Toast.makeText(getActivity(), "Sign in was successful, Welcome " + newClient.getUserName(), Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(getActivity(), HomeActivity.class);
+
+//                    intent.putExtra("Active Username", username);
+//                    intent.putExtra("Is Seller", newClient.isSeller());
+
                     //pass the active user
-                    intent.putExtra("Active Username", username);
-                    intent.putExtra("Is Seller", newClient.isSeller());
                     intent.putExtra("Active User", newClient);
                     startActivity(intent);
                 }

@@ -1,9 +1,12 @@
-package com.example.ecommerce;
+package com.example.ecommerce.Spinnner;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+
+import com.example.ecommerce.Model.Client;
+import com.example.ecommerce.R;
 
 public class SpinnerOptionsActivity extends AppCompatActivity {
 

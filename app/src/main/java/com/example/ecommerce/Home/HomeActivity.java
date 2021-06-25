@@ -1,4 +1,4 @@
-package com.example.ecommerce;
+package com.example.ecommerce.Home;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -6,13 +6,17 @@ import androidx.fragment.app.Fragment;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
 
+import com.example.ecommerce.Model.Client;
+import com.example.ecommerce.Model.DataBaseHelper;
+import com.example.ecommerce.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private String active_username;
+//    private String active_username;
     private ChipNavigationBar bottomNav;
     private FloatingActionButton fab;
     private DataBaseHelper dataBaseHelper;
@@ -25,16 +29,16 @@ public class HomeActivity extends AppCompatActivity {
 
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-        Bundle b = getIntent().getExtras();
+//        Bundle b = getIntent().getExtras();
 
         ActiveClient = (Client) getIntent().getSerializableExtra("Active User");
 
         setCurrentFragment(new HomeFragment(), ActiveClient);
 
-        if(b!=null)
-        {
-            active_username = (String) b.get("Active Username");
-        }
+//        if(b!=null)
+//        {
+//            active_username = (String) b.get("Active Username");
+//        }
 
         fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -46,7 +50,7 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         dataBaseHelper = new DataBaseHelper(this);
-        if(!dataBaseHelper.getClientByUsername(active_username).isSeller())
+        if(!dataBaseHelper.getClientByUsername(ActiveClient.getUserName()).isSeller())
             fab.hide();
 
         bottomNav = findViewById(R.id.bottom_nav_bar);
@@ -69,7 +73,7 @@ public class HomeActivity extends AppCompatActivity {
 
                 if (selectedFragment != null) {
                     setCurrentFragment(selectedFragment, ActiveClient);
-                    if(dataBaseHelper.getClientByUsername(active_username).isSeller())
+                    if(dataBaseHelper.getClientByUsername(ActiveClient.getUserName()).isSeller())
                         fab.show();
                 }
             }
@@ -93,9 +97,9 @@ public class HomeActivity extends AppCompatActivity {
         
     }
 
-    public String getActiveUsername(){
-        return active_username;
-    }
+//    public String getActiveUsername(){
+//        return active_username;
+//    }
 
     public Client getActiveClient() { return ActiveClient; }
 

@@ -1,4 +1,4 @@
-package com.example.ecommerce;
+package com.example.ecommerce.Main;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +13,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.ecommerce.Home.HomeActivity;
+import com.example.ecommerce.Model.Admin;
+import com.example.ecommerce.Model.Client;
+import com.example.ecommerce.Model.DataBaseHelper;
+import com.example.ecommerce.R;
 
 import java.util.List;
 
@@ -58,8 +64,8 @@ public class LogInFragment extends Fragment {
                         Toast.makeText(getActivity(), "Welcome back " + client.getUserName(), Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(getActivity(), HomeActivity.class);
                         intent.putExtra("Active User", client);
-                        intent.putExtra("Active Username", username);
-                        intent.putExtra("Is Seller", client.isSeller());
+//                        intent.putExtra("Active Username", username);
+//                        intent.putExtra("Is Seller", client.isSeller());
                         startActivity(intent);
                     }
                     else
