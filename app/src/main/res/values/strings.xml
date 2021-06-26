@@ -20,8 +20,8 @@
     <string name="confirm_log_out_message">Are you sure you want to log out?</string>
     <string name="confirm_log_out">Yes</string>
     <string name="cancel_log_out">Cancel</string>
-    
-    
+
+
     <string-array name="profile_dropdown_items">
         <item><font fgcolor='#d3d3d3'><font size="20">Select</font></font></item>
         <item>Edit your profile</item>

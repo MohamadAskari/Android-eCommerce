@@ -37,7 +37,8 @@
                 android:textSize="30sp"
                 android:fontFamily="@font/montserrat_regular"/>
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/expand_all_electronics"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
@@ -72,7 +73,8 @@
                 android:textSize="30sp"
                 android:fontFamily="@font/montserrat_regular"/>
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/expand_all_fashion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -107,7 +109,8 @@
                 android:textSize="30sp"
                 android:fontFamily="@font/montserrat_regular"/>
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/expand_all_sports"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
@@ -142,7 +145,8 @@
                 android:textSize="30sp"
                 android:fontFamily="@font/montserrat_regular"/>
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/expand_all_home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -177,7 +181,8 @@
                 android:textSize="30sp"
                 android:fontFamily="@font/montserrat_regular"/>
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/expand_all_motors"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
@@ -212,7 +217,8 @@
                 android:textSize="30sp"
                 android:fontFamily="@font/montserrat_regular"/>
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/expand_all_realstate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -247,7 +253,8 @@
                 android:textSize="30sp"
                 android:fontFamily="@font/montserrat_regular"/>
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/expand_all_entertainment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"

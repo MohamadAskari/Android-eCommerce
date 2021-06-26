@@ -329,4 +329,33 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         DB.close();
         return products;
     }
+
+    public List<Product> getCategoryProducts(final String category_table){
+        List<Product> products = new ArrayList<>();
+        String query = "SELECT * FROM " + category_table;
+
+        SQLiteDatabase DB = this.getReadableDatabase();
+
+        Cursor cursor = DB.rawQuery(query, null);
+
+        if(cursor.moveToFirst()){
+            //loop through the table of clients
+            do {
+                String Name = cursor.getString(1);
+                String Price = cursor.getString(2);
+                String Description = cursor.getString(3);
+                String Category = category_table.substring(0, 1).toUpperCase() + category_table.substring(0, category_table.length() - 6).toLowerCase();
+                String SubCategory = cursor.getString(4);
+                String Seller = cursor.getString(5);
+                String ImagePath = cursor.getString(6);
+                Product product = new Product(ImagePath, Name, Price, Description, Category, SubCategory, Seller);
+                products.add(product);
+
+            } while (cursor.moveToNext());
+        }
+
+        cursor.close();
+        DB.close();
+        return products;
+    }
 }
