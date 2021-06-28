@@ -39,6 +39,7 @@ public class FilterInCategoryFragment extends Fragment {
     private TextView tv_select_subcategory;
     private List<CheckBox> subCategoriesCheckboxes = new ArrayList<>();
     private Button apply_btn;
+    private String category;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,7 +48,12 @@ public class FilterInCategoryFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_filter_in_category, container, false);
 
         tv_select_subcategory = view.findViewById(R.id.tv_select_subcategory);
-        String text = "In " + ((InCategoryProductsActivity)getActivity()).getSelectedCategoryTitle() + " :";
+        category = ((InCategoryProductsActivity)getActivity()).getSelectedCategoryTitle();
+        
+        if(category.equalsIgnoreCase("Realstate"))
+            category = "Real State";
+
+        String text = "In " + category + " :";
         tv_select_subcategory.setText(text);
 
         price_slider = view.findViewById(R.id.price_slider);
@@ -101,7 +107,7 @@ public class FilterInCategoryFragment extends Fragment {
 
     private void createSubCategoriesCheckbox(LinearLayout linearLayout){
         subCategoriesCheckboxes.clear();
-        List<String> subCategories = CategoryUtils.getAllSubCategoriesInCategory(((InCategoryProductsActivity) getActivity()).getSelectedCategoryTitle());
+        List<String> subCategories = CategoryUtils.getAllSubCategoriesInCategory(category);
         for(String subCategory : subCategories){
             CheckBox checkBox = new CheckBox(getActivity());
             checkBox.setText(subCategory);
