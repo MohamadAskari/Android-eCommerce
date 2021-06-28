@@ -4,12 +4,15 @@ import com.example.ecommerce.Model.DataBaseHelper;
 import com.example.ecommerce.Model.Product;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
 
 public class CategoryUtils {
 
     private static List<Product> allProductsList;
+    private static List<Product> filteredProducts = new LinkedList<>();
 
     private CategoryUtils() {
         throw new RuntimeException("Nope!");
@@ -17,8 +20,43 @@ public class CategoryUtils {
 
     public static List<Product> getAllCategoryProducts(final String category, DataBaseHelper dataBaseHelper){
         allProductsList = dataBaseHelper.getCategoryProducts(category);
-        return allProductsList;
+        return (getFilteredCategoryProducts().isEmpty()) ? allProductsList : filteredProducts; // bug : shows all when no product matches
     }
+    public static List<Product> getFilteredCategoryProducts(){
+        return filteredProducts;
+    }
+    public static void filterCategoryProducts(List<String> selectedSubCategories, int minPrice, int maxPrice, boolean withImageOnly, String sortType){
+        // To Do : with images only
+        filteredProducts.clear();
+        for(Product p : allProductsList) {
+            if (Integer.parseInt(p.getPrice()) <= maxPrice && Integer.parseInt(p.getPrice()) >= minPrice) {
+                if(selectedSubCategories.contains(p.getSubCategory()) || selectedSubCategories.isEmpty()){
+                    filteredProducts.add(p);
+                }
+            }
+        }
+        switch (sortType){
+            case "cheapest" :
+                Collections.sort(filteredProducts, productCheapestComparator);
+                break;
+            case "most expensive" :
+                Collections.sort(filteredProducts, productMostExpensiveComparator);
+                break;
+        }
+    }
+    private static Comparator<Product> productCheapestComparator = new Comparator<Product>() {
+        @Override
+        public int compare(Product p1, Product p2) {
+            return p1.getPrice().compareTo(p2.getPrice());
+        }
+    };
+    private static Comparator<Product> productMostExpensiveComparator = new Comparator<Product>() {
+        @Override
+        public int compare(Product p1, Product p2) {
+            return p2.getPrice().compareTo(p1.getPrice());
+        }
+    };
+
     public static int getMaxPrice(){
         int maxPrice = (!allProductsList.isEmpty()) ? Integer.parseInt(allProductsList.stream()
                 .max(Comparator.comparing(v -> Integer.parseInt(v.getPrice()))).get().getPrice()) : 0;

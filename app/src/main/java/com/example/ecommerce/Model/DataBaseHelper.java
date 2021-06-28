@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class DataBaseHelper extends SQLiteOpenHelper {
@@ -302,7 +303,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
     public List<Product> getAllProducts(){
-        List<Product> products = new ArrayList<>();
+        List<Product> products = new LinkedList<>();
         String query = "SELECT * FROM " + PRODUCTS_TABLE;
 
         SQLiteDatabase DB = this.getReadableDatabase();
@@ -331,7 +332,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
     public List<Product> getCategoryProducts(final String category_table){
-        List<Product> products = new ArrayList<>();
+        List<Product> products = new LinkedList<>();
         String query = "SELECT * FROM " + category_table;
 
         SQLiteDatabase DB = this.getReadableDatabase();
