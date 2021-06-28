@@ -47,6 +47,8 @@ public class FilterInCategoryFragment extends Fragment {
         category = ((InCategoryProductsActivity)getActivity()).getSelectedCategoryTitle();
         if(category.equalsIgnoreCase("Realstate"))
             category = "Real State";
+        else if(category.equalsIgnoreCase("Electronic"))
+            category = "Electronics";
 
         String text = "In " + category + " :";
         tv_select_subcategory.setText(text);
