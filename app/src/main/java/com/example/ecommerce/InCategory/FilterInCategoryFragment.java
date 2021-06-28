@@ -45,7 +45,6 @@ public class FilterInCategoryFragment extends Fragment {
 
         tv_select_subcategory = view.findViewById(R.id.tv_select_subcategory);
         category = ((InCategoryProductsActivity)getActivity()).getSelectedCategoryTitle();
-
         if(category.equalsIgnoreCase("Realstate"))
             category = "Real State";
 
