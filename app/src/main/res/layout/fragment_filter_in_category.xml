@@ -1,11 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".InCategory.FilterInCategoryFragment"
-    android:background="@color/dark_blue">
+    android:background="@color/very_light_blue">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="20dp">
+
+        <TextView
+            android:id="@+id/tv_select_subcategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:textSize="25dp"
+            android:fontFamily="@font/josefinsans__regular"
+            android:text="In Category :" />
+
+        <LinearLayout
+            android:id="@+id/checkBox_linear_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25dp"
+            android:fontFamily="@font/josefinsans__regular"
+            android:text="Price Range"
+            android:layout_marginTop="10dp"
+            />
+
+        <com.google.android.material.slider.RangeSlider
+            android:id="@+id/price_slider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:stepSize="1"
+            android:valueFrom="0"
+            android:valueTo="100"
+            app:values="@array/initial_slider_values"
+            app:tickVisible="false"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp">
+
+            <EditText
+                android:id="@+id/price_slider_from_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:ellipsize="end"
+                android:textSize="18dp"
+                android:fontFamily="@font/montserrat_medium"
+                android:text="FromValue"
+                android:maxLines="1"
+                android:padding="5dp"
+                android:background="@drawable/blue_out_line"
+                android:drawableStart="@drawable/ic_baseline_attach_money_24"/>
+
+            <EditText
+                android:id="@+id/price_slider_to_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:ellipsize="end"
+                android:textSize="18dp"
+                android:fontFamily="@font/montserrat_medium"
+                android:text="ToValue"
+                android:maxLines="1"
+                android:padding="5dp"
+                android:background="@drawable/blue_out_line"
+                android:drawableStart="@drawable/ic_baseline_attach_money_24"/>
+        </RelativeLayout>
+
+        <CheckBox
+            android:id="@+id/only_with_pictures_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Only show product with picture"
+            android:fontFamily="@font/josefinsans__regular" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="25dp"
+            android:fontFamily="@font/josefinsans__regular"
+            android:text="Sort by"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"/>
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:checkedButton="@+id/radio_button_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:id="@+id/rb_cheapest"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="cheapest"
+                android:fontFamily="@font/josefinsans__regular" />
+            <RadioButton
+                android:id="@+id/rb_most_expensive"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="most expensive"
+                android:fontFamily="@font/josefinsans__regular" />
+
+        </RadioGroup>
 
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/apply_filter_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/bg_buttons3"
+            android:fontFamily="@font/montserrat_regular"
+            android:text="Apply"
+            android:textColor="@color/white" />
 
-</FrameLayout>
+    </LinearLayout>
+
+</ScrollView>

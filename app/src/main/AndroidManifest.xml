@@ -22,7 +22,7 @@
         <activity android:name=".InCategory.InCategoryProductsActivity"></activity>
         <activity android:name=".Home.HomeActivity" />
         <activity android:name=".ViewProduct.ViewProductActivity" />
-        <activity android:name=".Spinnner.SpinnerOptionsActivity" />
+        <activity android:name=".Spinner.SpinnerOptionsActivity" />
         <activity android:name=".Main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
