@@ -30,4 +30,9 @@
         <item>Log out</item>
     </string-array>
 
+    <string-array name="initial_slider_values">
+        <item>0</item>
+        <item>10</item>
+    </string-array>
+
 </resources>

@@ -344,7 +344,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 String Name = cursor.getString(1);
                 String Price = cursor.getString(2);
                 String Description = cursor.getString(3);
-                String Category = category_table.substring(0, 1).toUpperCase() + category_table.substring(0, category_table.length() - 6).toLowerCase();
+                String Category = category_table.substring(0, 1).toUpperCase() + category_table.substring(1, category_table.length() - 6).toLowerCase();
                 String SubCategory = cursor.getString(4);
                 String Seller = cursor.getString(5);
                 String ImagePath = cursor.getString(6);

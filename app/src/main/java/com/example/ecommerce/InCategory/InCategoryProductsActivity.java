@@ -44,4 +44,8 @@ public class InCategoryProductsActivity extends AppCompatActivity {
         return selected_category;
     }
 
+    public String getSelectedCategoryTitle(){
+        return selected_category.substring(0, 1).toUpperCase() + selected_category.substring(1, selected_category.length() - 6).toLowerCase();
+    }
+
 }

@@ -27,7 +27,7 @@ import com.example.ecommerce.Model.DataBaseHelper;
 import com.example.ecommerce.Model.Product;
 import com.example.ecommerce.Model.RecyclerViewAdapter;
 import com.example.ecommerce.R;
-import com.example.ecommerce.Spinnner.SpinnerOptionsActivity;
+import com.example.ecommerce.Spinner.SpinnerOptionsActivity;
 
 import java.util.ArrayList;
 import java.util.List;

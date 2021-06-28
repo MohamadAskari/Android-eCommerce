@@ -1,4 +1,4 @@
-package com.example.ecommerce.Spinnner;
+package com.example.ecommerce.Spinner;
 
 import android.content.Intent;
 import android.graphics.Color;
