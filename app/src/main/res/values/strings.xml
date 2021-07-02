@@ -16,6 +16,16 @@
     <string name="real_state">Real State</string>
     <string name="entertainment">Entertainment</string>
 
+    <string name="FAQ1">What\'s eCommerce?</string>
+    <string name="FAQ2">
+        eCommerce is a simple app developed to help you find what you need as fast as possible.
+        Seller or a simple customer, this app works either way!</string>
+    <string name="FAQ3">Various Categories</string>
+    <string name="FAQ4">You can search in a variety of categories, so you probably will find what you\'re looking for.</string>
+    <string name="FAQ5">No Brokers!</string>
+    <string name="FAQ6">There are no brokers and you call the seller directly,
+        and ofcourse both sellers and customers are responsible for all security issues.</string>
+
     <string name="confirm_log_out_title">Log out</string>
     <string name="confirm_log_out_message">Are you sure you want to log out?</string>
     <string name="confirm_log_out">Yes</string>

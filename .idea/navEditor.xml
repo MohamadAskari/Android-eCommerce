@@ -171,6 +171,18 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
+                  <entry key="FAQFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="363" />
+                            <option name="y" value="199" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="editProfileFragment">
                     <value>
                       <LayoutPositions>

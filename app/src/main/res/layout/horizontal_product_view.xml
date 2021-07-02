@@ -4,16 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/one_line_product_layout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@drawable/custom_ripple_effect" >
 
     <ImageView
         android:id="@+id/iv_product_image"
         android:layout_width="175dp"
         android:layout_height="175dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.049"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
 
@@ -26,11 +27,11 @@
         android:text="TextView"
         android:textSize="22dp"
         app:layout_constraintBottom_toTopOf="@+id/divider"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.07"
-        app:layout_constraintStart_toEndOf="@+id/iv_product_image"
+        app:layout_constraintEnd_toStartOf="@id/iv_product_image"
+        app:layout_constraintHorizontal_bias="0.093"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.113" />
+        app:layout_constraintVertical_bias="0.091" />
 
     <TextView
         android:id="@+id/tv_product_price"
@@ -40,11 +41,11 @@
         android:text="TextView"
         android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="@+id/divider"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.07"
-        app:layout_constraintStart_toEndOf="@+id/iv_product_image"
+        app:layout_constraintEnd_toStartOf="@id/iv_product_image"
+        app:layout_constraintHorizontal_bias="0.094"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_product_name"
-        app:layout_constraintVertical_bias="0.098" />
+        app:layout_constraintVertical_bias="0.093" />
 
     <View
         android:id="@+id/divider"
