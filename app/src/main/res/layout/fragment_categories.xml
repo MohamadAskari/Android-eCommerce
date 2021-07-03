@@ -17,7 +17,6 @@
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:text="@string/categories"
-            android:textColor="@color/black"
             android:textSize="34sp"
             android:fontFamily="@font/montserrat_bold"/>
 

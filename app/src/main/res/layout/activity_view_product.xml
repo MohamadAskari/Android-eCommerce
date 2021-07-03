@@ -142,7 +142,7 @@
         android:layout_alignParentBottom="true"
         android:background="@drawable/bg_electronics"
         android:text="View Seller Info"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="20dp"
         android:fontFamily="@font/josefinsans_bold"
         android:textAllCaps="false" />
