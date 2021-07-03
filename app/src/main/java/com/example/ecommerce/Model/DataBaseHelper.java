@@ -264,7 +264,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         CV.put(PRODUCT_DESCRIPTION, product.getDescription());
         CV.put(PRODUCT_CATEGORY, product.getCategory());
         CV.put(PRODUCT_SUBCATEGORY, product.getSubCategory());
-        CV.put(PRODUCT_SELLER, product.getSeller());
+        CV.put(PRODUCT_SELLER, product.getSellerUsername());
         CV.put(PRODUCT_PIC, product.getImagePath());
 
         long added = DB.insert(PRODUCTS_TABLE, null, CV);
@@ -280,7 +280,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         CV.put(PRODUCT_PRICE, product.getPrice());
         CV.put(PRODUCT_DESCRIPTION, product.getDescription());
         CV.put(PRODUCT_SUBCATEGORY, product.getSubCategory());
-        CV.put(PRODUCT_SELLER, product.getSeller());
+        CV.put(PRODUCT_SELLER, product.getSellerUsername());
         CV.put(PRODUCT_PIC, product.getImagePath());
 
         long added = DB.insert(TableName, null, CV);

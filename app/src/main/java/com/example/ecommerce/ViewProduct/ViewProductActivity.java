@@ -1,5 +1,6 @@
 package com.example.ecommerce.ViewProduct;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -12,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.example.ecommerce.Model.Client;
+import com.example.ecommerce.Model.DataBaseHelper;
 import com.example.ecommerce.Model.Product;
 import com.example.ecommerce.R;
 
@@ -21,6 +24,12 @@ public class ViewProductActivity extends AppCompatActivity {
     private Button viewSellerInfo_btn;
     private ImageView back_btn, product_pic;
     private TextView product_name, product_price, product_category, product_subcategory, product_description;
+    private AlertDialog.Builder dialogBuilder;
+    private AlertDialog dialog;
+    // pop up components
+    private TextView seller_username, seller_phonenumber;
+    private ImageView seller_profile_pic, view_seller_info_back_icon;
+    DataBaseHelper dataBaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +42,6 @@ public class ViewProductActivity extends AppCompatActivity {
         product_name = findViewById(R.id.view_product_name);
         product_price = findViewById(R.id.view_product_price);
         product_description = findViewById(R.id.view_product_description);
-        viewSellerInfo_btn = findViewById(R.id.view_seller_info_btn);
 
         Intent intent = getIntent();
         Product product = intent.getParcelableExtra("product");
@@ -66,6 +74,40 @@ public class ViewProductActivity extends AppCompatActivity {
             }
         });
 
+        viewSellerInfo_btn = findViewById(R.id.view_seller_info_btn);
+        viewSellerInfo_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSellerInfoDialog(product.getSellerUsername());
+            }
+        });
 
+    }
+
+    public void showSellerInfoDialog(String sellerUsername){
+        dialogBuilder = new AlertDialog.Builder(this);
+        final View viewSellerInfo_popupView = getLayoutInflater().inflate(R.layout.pop_view_seller_info, null);
+        dataBaseHelper = new DataBaseHelper(this);
+
+        view_seller_info_back_icon = viewSellerInfo_popupView.findViewById(R.id.view_seller_info_back_icon);
+        seller_username = viewSellerInfo_popupView.findViewById(R.id.seller_username);
+        seller_phonenumber = viewSellerInfo_popupView.findViewById(R.id.seller_phonenumber);
+        seller_profile_pic = viewSellerInfo_popupView.findViewById(R.id.seller_profile_pic);
+
+        Client seller = dataBaseHelper.getClientByUsername(sellerUsername);
+        seller_username.setText(seller.getUserName());
+        seller_phonenumber.setText(seller.getPhoneNumber());
+        // seller_profile_pic.setImageOnImageView()
+
+        dialogBuilder.setView(viewSellerInfo_popupView);
+        dialog = dialogBuilder.create();
+        dialog.show();
+
+        view_seller_info_back_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
     }
 }
