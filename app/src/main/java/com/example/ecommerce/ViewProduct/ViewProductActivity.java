@@ -86,7 +86,7 @@ public class ViewProductActivity extends AppCompatActivity {
 
     public void showSellerInfoDialog(String sellerUsername){
         dialogBuilder = new AlertDialog.Builder(this);
-        final View viewSellerInfo_popupView = getLayoutInflater().inflate(R.layout.pop_view_seller_info, null);
+        final View viewSellerInfo_popupView = getLayoutInflater().inflate(R.layout.popup_view_seller_info, null);
         dataBaseHelper = new DataBaseHelper(this);
 
         view_seller_info_back_icon = viewSellerInfo_popupView.findViewById(R.id.view_seller_info_back_icon);

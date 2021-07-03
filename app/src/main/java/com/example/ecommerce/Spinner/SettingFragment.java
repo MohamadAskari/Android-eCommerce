@@ -3,6 +3,7 @@ package com.example.ecommerce.Spinner;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
@@ -21,8 +22,10 @@ import com.example.ecommerce.R;
 public class SettingFragment extends Fragment {
 
     private SwitchCompat switchCompat;
-    private ImageView back_btn_image_view;
+    private ImageView back_btn_image_view, back_btn_popup_faq, back_btn_popup_contact_us;
     private TextView FAQ_tv, contactUs_tv, removeFavs_tv;
+    private AlertDialog.Builder dialogBuilder;
+    private AlertDialog dialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -67,17 +70,52 @@ public class SettingFragment extends Fragment {
         contactUs_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                showPopupWindow("Contact us");
             }
         });
 
         FAQ_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                
+                showPopupWindow("FAQ");
             }
         });
 
         return view;
     }
+    public void showPopupWindow(String Case){
+
+        dialogBuilder = new AlertDialog.Builder(getActivity());
+        View viewFAQorContactUsPopup = null;
+
+        switch (Case){
+            case "Contact us":{
+                viewFAQorContactUsPopup  = getLayoutInflater().inflate(R.layout.popup_contact_us, null);
+                back_btn_popup_contact_us = viewFAQorContactUsPopup.findViewById(R.id.popup_contact_us_back_icon);
+                back_btn_popup_contact_us.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                break;
+            }
+            case "FAQ":{
+                viewFAQorContactUsPopup  = getLayoutInflater().inflate(R.layout.popup_faq, null);
+                back_btn_popup_faq = viewFAQorContactUsPopup.findViewById(R.id.popup_faq_back_icon);
+                back_btn_popup_faq.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                break;
+            }
+        }
+        dialogBuilder = new AlertDialog.Builder(getActivity());
+        dialogBuilder.setView(viewFAQorContactUsPopup);
+        dialog = dialogBuilder.create();
+        dialog.show();
+    }
+
 }

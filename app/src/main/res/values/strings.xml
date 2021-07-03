@@ -26,6 +26,10 @@
     <string name="FAQ6">There are no brokers and you call the seller directly,
         and ofcourse both sellers and customers are responsible for all security issues.</string>
 
+    <string name="ContactUs1">Contact us via Email</string>
+    <string name="ContactUs2">Mohamad_ask@aut.ac.ir</string>
+    <string name="ContactUs3">Emaile Ali</string>
+
     <string name="confirm_log_out_title">Log out</string>
     <string name="confirm_log_out_message">Are you sure you want to log out?</string>
     <string name="confirm_log_out">Yes</string>
