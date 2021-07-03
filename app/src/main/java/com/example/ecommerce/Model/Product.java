@@ -13,38 +13,38 @@ public class Product implements Parcelable {
     private String Description;
     private String Category;
     private String SubCategory;
-    private String Seller;
+    private String SellerUsername;
     private Uri ImageUrl;
 
-    public Product(String name, String price, String description, String category, String subCategory, String seller) {
+    public Product(String name, String price, String description, String category, String subCategory, String sellerUsername) {
         Name = name;
         Price = price;
         Description = description;
         Category = category;
         SubCategory = subCategory;
-        Seller = seller;
+        SellerUsername = sellerUsername;
     }
 
     // with image path
-    public Product(String imageUrl, String name, String price, String description, String category, String subCategory, String seller) {
+    public Product(String imageUrl, String name, String price, String description, String category, String subCategory, String sellerUsername) {
         ImageUrl = Uri.parse(imageUrl);
         Name = name;
         Price = price;
         Description = description;
         Category = category;
         SubCategory = subCategory;
-        Seller = seller;
+        SellerUsername = sellerUsername;
     }
 
     // with image Url
-    public Product(Uri imageUrl, String name, String price, String description, String category, String subCategory, String seller) {
+    public Product(Uri imageUrl, String name, String price, String description, String category, String subCategory, String sellerUsername) {
         ImageUrl = imageUrl;
         Name = name;
         Price = price;
         Description = description;
         Category = category;
         SubCategory = subCategory;
-        Seller = seller;
+        SellerUsername = sellerUsername;
     }
 
 
@@ -54,7 +54,7 @@ public class Product implements Parcelable {
         Description = in.readString();
         Category = in.readString();
         SubCategory = in.readString();
-        Seller = in.readString();
+        SellerUsername = in.readString();
         ImageUrl = in.readParcelable(Uri.class.getClassLoader());
     }
 
@@ -82,7 +82,7 @@ public class Product implements Parcelable {
         dest.writeString(Description);
         dest.writeString(Category);
         dest.writeString(SubCategory);
-        dest.writeString(Seller);
+        dest.writeString(SellerUsername);
         dest.writeParcelable(ImageUrl, flags);
     }
 
@@ -142,12 +142,12 @@ public class Product implements Parcelable {
         SubCategory = subCategory;
     }
 
-    public String getSeller() {
-        return Seller;
+    public String getSellerUsername() {
+        return SellerUsername;
     }
 
-    public void setSeller(String seller) {
-        Seller = seller;
+    public void setSellerUsername(String sellerUsername) {
+        SellerUsername = sellerUsername;
     }
 
 }
