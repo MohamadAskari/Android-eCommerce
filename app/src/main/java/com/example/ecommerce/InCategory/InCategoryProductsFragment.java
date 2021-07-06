@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,9 +69,6 @@ public class InCategoryProductsFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-        inCategoryProductList = CategoryUtils.getAllCategoryProducts(category, dataBaseHelper);
-        mAdapter = new RecyclerViewAdapter(inCategoryProductList, getActivity());
-        recyclerView.setAdapter(mAdapter);
 
         filter_btn = view.findViewById(R.id.filter_btn);
         filter_btn.setOnClickListener(new View.OnClickListener() {
@@ -95,6 +93,15 @@ public class InCategoryProductsFragment extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+
+        inCategoryProductList = CategoryUtils.getAllCategoryProducts(category, dataBaseHelper);
+        mAdapter = new RecyclerViewAdapter(inCategoryProductList, getActivity());
+        recyclerView.setAdapter(mAdapter);
+        super.onResume();
     }
 
     private void filter(String text){

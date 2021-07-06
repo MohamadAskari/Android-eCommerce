@@ -16,7 +16,6 @@ import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
 public class HomeActivity extends AppCompatActivity {
 
-//    private String active_username;
     private ChipNavigationBar bottomNav;
     private FloatingActionButton fab;
     private DataBaseHelper dataBaseHelper;
@@ -29,16 +28,9 @@ public class HomeActivity extends AppCompatActivity {
 
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-//        Bundle b = getIntent().getExtras();
-
-        ActiveClient = (Client) getIntent().getSerializableExtra("Active User");
+        ActiveClient = Client.getActive_client();
 
         setCurrentFragment(new HomeFragment(), ActiveClient);
-
-//        if(b!=null)
-//        {
-//            active_username = (String) b.get("Active Username");
-//        }
 
         fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -96,10 +88,6 @@ public class HomeActivity extends AppCompatActivity {
     public void onBackPressed() {
         
     }
-
-//    public String getActiveUsername(){
-//        return active_username;
-//    }
 
     public Client getActiveClient() { return ActiveClient; }
 

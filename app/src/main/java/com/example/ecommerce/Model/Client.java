@@ -3,6 +3,9 @@ package com.example.ecommerce.Model;
 import java.io.Serializable;
 
 public class Client implements Serializable {
+
+    private static Client active_client;
+
     private String UserName;
     private String FirstName;
     private String LastName;
@@ -37,7 +40,12 @@ public class Client implements Serializable {
         Product_count = product_count;
     }
 
-    public Client() {
+    public static Client getActive_client() {
+        return active_client;
+    }
+
+    public static void setActive_client(Client active_client) {
+        Client.active_client = active_client;
     }
 
     public String getUserName() {
