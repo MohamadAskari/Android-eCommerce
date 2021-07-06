@@ -431,4 +431,15 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public boolean isProductInFavorites(Product product, String username){
         return product.getFavoriteAddedUsers().contains(username);
     }
+
+    public List<Product> getAddedToFavoritesProducts(String username){
+
+        List<Product> addedToFavoritesProducts = new ArrayList<>();
+
+        for(Product product : getAllProducts())
+            if(isProductInFavorites(product, username))
+                addedToFavoritesProducts.add(product);
+
+        return addedToFavoritesProducts;
+    }
 }

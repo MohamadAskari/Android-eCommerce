@@ -37,14 +37,11 @@ public class InCategoryProductsFragment extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerViewAdapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
-    private Client ActiveClient;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_in_category_products, container, false);
-
-        //ActiveClient = ((HomeActivity)getActivity()).getActiveClient();
 
         dataBaseHelper = new DataBaseHelper(getActivity());
         category = ((InCategoryProductsActivity)getActivity()).getSelectedCategory();
@@ -69,6 +66,7 @@ public class InCategoryProductsFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
+        inCategoryProductList = CategoryUtils.getAllCategoryProducts(category, dataBaseHelper);
 
         filter_btn = view.findViewById(R.id.filter_btn);
         filter_btn.setOnClickListener(new View.OnClickListener() {
@@ -97,7 +95,6 @@ public class InCategoryProductsFragment extends Fragment {
 
     @Override
     public void onResume() {
-
         inCategoryProductList = CategoryUtils.getAllCategoryProducts(category, dataBaseHelper);
         mAdapter = new RecyclerViewAdapter(inCategoryProductList, getActivity());
         recyclerView.setAdapter(mAdapter);
