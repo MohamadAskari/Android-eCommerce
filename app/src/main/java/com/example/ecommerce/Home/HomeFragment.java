@@ -13,6 +13,7 @@ import com.denzcoskun.imageslider.constants.ScaleTypes;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -123,18 +124,23 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        dataBaseHelper = new DataBaseHelper(getActivity());
-        productList = dataBaseHelper.getAllProducts();
-
         recyclerView = view.findViewById(R.id.lv_productList);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-        mAdapter = new RecyclerViewAdapter(productList, getActivity());
-        recyclerView.setAdapter(mAdapter);
-
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+
+        dataBaseHelper = new DataBaseHelper(getActivity());
+        productList = dataBaseHelper.getAllProducts();
+
+        mAdapter = new RecyclerViewAdapter(productList, getActivity());
+        recyclerView.setAdapter(mAdapter);
+        super.onResume();
     }
 
     private void setImageSlider(ImageSlider imageSlider) {

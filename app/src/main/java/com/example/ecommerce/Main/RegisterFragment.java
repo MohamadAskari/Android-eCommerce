@@ -75,14 +75,12 @@ public class RegisterFragment extends Fragment {
             if(!UsernameExists){
                 boolean succeed = dataBaseHelper.addClient(newClient);
                 if(succeed) {
-                    Toast.makeText(getActivity(), "Sign in was successful, Welcome " + newClient.getUserName(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "Sign in was successful, Welcome " + newClient.getFirstName(), Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(getActivity(), HomeActivity.class);
 
-//                    intent.putExtra("Active Username", username);
-//                    intent.putExtra("Is Seller", newClient.isSeller());
-
-                    //pass the active user
-                    intent.putExtra("Active User", newClient);
+                    // pass the active user
+                    // intent.putExtra("Active User", newClient);
+                    Client.setActive_client(newClient);
                     startActivity(intent);
                 }
                 else
