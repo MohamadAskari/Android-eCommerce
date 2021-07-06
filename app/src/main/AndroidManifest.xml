@@ -19,9 +19,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ECommerce">
-        <activity android:name=".Main.SplashActivity">
+        <activity android:name=".Bridge.BridgeActivity"></activity>
+        <activity android:name=".Splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

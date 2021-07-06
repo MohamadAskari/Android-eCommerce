@@ -49,4 +49,8 @@
         <item>10</item>
     </string-array>
 
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="skip">Skip</string>
+
 </resources>

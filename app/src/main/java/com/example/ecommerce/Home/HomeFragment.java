@@ -64,7 +64,8 @@ public class HomeFragment extends Fragment {
         imageSlider = view.findViewById(R.id.image_slider);
         setImageSlider(imageSlider);
 
-        ActiveClient = ((HomeActivity)getActivity()).getActiveClient();
+//        ActiveClient = ((HomeActivity)getActivity()).getActiveClient();
+        ActiveClient = Client.getActive_client();
 
         search_bar = view.findViewById(R.id.search_bar_main);
         search_bar.addTextChangedListener(new TextWatcher() {

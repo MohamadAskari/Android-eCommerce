@@ -11,6 +11,8 @@ import androidx.annotation.Nullable;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.w3c.dom.Text;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -29,6 +31,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String CLIENT_TABLE = "CLIENT_TABLE";
     public static final String CLIENT_LOGINCOUNT = "CLIENT_LOGINCOUNT";
     public static final String SELLER_PRODUCT_COUNT = "SELLER_PRODUCT_COUNT";
+    public static final String CLIENT_PIC = "CLIENT_PIC";
 
     // admin
     public static final String ADMIN_USERNAME = "ADMIN_USERNAME";
@@ -62,7 +65,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     //creating the table
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String onCreateTableString_Users = "CREATE TABLE " + CLIENT_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + CLIENT_USERNAME + " TEXT , " + CLIENT_FIRSTNAME + " TEXT, " + CLIENT_LASTNAME + " TEXT, " + CLIENT_EMAIL + " TEXT, " + CLIENT_PHONENUMBER + " TEXT, " + CLIENT_PASSWORD + " TEXT, " + IS_SELLER + " BOOLEAN, " + CLIENT_LOGINCOUNT + " TEXT, " + SELLER_PRODUCT_COUNT + " TEXT ) ";
+        String onCreateTableString_Users = "CREATE TABLE " + CLIENT_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + CLIENT_USERNAME + " TEXT , " + CLIENT_FIRSTNAME + " TEXT, " + CLIENT_LASTNAME + " TEXT, " + CLIENT_EMAIL + " TEXT, " + CLIENT_PHONENUMBER + " TEXT, " + CLIENT_PASSWORD + " TEXT, " + IS_SELLER + " BOOLEAN, " + CLIENT_LOGINCOUNT + " TEXT, " + SELLER_PRODUCT_COUNT + " TEXT, " + CLIENT_PIC + " TEXT ) ";
         String onCreateTableString_Admins = "CREATE TABLE " + ADMIN_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + ADMIN_USERNAME + " TEXT , " + ADMIN_PASSWORD + " TEXT ) ";
         String onCreateTableString_Products = "CREATE TABLE " + PRODUCTS_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_ID + " TEXT , " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_CATEGORY + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT , " + PRODUCT_PIC + " TEXT , " + PRODUCT_ADDED_FAVORITE_USERS + " TEXT ) ";
         String onCreateTableString_Electronics = "CREATE TABLE " + ELECTRONIC_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_ID + " TEXT , " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT , " + PRODUCT_PIC + " TEXT , " + PRODUCT_ADDED_FAVORITE_USERS + " TEXT ) ";
@@ -164,6 +167,14 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         CV.put(SELLER_PRODUCT_COUNT, newCount);
         long updated =  DB.update(CLIENT_TABLE, CV, CLIENT_USERNAME + " = ?" , new String[] {client.getUserName()});
         return updated != -1;
+    }
+
+    public boolean setProfilePic(Client client){
+        SQLiteDatabase DB = this.getWritableDatabase();
+        ContentValues CV = new ContentValues();
+        CV.put(CLIENT_PIC, client.getImagePath());
+        long set = DB.update(CLIENT_TABLE, CV, CLIENT_USERNAME + " = ?" , new String[] {client.getUserName()});
+        return set != -1;
     }
 
     public List<Client> getEveryClient(){

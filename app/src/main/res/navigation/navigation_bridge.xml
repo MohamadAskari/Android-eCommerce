@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_bridge"
+    app:startDestination="@layout/fragment_set_profile_pic" >
+
+    <fragment
+        android:id="@+id/setProfilePicFragment"
+        android:name="com.example.ecommerce.Bridge.SetProfilePicFragment"
+        android:label="fragment_set_profile_pic"
+        tools:layout="@layout/fragment_set_profile_pic" >
+        <action
+            android:id="@+id/action_setProfilePicFragment_to_explanationFragment"
+            app:destination="@id/explanationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/explanationFragment"
+        android:name="com.example.ecommerce.Bridge.ExplanationFragment"
+        android:label="fragment_explanation"
+        tools:layout="@layout/fragment_explanation" >
+        <action
+            android:id="@+id/action_explanationFragment_to_setProfilePicFragment"
+            app:destination="@id/setProfilePicFragment" />
+        <action
+            android:id="@+id/action_explanationFragment_to_setInterestsFragment"
+            app:destination="@id/setInterestsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/setInterestsFragment"
+        android:name="com.example.ecommerce.Bridge.SetInterestsFragment"
+        android:label="fragment_set_interests"
+        tools:layout="@layout/fragment_set_interests" >
+        <action
+            android:id="@+id/action_setInterestsFragment_to_explanationFragment"
+            app:destination="@id/explanationFragment" />
+    </fragment>
+</navigation>

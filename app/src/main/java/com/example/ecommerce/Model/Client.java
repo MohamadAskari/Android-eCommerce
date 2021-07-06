@@ -1,5 +1,7 @@
 package com.example.ecommerce.Model;
 
+import android.net.Uri;
+
 import java.io.Serializable;
 
 public class Client implements Serializable {
@@ -15,6 +17,7 @@ public class Client implements Serializable {
     private boolean IsSeller;
     private int Login_count;
     private int Product_count;
+    private Uri ImageUrl;
 
     public Client(String userName, String firstName, String lastName, String email, String phoneNumber, String password, boolean is_Seller) {
         UserName = userName;
@@ -119,4 +122,15 @@ public class Client implements Serializable {
     public void setProduct_count(int product_count) {
         Product_count = product_count;
     }
+
+    public Uri getImageUrl() { return ImageUrl; }
+
+    public String getImagePath(){
+        return ImageUrl.toString();
+    }
+
+    public void setImageUrl(Uri imageUrl) {
+        ImageUrl = imageUrl;
+    }
+
 }

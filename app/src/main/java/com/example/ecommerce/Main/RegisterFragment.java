@@ -14,6 +14,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.ecommerce.Bridge.BridgeActivity;
 import com.example.ecommerce.Home.HomeActivity;
 import com.example.ecommerce.Model.Admin;
 import com.example.ecommerce.Model.Client;
@@ -76,7 +77,7 @@ public class RegisterFragment extends Fragment {
                 boolean succeed = dataBaseHelper.addClient(newClient);
                 if(succeed) {
                     Toast.makeText(getActivity(), "Sign in was successful, Welcome " + newClient.getFirstName(), Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(getActivity(), HomeActivity.class);
+                    Intent intent = new Intent(getActivity(), BridgeActivity.class);
 
                     // pass the active user
                     // intent.putExtra("Active User", newClient);

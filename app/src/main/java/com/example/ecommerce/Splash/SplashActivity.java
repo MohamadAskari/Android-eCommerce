@@ -1,4 +1,4 @@
-package com.example.ecommerce.Main;
+package com.example.ecommerce.Splash;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.WindowManager;
 
+import com.example.ecommerce.Main.MainActivity;
 import com.example.ecommerce.R;
 
 public class SplashActivity extends AppCompatActivity {
