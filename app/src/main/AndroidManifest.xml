@@ -19,17 +19,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ECommerce">
-        <activity android:name=".InCategory.InCategoryProductsActivity"></activity>
-        <activity android:name=".Home.HomeActivity" />
-        <activity android:name=".ViewProduct.ViewProductActivity" />
-        <activity android:name=".Spinner.SpinnerOptionsActivity" />
-        <activity android:name=".Main.MainActivity">
+        <activity android:name=".Main.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".InCategory.InCategoryProductsActivity" />
+        <activity android:name=".Home.HomeActivity" />
+        <activity android:name=".ViewProduct.ViewProductActivity" />
+        <activity android:name=".Spinner.SpinnerOptionsActivity" />
+        <activity android:name=".Main.MainActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

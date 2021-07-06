@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,6 +22,7 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.GridLayout;
 import android.widget.ListAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -48,7 +50,7 @@ public class HomeFragment extends Fragment {
     DataBaseHelper dataBaseHelper;
     private RecyclerView recyclerView;
     private RecyclerViewAdapter mAdapter;
-    private RecyclerView.LayoutManager layoutManager;
+//    private RecyclerView.LayoutManager layoutManager;
     private AlertDialog.Builder builder;
     private Client ActiveClient;
 
@@ -126,8 +128,9 @@ public class HomeFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.lv_productList);
         recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(layoutManager);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false);
+//        layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(gridLayoutManager);
 
         return view;
     }
