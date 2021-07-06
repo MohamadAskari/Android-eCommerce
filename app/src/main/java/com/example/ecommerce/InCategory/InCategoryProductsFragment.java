@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,20 +22,19 @@ import com.example.ecommerce.Model.RecyclerViewAdapter;
 import com.example.ecommerce.R;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 
 public class InCategoryProductsFragment extends Fragment {
 
-    private List<Product> inCategoryProduct;
+    private List<Product> inCategoryProductList;
     private String category;
     private EditText search_bar_in_category;
     private TextView tv_selected_category;
     private ImageView back_btn, filter_btn;
     DataBaseHelper dataBaseHelper;
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private RecyclerViewAdapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private Client ActiveClient;
 
@@ -47,14 +48,28 @@ public class InCategoryProductsFragment extends Fragment {
         dataBaseHelper = new DataBaseHelper(getActivity());
         category = ((InCategoryProductsActivity)getActivity()).getSelectedCategory();
 
+        search_bar_in_category = view.findViewById(R.id.search_bar_in_category);
+        search_bar_in_category.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                filter(s.toString());
+            }
+        });
+
         tv_selected_category = view.findViewById(R.id.tv_selected_category);
         tv_selected_category.setText(((InCategoryProductsActivity)getActivity()).getSelectedCategoryTitle());
         recyclerView = view.findViewById(R.id.lv_productList_in_category);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-        inCategoryProduct = CategoryUtils.getAllCategoryProducts(category, dataBaseHelper);
-        mAdapter = new RecyclerViewAdapter(inCategoryProduct, getActivity());
+        inCategoryProductList = CategoryUtils.getAllCategoryProducts(category, dataBaseHelper);
+        mAdapter = new RecyclerViewAdapter(inCategoryProductList, getActivity());
         recyclerView.setAdapter(mAdapter);
 
         filter_btn = view.findViewById(R.id.filter_btn);
@@ -66,7 +81,7 @@ public class InCategoryProductsFragment extends Fragment {
 
             }
         });
-        if(inCategoryProduct.isEmpty())
+        if(inCategoryProductList.isEmpty())
             filter_btn.setVisibility(View.GONE);
         else
             filter_btn.setVisibility(View.VISIBLE);
@@ -81,4 +96,17 @@ public class InCategoryProductsFragment extends Fragment {
 
         return view;
     }
+
+    private void filter(String text){
+        ArrayList<Product> filteredList = new ArrayList<>();
+
+        for (Product item : inCategoryProductList) {
+            if (item.getName().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(item);
+            }
+        }
+
+        mAdapter.filterList(filteredList);
+    }
+
 }
