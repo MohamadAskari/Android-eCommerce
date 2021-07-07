@@ -21,7 +21,9 @@ public class InCategoryProductsActivity extends AppCompatActivity {
 
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-        ActiveClient = (Client) getIntent().getSerializableExtra("Active User");
+//        ActiveClient = (Client) getIntent().getSerializableExtra("Active User");
+
+        ActiveClient = Client.getActive_client();
 
         selected_category = (String) getIntent().getSerializableExtra("Category");
 
@@ -29,16 +31,16 @@ public class InCategoryProductsActivity extends AppCompatActivity {
     }
 
     private void setCurrentFragment(Fragment fragment, Client client){
-        Bundle bundle = sendData(client);
-        fragment.setArguments(bundle);
+//        Bundle bundle = sendData(client);
+//        fragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().replace(R.id.in_category_fragment_container, fragment).commit();
     }
 
-    private Bundle sendData(Client client) {
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("Active User", client);
-        return bundle;
-    }
+//    private Bundle sendData(Client client) {
+//        Bundle bundle = new Bundle();
+////        bundle.putSerializable("Active User", client);
+//        return bundle;
+//    }
 
     public String getSelectedCategory(){
         return selected_category;

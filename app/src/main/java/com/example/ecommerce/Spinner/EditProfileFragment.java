@@ -52,7 +52,7 @@ public class EditProfileFragment extends Fragment {
         dataBaseHelper = new DataBaseHelper(getActivity());
         AllClients = dataBaseHelper.getEveryClient();
 
-        Client ActiveClient = (Client) this.getArguments().getSerializable("Active User");
+        Client ActiveClient = Client.getActive_client();
 
         firstName_et.setText(ActiveClient.getFirstName());
         lastName_et.setText(ActiveClient.getLastName());
@@ -66,7 +66,7 @@ public class EditProfileFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), HomeActivity.class);
                 intent.putExtra("Active Username", ActiveClient.getUserName());
                 intent.putExtra("Is Seller", ActiveClient.isSeller());
-                intent.putExtra("Active User", ActiveClient);
+//                intent.putExtra("Active User", ActiveClient);
                 startActivity(intent);
 
             }
@@ -106,7 +106,8 @@ public class EditProfileFragment extends Fragment {
                         Intent intent = new Intent(getActivity(), HomeActivity.class);
                         Client UpdatedClient = dataBaseHelper.getClientByUsername(username);
                         Toast.makeText(getActivity(), UpdatedClient.getUserName(), Toast.LENGTH_SHORT).show();
-                        intent.putExtra("Active User", UpdatedClient);
+//                        intent.putExtra("Active User", UpdatedClient);
+                        Client.setActive_client(UpdatedClient);
                         startActivity(intent);
                     }
                 }

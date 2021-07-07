@@ -66,7 +66,9 @@ public class AddProductFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_product, container, false);
 
-        ActiveClient = ((HomeActivity)getActivity()).getActiveClient();
+//        ActiveClient = ((HomeActivity)getActivity()).getActiveClient();
+
+        ActiveClient = Client.getActive_client();
 
         parent_spinner = view.findViewById(R.id.parent_spinner);
         child_spinner = view.findViewById(R.id.child_spinner);

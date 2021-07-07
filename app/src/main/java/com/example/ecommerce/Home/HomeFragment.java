@@ -67,6 +67,9 @@ public class HomeFragment extends Fragment {
 //        ActiveClient = ((HomeActivity)getActivity()).getActiveClient();
         ActiveClient = Client.getActive_client();
 
+        dataBaseHelper = new DataBaseHelper(getActivity());
+        productList = dataBaseHelper.getAllProducts();
+
         search_bar = view.findViewById(R.id.search_bar_main);
         search_bar.addTextChangedListener(new TextWatcher() {
             @Override
@@ -116,7 +119,7 @@ public class HomeFragment extends Fragment {
                 else if(!item.equals("Select")) {
                     Intent intent = new Intent(getActivity(), SpinnerOptionsActivity.class);
                     intent.putExtra("Selected Item", item);
-                    intent.putExtra("Active User", ActiveClient);
+//                    intent.putExtra("Active User", ActiveClient);
                     startActivity(intent);
                 }
             }
@@ -128,6 +131,8 @@ public class HomeFragment extends Fragment {
         });
 
         recyclerView = view.findViewById(R.id.lv_productList);
+        mAdapter = new RecyclerViewAdapter(productList, getActivity());
+        recyclerView.setAdapter(mAdapter);
         recyclerView.setHasFixedSize(true);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false);
 //        layoutManager = new LinearLayoutManager(getActivity());
@@ -156,15 +161,15 @@ public class HomeFragment extends Fragment {
     }
 
     private void filter(String text){
+
         ArrayList<Product> filteredList = new ArrayList<>();
 
-        for (Product item : productList) {
-            if (item.getName().toLowerCase().contains(text.toLowerCase())) {
-                filteredList.add(item);
+            for (Product item : productList) {
+                if (item.getName().toLowerCase().contains(text.toLowerCase())) {
+                    filteredList.add(item);
+                }
             }
-        }
+            mAdapter.filterList(filteredList);
 
-        mAdapter.filterList(filteredList);
     }
-
 }

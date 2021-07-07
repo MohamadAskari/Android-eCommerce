@@ -73,16 +73,16 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void setCurrentFragment(Fragment fragment, Client client){
-        Bundle bundle = sendData(client);
-        fragment.setArguments(bundle);
+//        Bundle bundle = sendData(client);
+//        fragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
     }
 
-    private Bundle sendData(Client client) {
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("Active User", client);
-        return bundle;
-    }
+//    private Bundle sendData(Client client) {
+//        Bundle bundle = new Bundle();
+//        bundle.putSerializable("Active User", client);
+//        return bundle;
+//    }
 
     @Override
     public void onBackPressed() {

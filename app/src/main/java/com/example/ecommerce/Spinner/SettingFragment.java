@@ -37,7 +37,7 @@ public class SettingFragment extends Fragment {
         removeFavs_tv = view.findViewById(R.id.remove_favs_tv);
         contactUs_tv = view.findViewById(R.id.contact_us_tv);
         FAQ_tv = view.findViewById(R.id.FAQS_tv);
-        Client ActiveClient = (Client) this.getArguments().getSerializable("Active User");
+        Client ActiveClient = Client.getActive_client();
 
         back_btn_image_view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,7 +45,7 @@ public class SettingFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), HomeActivity.class);
                 intent.putExtra("Active Username", ActiveClient.getUserName());
                 intent.putExtra("Is Seller", ActiveClient.isSeller());
-                intent.putExtra("Active User", ActiveClient);
+//                intent.putExtra("Active User", ActiveClient);
                 startActivity(intent);
             }
         });

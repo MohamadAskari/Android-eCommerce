@@ -20,7 +20,7 @@ public class SpinnerOptionsActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
 
-        Client ActiveClient = (Client) getIntent().getSerializableExtra("Active User");
+        Client ActiveClient = Client.getActive_client();
 
         if (bundle != null)
             item = bundle.getString("Selected Item");
@@ -28,22 +28,22 @@ public class SpinnerOptionsActivity extends AppCompatActivity {
         switch (item){
             case "Edit your profile":{
                 Fragment fragment = new EditProfileFragment();
-                Bundle data = sendData(ActiveClient);
-                fragment.setArguments(data);
+//                Bundle data = sendData(ActiveClient);
+//                fragment.setArguments(data);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_spinner, fragment).commit();
                 break;
             }
             case "Manage your products":{
                 Fragment fragment = new ManageProductFragment();
-                Bundle data = sendData(ActiveClient);
-                fragment.setArguments(data);
+//                Bundle data = sendData(ActiveClient);
+//                fragment.setArguments(data);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_spinner, fragment).commit();
                 break;
             }
             case "Setting":{
                 Fragment fragment = new SettingFragment();
-                Bundle data = sendData(ActiveClient);
-                fragment.setArguments(data);
+//                Bundle data = sendData(ActiveClient);
+//                fragment.setArguments(data);
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_spinner, fragment).commit();
                 break;
             }
@@ -51,11 +51,11 @@ public class SpinnerOptionsActivity extends AppCompatActivity {
 
     }
 
-    private Bundle sendData(Client client) {
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("Active User", client);
-        return bundle;
-    }
+//    private Bundle sendData(Client client) {
+//        Bundle bundle = new Bundle();
+//        bundle.putSerializable("Active User", client);
+//        return bundle;
+//    }
 
     public void onBackPressed() {
 
