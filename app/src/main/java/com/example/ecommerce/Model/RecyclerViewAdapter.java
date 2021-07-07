@@ -13,6 +13,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.ecommerce.InCategory.CategoryUtils;
 import com.example.ecommerce.R;
 import com.example.ecommerce.ViewProduct.ViewProductActivity;
 
@@ -36,10 +37,25 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.horizontal_product_view, parent, false);
-        MyViewHolder holder = new MyViewHolder(view);
+        View view;
 
-        return holder;
+        if (viewType == 0){
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.home_product_view, parent, false);
+        }
+        else {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.in_category_product_view, parent, false);
+        }
+
+        return new MyViewHolder(view);
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+
+        if(!CategoryUtils.isIsInCategoryFragment()){
+            return 0;
+        }
+        return 1;
     }
 
     @Override
