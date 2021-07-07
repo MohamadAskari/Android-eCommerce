@@ -43,6 +43,8 @@ public class InCategoryProductsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_in_category_products, container, false);
 
+        CategoryUtils.setIsInCategoryFragment(true);
+
         dataBaseHelper = new DataBaseHelper(getActivity());
         category = ((InCategoryProductsActivity)getActivity()).getSelectedCategory();
 
@@ -87,6 +89,7 @@ public class InCategoryProductsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 getActivity().finish();
+                CategoryUtils.setIsInCategoryFragment(false);
             }
         });
 
