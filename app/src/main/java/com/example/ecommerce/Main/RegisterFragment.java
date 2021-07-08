@@ -66,6 +66,9 @@ public class RegisterFragment extends Fragment {
                 TextUtils.isEmpty(email) || TextUtils.isEmpty(phonenumber) || TextUtils.isEmpty(pass) || TextUtils.isEmpty(confirmpass)){
             Toast.makeText(getActivity(), "Please fill out all required fields", Toast.LENGTH_LONG).show();
         }
+        else if (!isEmailValid(email)){
+            Toast.makeText(getActivity(), "Please enter a valid email", Toast.LENGTH_LONG).show();
+        }
         else if(!pass.equals(confirmpass)){
             Toast.makeText(getActivity(), "Your password and confirmation password do not match", Toast.LENGTH_LONG).show();
         }
@@ -104,5 +107,9 @@ public class RegisterFragment extends Fragment {
                 return true;
         }
         return false;
+    }
+
+    private boolean isEmailValid(CharSequence email) {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 }

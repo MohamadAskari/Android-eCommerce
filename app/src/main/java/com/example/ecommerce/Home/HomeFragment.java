@@ -29,6 +29,7 @@ import android.widget.TextView;
 
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.models.SlideModel;
+import com.example.ecommerce.InCategory.CategoryUtils;
 import com.example.ecommerce.Main.MainActivity;
 import com.example.ecommerce.Model.Client;
 import com.example.ecommerce.Model.DataBaseHelper;
@@ -58,6 +59,8 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        CategoryUtils.setIsInHomeFragment(true);
 
 //        active_username = ((HomeActivity)getActivity()).getActiveUsername();
 

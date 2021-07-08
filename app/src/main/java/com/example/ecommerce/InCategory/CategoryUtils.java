@@ -13,7 +13,7 @@ public class CategoryUtils {
 
     private static List<Product> allProductsList;
     private static List<Product> filteredProducts = new LinkedList<>();
-    private static boolean isInCategoryFragment;
+    private static boolean isInHomeFragment = true;
 
     private CategoryUtils() {
         throw new RuntimeException("Nope!");
@@ -136,11 +136,11 @@ public class CategoryUtils {
         return null;
     }
 
-    public static boolean isIsInCategoryFragment() {
-        return isInCategoryFragment;
+    public static boolean isIsInHomeFragment() {
+        return isInHomeFragment;
     }
 
-    public static void setIsInCategoryFragment(boolean isInCategoryFragment) {
-        CategoryUtils.isInCategoryFragment = isInCategoryFragment;
+    public static void setIsInHomeFragment(boolean isInHomeFragment) {
+        CategoryUtils.isInHomeFragment = isInHomeFragment;
     }
 }
