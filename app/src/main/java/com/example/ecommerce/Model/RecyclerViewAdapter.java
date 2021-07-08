@@ -52,7 +52,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public int getItemViewType(int position) {
 
-        if(!CategoryUtils.isIsInCategoryFragment()){
+        if(CategoryUtils.isIsInHomeFragment()){
             return 0;
         }
         return 1;

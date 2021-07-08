@@ -59,6 +59,13 @@ public class EditProfileFragment extends Fragment {
         username_et.setText(ActiveClient.getUserName());
         email_et.setText(ActiveClient.getEmail());
         phone_et.setText(ActiveClient.getPhoneNumber());
+        phone_et.setFocusable(false);
+        phone_et.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(), "Your phone number cannot be changed", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         back_btn_image_view.setOnClickListener(new View.OnClickListener() {
             @Override

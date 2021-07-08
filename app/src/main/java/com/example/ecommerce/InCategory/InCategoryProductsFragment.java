@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.ecommerce.Model.Client;
 import com.example.ecommerce.Model.DataBaseHelper;
 import com.example.ecommerce.Model.Product;
 import com.example.ecommerce.Model.RecyclerViewAdapter;
@@ -42,8 +40,6 @@ public class InCategoryProductsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_in_category_products, container, false);
-
-        CategoryUtils.setIsInCategoryFragment(true);
 
         dataBaseHelper = new DataBaseHelper(getActivity());
         category = ((InCategoryProductsActivity)getActivity()).getSelectedCategory();
@@ -89,7 +85,6 @@ public class InCategoryProductsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 getActivity().finish();
-                CategoryUtils.setIsInCategoryFragment(false);
             }
         });
 
