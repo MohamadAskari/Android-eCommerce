@@ -75,8 +75,10 @@ public class RegisterFragment extends Fragment {
         else {
             Client newClient = new Client(username, firstname, lastname, email, phonenumber, pass, isSeller);
             //check if username already exists
-            boolean UsernameExists = checkIfExists(newClient);
-            if(!UsernameExists){
+            boolean UsernameExists = checkIfUsernameExists(newClient);
+            boolean EmailExists = checkIfEmailExists(newClient);
+            boolean PhonenumberExists = checkIfPhonenumberExists(newClient);
+            if(!UsernameExists && !PhonenumberExists && !EmailExists){
                 boolean succeed = dataBaseHelper.addClient(newClient);
                 if(succeed) {
                     Toast.makeText(getActivity(), "Sign in was successful, Welcome " + newClient.getFirstName(), Toast.LENGTH_LONG).show();
@@ -90,12 +92,18 @@ public class RegisterFragment extends Fragment {
                 else
                     Toast.makeText(getActivity(), "Failed to add", Toast.LENGTH_LONG).show();
             }
-            else
-                Toast.makeText(getActivity(), "This Username is already taken, pick a new one", Toast.LENGTH_LONG).show();
+            else {
+                if(UsernameExists)
+                    Toast.makeText(getActivity(), getResources().getString(R.string.username_taken), Toast.LENGTH_LONG).show();
+                else if(EmailExists)
+                    Toast.makeText(getActivity(), getResources().getString(R.string.email_taken), Toast.LENGTH_LONG).show();
+                else
+                    Toast.makeText(getActivity(), getResources().getString(R.string.phonenumber_taken), Toast.LENGTH_LONG).show();
+            }
         }
     }
 
-    private boolean checkIfExists(Client client){
+    private boolean checkIfUsernameExists(Client client){
         List<Client> clients = dataBaseHelper.getEveryClient();
         List<Admin> admins = dataBaseHelper.getAdmins();
         for(Client c : clients){
@@ -104,6 +112,22 @@ public class RegisterFragment extends Fragment {
         }
         for (Admin a : admins){
             if(a.getUsername().equalsIgnoreCase(client.getUserName()))
+                return true;
+        }
+        return false;
+    }
+    private boolean checkIfPhonenumberExists(Client client){
+        List<Client> clients = dataBaseHelper.getEveryClient();
+        for(Client c : clients){
+            if(c.getPhoneNumber().equalsIgnoreCase(client.getPhoneNumber()))
+                return true;
+        }
+        return false;
+    }
+    private boolean checkIfEmailExists(Client client){
+        List<Client> clients = dataBaseHelper.getEveryClient();
+        for(Client c : clients){
+            if(c.getEmail().equalsIgnoreCase(client.getEmail()))
                 return true;
         }
         return false;

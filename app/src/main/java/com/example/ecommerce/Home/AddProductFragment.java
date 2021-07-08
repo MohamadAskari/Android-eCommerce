@@ -218,14 +218,6 @@ public class AddProductFragment extends Fragment {
     }
 
     private void askCameraPermission() {
-        /*if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(), new String[] {Manifest.permission.CAMERA}, CAMERA_PERM_CODE);
-        }
-        else {
-            dispatchTakePictureIntent();
-        }*/
-
         // Camera and Storage permission on same time
         Log.d("TAG", "VerifyingPermission : Asking for permission ");
 
@@ -333,7 +325,7 @@ public class AddProductFragment extends Fragment {
         String product_description = inputproductdescription.getText().toString();
         String product_category = parent_spinner.getSelectedItem().toString();
         String product_subCategory = child_spinner.getSelectedItem().toString();
-        String product_seller = ActiveClient.getUserName();
+        String product_seller = ActiveClient.getPhoneNumber();
 
         if(TextUtils.isEmpty(product_name) || TextUtils.isEmpty(product_price)){
             Toast.makeText(getActivity(), "Please fill out all required fields", Toast.LENGTH_LONG).show();
@@ -350,7 +342,7 @@ public class AddProductFragment extends Fragment {
             boolean succeed = dataBaseHelper.addProduct(product);
 
             if(succeed) {
-                Client client = dataBaseHelper.getClientByUsername(product_seller);
+                Client client = dataBaseHelper.getClientByPhonenumber(product_seller);
                 int product_count = client.getProduct_count() + 1;
                 boolean updatedProductCount = dataBaseHelper.updateProductCount(client, String.valueOf(product_count));
                 if (updatedProductCount) {

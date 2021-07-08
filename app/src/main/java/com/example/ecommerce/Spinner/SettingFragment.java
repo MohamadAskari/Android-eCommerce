@@ -63,7 +63,7 @@ public class SettingFragment extends Fragment {
         removeFavs_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                // To Do
             }
         });
 

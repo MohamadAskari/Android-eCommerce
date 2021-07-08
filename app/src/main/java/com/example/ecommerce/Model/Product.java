@@ -16,23 +16,23 @@ public class Product implements Parcelable {
     private String Description;
     private String Category;
     private String SubCategory;
-    private String SellerUsername;
-    private ArrayList<String> FavoriteAddedUsers;
+    private String SellerPhonenumber;
+    private ArrayList<String> FavoriteAddedUsersPhonenumber;
     private Uri ImageUrl;
 
-    public Product(String name, String price, String description, String category, String subCategory, String sellerUsername) {
+    public Product(String name, String price, String description, String category, String subCategory, String sellerPhonenumber) {
         Id = String.valueOf(name.hashCode());
         Name = name;
         Price = price;
         Description = description;
         Category = category;
         SubCategory = subCategory;
-        SellerUsername = sellerUsername;
-        FavoriteAddedUsers = new ArrayList<String>();
+        SellerPhonenumber = sellerPhonenumber;
+        FavoriteAddedUsersPhonenumber = new ArrayList<String>();
     }
 
     // with image path
-    public Product(String imageUrl, String name, String price, String description, String category, String subCategory, String sellerUsername) {
+    public Product(String imageUrl, String name, String price, String description, String category, String subCategory, String sellerPhonenumber) {
         Id = String.valueOf(name.hashCode());
         ImageUrl = Uri.parse(imageUrl);
         Name = name;
@@ -40,12 +40,12 @@ public class Product implements Parcelable {
         Description = description;
         Category = category;
         SubCategory = subCategory;
-        SellerUsername = sellerUsername;
-        FavoriteAddedUsers = new ArrayList<String>();
+        SellerPhonenumber = sellerPhonenumber;
+        FavoriteAddedUsersPhonenumber = new ArrayList<String>();
     }
 
     // with image Url
-    public Product(Uri imageUrl, String name, String price, String description, String category, String subCategory, String sellerUsername) {
+    public Product(Uri imageUrl, String name, String price, String description, String category, String subCategory, String sellerPhonenumber) {
         Id = String.valueOf(name.hashCode());
         ImageUrl = imageUrl;
         Name = name;
@@ -53,25 +53,25 @@ public class Product implements Parcelable {
         Description = description;
         Category = category;
         SubCategory = subCategory;
-        SellerUsername = sellerUsername;
-        FavoriteAddedUsers = new ArrayList<String>();
+        SellerPhonenumber = sellerPhonenumber;
+        FavoriteAddedUsersPhonenumber = new ArrayList<String>();
     }
 
 
 
     ////// retrieving product form database
-    public Product(int id, String name, String price, String description, String category, String subCategory, String sellerUsername, ArrayList<String> favoriteAddedUsers) {
+    public Product(int id, String name, String price, String description, String category, String subCategory, String sellerPhonenumber, ArrayList<String> favoriteAddedUsersPhonenumber) {
         Id = String.valueOf(id);
         Name = name;
         Price = price;
         Description = description;
         Category = category;
         SubCategory = subCategory;
-        SellerUsername = sellerUsername;
-        FavoriteAddedUsers = favoriteAddedUsers;
+        SellerPhonenumber = sellerPhonenumber;
+        FavoriteAddedUsersPhonenumber = favoriteAddedUsersPhonenumber;
     }
     // with image path
-    public Product(int id, String imageUrl, String name, String price, String description, String category, String subCategory, String sellerUsername, ArrayList<String> favoriteAddedUsers) {
+    public Product(int id, String imageUrl, String name, String price, String description, String category, String subCategory, String sellerPhonenumber, ArrayList<String> favoriteAddedUsersPhonenumber) {
         this.Id = String.valueOf(id);
         ImageUrl = Uri.parse(imageUrl);
         Name = name;
@@ -79,11 +79,11 @@ public class Product implements Parcelable {
         Description = description;
         Category = category;
         SubCategory = subCategory;
-        SellerUsername = sellerUsername;
-        FavoriteAddedUsers = favoriteAddedUsers;
+        SellerPhonenumber = sellerPhonenumber;
+        FavoriteAddedUsersPhonenumber = favoriteAddedUsersPhonenumber;
     }
     // with image Url
-    public Product(int id, Uri imageUrl, String name, String price, String description, String category, String subCategory, String sellerUsername, ArrayList<String> favoriteAddedUsers) {
+    public Product(int id, Uri imageUrl, String name, String price, String description, String category, String subCategory, String sellerPhonenumber, ArrayList<String> favoriteAddedUsersPhonenumber) {
         Id = String.valueOf(id);
         ImageUrl = imageUrl;
         Name = name;
@@ -91,8 +91,8 @@ public class Product implements Parcelable {
         Description = description;
         Category = category;
         SubCategory = subCategory;
-        SellerUsername = sellerUsername;
-        FavoriteAddedUsers = favoriteAddedUsers;
+        SellerPhonenumber = sellerPhonenumber;
+        FavoriteAddedUsersPhonenumber = favoriteAddedUsersPhonenumber;
     }
     //////
 
@@ -105,8 +105,8 @@ public class Product implements Parcelable {
         Description = in.readString();
         Category = in.readString();
         SubCategory = in.readString();
-        SellerUsername = in.readString();
-        FavoriteAddedUsers = in.createStringArrayList();
+        SellerPhonenumber = in.readString();
+        FavoriteAddedUsersPhonenumber = in.createStringArrayList();
         ImageUrl = in.readParcelable(Uri.class.getClassLoader());
     }
 
@@ -118,8 +118,8 @@ public class Product implements Parcelable {
         dest.writeString(Description);
         dest.writeString(Category);
         dest.writeString(SubCategory);
-        dest.writeString(SellerUsername);
-        dest.writeStringList(FavoriteAddedUsers);
+        dest.writeString(SellerPhonenumber);
+        dest.writeStringList(FavoriteAddedUsersPhonenumber);
         dest.writeParcelable(ImageUrl, flags);
     }
 
@@ -200,23 +200,23 @@ public class Product implements Parcelable {
         SubCategory = subCategory;
     }
 
-    public String getSellerUsername() {
-        return SellerUsername;
+    public String getSellerPhonenumber() {
+        return SellerPhonenumber;
     }
 
-    public void setSellerUsername(String sellerUsername) {
-        SellerUsername = sellerUsername;
+    public void setSellerPhonenumber(String sellerPhonenumber) {
+        SellerPhonenumber = sellerPhonenumber;
     }
 
-    public ArrayList<String> getFavoriteAddedUsers() {
-        return FavoriteAddedUsers;
+    public ArrayList<String> getFavoriteAddedUsersPhonenumber() {
+        return FavoriteAddedUsersPhonenumber;
     }
 
-    public void addToFavoriteAddedUsers(String username) {
-        FavoriteAddedUsers.add(username);
+    public void addToFavoriteAddedUsersPhonenumber(String phonenumber) {
+        FavoriteAddedUsersPhonenumber.add(phonenumber);
     }
 
-    public void removeFromFavoriteAddedUsers(String username) {
-        FavoriteAddedUsers.remove(username);
+    public void removeFromFavoriteAddedUsers(String phonenumber) {
+        FavoriteAddedUsersPhonenumber.remove(phonenumber);
     }
 }

@@ -157,7 +157,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues CV = new ContentValues();
         CV.put(CLIENT_LOGINCOUNT, newCount);
-        long updated =  DB.update(CLIENT_TABLE, CV, CLIENT_USERNAME + " = ?" , new String[] {client.getUserName()});
+        long updated =  DB.update(CLIENT_TABLE, CV, CLIENT_PHONENUMBER + " = ?" , new String[] {client.getPhoneNumber()});
         return updated != -1;
     }
 
@@ -165,7 +165,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues CV = new ContentValues();
         CV.put(SELLER_PRODUCT_COUNT, newCount);
-        long updated =  DB.update(CLIENT_TABLE, CV, CLIENT_USERNAME + " = ?" , new String[] {client.getUserName()});
+        long updated =  DB.update(CLIENT_TABLE, CV, CLIENT_PHONENUMBER + " = ?" , new String[] {client.getPhoneNumber()});
         return updated != -1;
     }
 
@@ -173,7 +173,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues CV = new ContentValues();
         CV.put(CLIENT_PIC, client.getImagePath());
-        long set = DB.update(CLIENT_TABLE, CV, CLIENT_USERNAME + " = ?" , new String[] {client.getUserName()});
+        long set = DB.update(CLIENT_TABLE, CV, CLIENT_PHONENUMBER + " = ?" , new String[] {client.getPhoneNumber()});
         return set != -1;
     }
 
@@ -212,12 +212,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return clients;
     }
 
-    public Client getClientByUsername(String username){
+    public Client getClientByPhonenumber(String phonenumber){
         Client client;
         List<Client> clients = this.getEveryClient();
         for (Client c : clients){
-            if(c.getUserName().equalsIgnoreCase(username)){
-                client = new Client(username, c.getFirstName(), c.getLastName(),
+            if(c.getPhoneNumber().equalsIgnoreCase(phonenumber)){
+                client = new Client(c.getUserName(), c.getFirstName(), c.getLastName(),
                         c.getEmail(), c.getPhoneNumber(), c.getPassword(),
                         c.isSeller(), c.getLogin_count(), c.getProduct_count());
                 return client;
@@ -232,7 +232,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         CV.put(CLIENT_PASSWORD, newPassword);
 
-        long updated = DB.update(CLIENT_TABLE, CV, CLIENT_USERNAME + " = ?" , new String[] {client.getUserName()});
+        long updated = DB.update(CLIENT_TABLE, CV, CLIENT_PHONENUMBER + " = ?" , new String[] {client.getPhoneNumber()});
 
         return updated != -1;
     }
@@ -247,7 +247,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         CV.put(CLIENT_EMAIL, email);
         CV.put(CLIENT_PHONENUMBER, phonenumber);
 
-        long updated = DB.update(CLIENT_TABLE, CV, CLIENT_USERNAME + " = ?" , new String[] {client.getUserName()});
+        long updated = DB.update(CLIENT_TABLE, CV, CLIENT_PHONENUMBER + " = ?" , new String[] {client.getPhoneNumber()});
 
         return updated != -1;
     }
@@ -296,10 +296,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         CV.put(PRODUCT_DESCRIPTION, product.getDescription());
         CV.put(PRODUCT_CATEGORY, product.getCategory());
         CV.put(PRODUCT_SUBCATEGORY, product.getSubCategory());
-        CV.put(PRODUCT_SELLER, product.getSellerUsername());
+        CV.put(PRODUCT_SELLER, product.getSellerPhonenumber());
         CV.put(PRODUCT_PIC, product.getImagePath());
         Gson gson = new Gson();
-        CV.put(PRODUCT_ADDED_FAVORITE_USERS, gson.toJson(product.getFavoriteAddedUsers()));;
+        CV.put(PRODUCT_ADDED_FAVORITE_USERS, gson.toJson(product.getFavoriteAddedUsersPhonenumber()));;
 
         long added = DB.insert(PRODUCTS_TABLE, null, CV);
 
@@ -315,10 +315,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         CV.put(PRODUCT_PRICE, product.getPrice());
         CV.put(PRODUCT_DESCRIPTION, product.getDescription());
         CV.put(PRODUCT_SUBCATEGORY, product.getSubCategory());
-        CV.put(PRODUCT_SELLER, product.getSellerUsername());
+        CV.put(PRODUCT_SELLER, product.getSellerPhonenumber());
         CV.put(PRODUCT_PIC, product.getImagePath());
         Gson gson = new Gson();
-        CV.put(PRODUCT_ADDED_FAVORITE_USERS, gson.toJson(product.getFavoriteAddedUsers()));;
+        CV.put(PRODUCT_ADDED_FAVORITE_USERS, gson.toJson(product.getFavoriteAddedUsersPhonenumber()));;
 
         long added = DB.insert(TableName, null, CV);
 
@@ -393,13 +393,13 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return products;
     }
 
-    public boolean addProductToFavorites(Product product, String username){
+    public boolean addProductToFavorites(Product product, String phonenumber){
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues CV = new ContentValues();
 
         Gson gson = new Gson();
-        product.addToFavoriteAddedUsers(username);
-        String favoriteAddedUsers = gson.toJson(product.getFavoriteAddedUsers());
+        product.addToFavoriteAddedUsersPhonenumber(phonenumber);
+        String favoriteAddedUsers = gson.toJson(product.getFavoriteAddedUsersPhonenumber());
 
         CV.put(PRODUCT_ADDED_FAVORITE_USERS, favoriteAddedUsers);
 
@@ -416,13 +416,13 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 && updated6 != -1 && updated7 != -1 ;
     }
 
-    public boolean removeProductFromFavorites(Product product, String username){
+    public boolean removeProductFromFavorites(Product product, String phonenumber){
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues CV = new ContentValues();
 
         Gson gson = new Gson();
-        product.removeFromFavoriteAddedUsers(username);
-        String favoriteAddedUsers = gson.toJson(product.getFavoriteAddedUsers());
+        product.removeFromFavoriteAddedUsers(phonenumber);
+        String favoriteAddedUsers = gson.toJson(product.getFavoriteAddedUsersPhonenumber());
 
         CV.put(PRODUCT_ADDED_FAVORITE_USERS, favoriteAddedUsers);
 
@@ -439,8 +439,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 && updated6 != -1 && updated7 != -1 ;
     }
 
-    public boolean isProductInFavorites(Product product, String username){
-        return product.getFavoriteAddedUsers().contains(username);
+    public boolean isProductInFavorites(Product product, String phonenumber){
+        return product.getFavoriteAddedUsersPhonenumber().contains(phonenumber);
     }
 
     public List<Product> getAddedToFavoritesProducts(String username){
