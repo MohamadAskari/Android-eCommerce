@@ -22,6 +22,8 @@ import com.example.ecommerce.Model.DataBaseHelper;
 import com.example.ecommerce.Model.Product;
 import com.example.ecommerce.R;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class ViewProductActivity extends AppCompatActivity {
 
     private Client active_client;
@@ -33,7 +35,8 @@ public class ViewProductActivity extends AppCompatActivity {
     private AlertDialog dialog;
     // pop up components
     private TextView seller_username, seller_phonenumber;
-    private ImageView seller_profile_pic, view_seller_info_back_icon;
+    private ImageView view_seller_info_back_icon;
+    private CircleImageView seller_profile_pic;
     DataBaseHelper dataBaseHelper;
 
     @Override
@@ -119,7 +122,7 @@ public class ViewProductActivity extends AppCompatActivity {
         Client seller = dataBaseHelper.getClientByPhonenumber(sellerPhonenumber);
         seller_username.setText(seller.getUserName());
         seller_phonenumber.setText(seller.getPhoneNumber());
-        // seller_profile_pic.setImageOnImageView()
+        seller_profile_pic.setImageURI(active_client.getImageUrl());
 
         dialogBuilder.setView(viewSellerInfo_popupView);
         dialog = dialogBuilder.create();

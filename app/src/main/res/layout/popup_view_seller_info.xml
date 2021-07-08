@@ -35,15 +35,13 @@
             android:text="Seller's Information :"
             android:textSize="25dp" />
 
-        <androidx.appcompat.widget.AppCompatImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/seller_profile_pic"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:layout_marginTop="70dp"
             android:layout_gravity="center_horizontal"
-            android:background="@drawable/bg_buttons4"
-            android:elevation="5dp"
-            android:src="@drawable/no_image"
+            android:src="@drawable/ic_baseline_account_circle_24"
             tools:layout_editor_absoluteX="155dp" />
 
         <TextView

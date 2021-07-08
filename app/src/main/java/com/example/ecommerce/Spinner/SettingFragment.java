@@ -14,10 +14,16 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.ecommerce.Home.HomeActivity;
 import com.example.ecommerce.Model.Client;
+import com.example.ecommerce.Model.DataBaseHelper;
+import com.example.ecommerce.Model.Product;
 import com.example.ecommerce.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SettingFragment extends Fragment {
 
@@ -26,6 +32,8 @@ public class SettingFragment extends Fragment {
     private TextView FAQ_tv, contactUs_tv, removeFavs_tv;
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
+    private DataBaseHelper dataBaseHelper;
+    private List<Product> allFavProducts;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -38,6 +46,8 @@ public class SettingFragment extends Fragment {
         contactUs_tv = view.findViewById(R.id.contact_us_tv);
         FAQ_tv = view.findViewById(R.id.FAQS_tv);
         Client ActiveClient = Client.getActive_client();
+        String clientPhonenumber = ActiveClient.getPhoneNumber();
+        dataBaseHelper = new DataBaseHelper(getActivity());
 
         back_btn_image_view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,7 +73,13 @@ public class SettingFragment extends Fragment {
         removeFavs_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // To Do
+                boolean removed = false;
+                String phonenumber = ActiveClient.getPhoneNumber();
+                allFavProducts = dataBaseHelper.getAddedToFavoritesProducts(phonenumber);
+                for(Product product : allFavProducts)
+                    removed = dataBaseHelper.removeProductFromFavorites(product, phonenumber);
+                if (removed)
+                    Toast.makeText(getActivity(), "Products removed from favorites", Toast.LENGTH_SHORT).show();
             }
         });
 

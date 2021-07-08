@@ -81,7 +81,7 @@ public class SetProfilePicFragment extends Fragment {
         set_pic_gallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent gallery_int = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                Intent gallery_int = new Intent(Intent.ACTION_OPEN_DOCUMENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(gallery_int, GALLERY_REQUEST_CODE);
             }
         });
@@ -97,7 +97,8 @@ public class SetProfilePicFragment extends Fragment {
                         Toast.makeText(getActivity(), "Failed to set photo, try again", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    ActiveClient.setImageUrl(Uri.parse("drawable://" + R.drawable.ic_baseline_account_circle_24));
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_bridge, new ExplanationFragment()).commit();
+                    ActiveClient.setImageUrl(Uri.parse("default"));
                     boolean set = dataBaseHelper.setProfilePic(ActiveClient);
                 }
             }

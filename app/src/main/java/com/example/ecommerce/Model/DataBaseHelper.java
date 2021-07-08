@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.net.Uri;
 
 import androidx.annotation.Nullable;
 
@@ -169,6 +170,17 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return updated != -1;
     }
 
+    public Uri getProfileUri(String phonenumber){
+        Uri uri = null;
+        List<Client> allClients = this.getEveryClient();
+        for(Client client : allClients){
+            if(client.getPhoneNumber().equalsIgnoreCase(phonenumber)){
+                uri = client.getImageUrl();
+            }
+        }
+        return uri;
+    }
+
     public boolean setProfilePic(Client client){
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues CV = new ContentValues();
@@ -199,7 +211,9 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 boolean isSeller = cursor.getInt(7) == 1;
                 String LoginCount = cursor.getString(8);
                 String ProductCount = cursor.getString(9);
+                String ImagePath = cursor.getString(10);
                 Client client = new Client(UserName, FirstName, LastName, Email, PhoneNumber, Password, isSeller, Integer.parseInt(LoginCount), Integer.parseInt(ProductCount));
+                client.setImageUrl(Uri.parse(ImagePath));
                 clients.add(client);
 
             } while (cursor.moveToNext());
@@ -230,6 +244,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues CV = new ContentValues();
 
+        client.setPassword(newPassword);
+
         CV.put(CLIENT_PASSWORD, newPassword);
 
         long updated = DB.update(CLIENT_TABLE, CV, CLIENT_PHONENUMBER + " = ?" , new String[] {client.getPhoneNumber()});
@@ -237,7 +253,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return updated != -1;
     }
 
-    public boolean updateAllValues(Client client, String firstname, String lastname, String username, String email, String phonenumber){
+    public boolean updateAllValues(Client client, String firstname, String lastname, String username, String email, String phonenumber, String ImagePath){
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues CV = new ContentValues();
 
@@ -246,6 +262,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         CV.put(CLIENT_USERNAME, username);
         CV.put(CLIENT_EMAIL, email);
         CV.put(CLIENT_PHONENUMBER, phonenumber);
+        CV.put(CLIENT_PIC, ImagePath);
 
         long updated = DB.update(CLIENT_TABLE, CV, CLIENT_PHONENUMBER + " = ?" , new String[] {client.getPhoneNumber()});
 
@@ -443,12 +460,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return product.getFavoriteAddedUsersPhonenumber().contains(phonenumber);
     }
 
-    public List<Product> getAddedToFavoritesProducts(String username){
+    public List<Product> getAddedToFavoritesProducts(String phonenumber){
 
         List<Product> addedToFavoritesProducts = new ArrayList<>();
 
         for(Product product : getAllProducts())
-            if(isProductInFavorites(product, username))
+            if(isProductInFavorites(product, phonenumber))
                 addedToFavoritesProducts.add(product);
 
         return addedToFavoritesProducts;

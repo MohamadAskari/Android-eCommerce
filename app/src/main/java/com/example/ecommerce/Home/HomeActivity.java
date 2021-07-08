@@ -28,7 +28,9 @@ public class HomeActivity extends AppCompatActivity {
 
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
+        dataBaseHelper = new DataBaseHelper(this);
         ActiveClient = Client.getActive_client();
+        ActiveClient.setImageUrl(dataBaseHelper.getProfileUri(ActiveClient.getPhoneNumber()));
 
         setCurrentFragment(new HomeFragment(), ActiveClient);
 
@@ -41,7 +43,6 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        dataBaseHelper = new DataBaseHelper(this);
         if(!dataBaseHelper.getClientByPhonenumber(ActiveClient.getPhoneNumber()).isSeller())
             fab.hide();
 
