@@ -45,7 +45,7 @@ public class FavoritesFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-        favoriteProductList = dataBaseHelper.getAddedToFavoritesProducts(ActiveClient.getUserName());
+        favoriteProductList = dataBaseHelper.getAddedToFavoritesProducts(ActiveClient.getPhoneNumber());
 
         mAdapter = new RecyclerViewAdapter(favoriteProductList, getActivity());
         recyclerView.setAdapter(mAdapter);
@@ -55,7 +55,7 @@ public class FavoritesFragment extends Fragment {
 
     @Override
     public void onResume() {
-        favoriteProductList = dataBaseHelper.getAddedToFavoritesProducts(ActiveClient.getUserName());
+        favoriteProductList = dataBaseHelper.getAddedToFavoritesProducts(ActiveClient.getPhoneNumber());
         mAdapter = new RecyclerViewAdapter(favoriteProductList, getActivity());
         recyclerView.setAdapter(mAdapter);
         super.onResume();

@@ -76,13 +76,13 @@ public class ViewProductActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
                     toggleButton.setBackgroundDrawable(ContextCompat.getDrawable(ViewProductActivity.this, R.drawable.ic_baseline_favorite_24));
-                    boolean succeed = dataBaseHelper.addProductToFavorites(product, active_client.getUserName());
+                    boolean succeed = dataBaseHelper.addProductToFavorites(product, active_client.getPhoneNumber());
                     if(succeed)
                         Toast.makeText(ViewProductActivity.this, "added successfully", Toast.LENGTH_LONG).show();
                 }
                 else{
                     toggleButton.setBackgroundDrawable(ContextCompat.getDrawable(ViewProductActivity.this, R.drawable.ic_baseline_favorite_border_24));
-                    boolean succeed = dataBaseHelper.removeProductFromFavorites(product, active_client.getUserName());
+                    boolean succeed = dataBaseHelper.removeProductFromFavorites(product, active_client.getPhoneNumber());
                     if(succeed)
                         Toast.makeText(ViewProductActivity.this, "removed successfully", Toast.LENGTH_LONG).show();
                 }
@@ -101,13 +101,13 @@ public class ViewProductActivity extends AppCompatActivity {
         viewSellerInfo_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showSellerInfoDialog(product.getSellerUsername());
+                showSellerInfoDialog(product.getSellerPhonenumber());
             }
         });
 
     }
 
-    public void showSellerInfoDialog(String sellerUsername){
+    public void showSellerInfoDialog(String sellerPhonenumber){
         dialogBuilder = new AlertDialog.Builder(this);
         final View viewSellerInfo_popupView = getLayoutInflater().inflate(R.layout.popup_view_seller_info, null);
 
@@ -116,7 +116,7 @@ public class ViewProductActivity extends AppCompatActivity {
         seller_phonenumber = viewSellerInfo_popupView.findViewById(R.id.seller_phonenumber);
         seller_profile_pic = viewSellerInfo_popupView.findViewById(R.id.seller_profile_pic);
 
-        Client seller = dataBaseHelper.getClientByUsername(sellerUsername);
+        Client seller = dataBaseHelper.getClientByPhonenumber(sellerPhonenumber);
         seller_username.setText(seller.getUserName());
         seller_phonenumber.setText(seller.getPhoneNumber());
         // seller_profile_pic.setImageOnImageView()

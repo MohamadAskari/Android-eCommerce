@@ -4,6 +4,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="username_taken"><font fgcolor='#EA2603'>Username is already taken</font></string>
+    <string name="email_taken"><font fgcolor='#EA2603'>Email is already taken</font></string>
+    <string name="phonenumber_taken"><font fgcolor='#EA2603'>Phonenumber is already taken</font></string>
 
     <string name="forgot_password"><u>Forgot your password?</u></string>
     <string name="electronics">Electronics</string>
@@ -28,7 +30,7 @@
 
     <string name="ContactUs1">Contact us via Email</string>
     <string name="ContactUs2">Mohamad_ask@aut.ac.ir</string>
-    <string name="ContactUs3">Emaile Ali</string>
+    <string name="ContactUs3">Alighasemi1@aut.ac.ir</string>
 
     <string name="confirm_log_out_title">Log out</string>
     <string name="confirm_log_out_message">Are you sure you want to log out?</string>

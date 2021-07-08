@@ -42,7 +42,7 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         dataBaseHelper = new DataBaseHelper(this);
-        if(!dataBaseHelper.getClientByUsername(ActiveClient.getUserName()).isSeller())
+        if(!dataBaseHelper.getClientByPhonenumber(ActiveClient.getPhoneNumber()).isSeller())
             fab.hide();
 
         bottomNav = findViewById(R.id.bottom_nav_bar);
@@ -65,7 +65,7 @@ public class HomeActivity extends AppCompatActivity {
 
                 if (selectedFragment != null) {
                     setCurrentFragment(selectedFragment, ActiveClient);
-                    if(dataBaseHelper.getClientByUsername(ActiveClient.getUserName()).isSeller())
+                    if(dataBaseHelper.getClientByPhonenumber(ActiveClient.getPhoneNumber()).isSeller())
                         fab.show();
                 }
             }

@@ -111,7 +111,7 @@ public class EditProfileFragment extends Fragment {
                     if (updated){
                         Toast.makeText(getActivity(), "Applied changes successfully", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getActivity(), HomeActivity.class);
-                        Client UpdatedClient = dataBaseHelper.getClientByUsername(username);
+                        Client UpdatedClient = dataBaseHelper.getClientByPhonenumber(phonenumber);
                         Toast.makeText(getActivity(), UpdatedClient.getUserName(), Toast.LENGTH_SHORT).show();
 //                        intent.putExtra("Active User", UpdatedClient);
                         Client.setActive_client(UpdatedClient);

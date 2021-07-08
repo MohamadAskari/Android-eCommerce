@@ -82,7 +82,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:fontFamily="@font/montserrat_regular"
-            android:hint="Price" />
+            android:inputType="number"
+            android:hint="Price"
+            android:drawableEnd="@drawable/ic_baseline_attach_money_24" />
 
         <EditText
             android:id="@+id/product_description"
