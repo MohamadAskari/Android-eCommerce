@@ -36,7 +36,7 @@ public class FavoritesFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_favorites, container, false);
 
-        CategoryUtils.setIsInHomeFragment(false);
+        CategoryUtils.setIsInFavoritesFragment();
 
         ActiveClient = Client.getActive_client();
 

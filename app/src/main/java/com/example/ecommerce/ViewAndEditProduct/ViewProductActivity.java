@@ -1,13 +1,11 @@
-package com.example.ecommerce.ViewProduct;
+package com.example.ecommerce.ViewAndEditProduct;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
-import android.nfc.Tag;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -16,7 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.example.ecommerce.Home.HomeActivity;
 import com.example.ecommerce.Model.Client;
 import com.example.ecommerce.Model.DataBaseHelper;
 import com.example.ecommerce.Model.Product;
@@ -66,7 +63,7 @@ public class ViewProductActivity extends AppCompatActivity {
         active_client = Client.getActive_client();
 
         toggleButton = findViewById(R.id.add_favorite_icon);
-        if(!dataBaseHelper.isProductInFavorites(product, active_client.getUserName())){
+        if(!dataBaseHelper.isProductInFavorites(product, active_client.getPhoneNumber())){
             toggleButton.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.ic_baseline_favorite_border_24));
             toggleButton.setChecked(false);
         }

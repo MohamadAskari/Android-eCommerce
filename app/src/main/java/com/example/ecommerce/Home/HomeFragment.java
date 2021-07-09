@@ -60,7 +60,7 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        CategoryUtils.setIsInHomeFragment(true);
+        CategoryUtils.setIsInHomeFragment();
 
 //        active_username = ((HomeActivity)getActivity()).getActiveUsername();
 

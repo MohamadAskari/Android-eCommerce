@@ -13,7 +13,11 @@ public class CategoryUtils {
 
     private static List<Product> allProductsList;
     private static List<Product> filteredProducts = new LinkedList<>();
+    // All fragments with recyclerview
     private static boolean isInHomeFragment = true;
+    private static boolean isInCategoryFragment = true;
+    private static boolean isInFavoritesFragment = true;
+    private static boolean isInManageProductsFragment = true;
 
     private CategoryUtils() {
         throw new RuntimeException("Nope!");
@@ -139,8 +143,40 @@ public class CategoryUtils {
     public static boolean isIsInHomeFragment() {
         return isInHomeFragment;
     }
-
-    public static void setIsInHomeFragment(boolean isInHomeFragment) {
-        CategoryUtils.isInHomeFragment = isInHomeFragment;
+    public static boolean isIsInCategoryFragment() {
+        return isInCategoryFragment;
     }
+    public static boolean isIsInFavoritesFragment() {
+        return isInFavoritesFragment;
+    }
+    public static boolean isIsInManageProductsFragment() {
+        return isInManageProductsFragment;
+    }
+
+    public static void setIsInHomeFragment() {
+        isInHomeFragment = true;
+        isInCategoryFragment = false;
+        isInFavoritesFragment = false;
+        isInManageProductsFragment = false;
+    }
+
+    public static void setIsInCategoryFragment() {
+        isInHomeFragment = false;
+        isInCategoryFragment = true;
+        isInFavoritesFragment = false;
+        isInManageProductsFragment = false;
+    }
+
+    public static void setIsInFavoritesFragment() {
+        isInHomeFragment = false;
+        isInCategoryFragment = false;
+        isInFavoritesFragment = true;
+        isInManageProductsFragment = false;
+    }
+
+    public static void setIsInManageProductsFragment() {
+        isInHomeFragment = false;
+        isInCategoryFragment = false;
+        isInFavoritesFragment = false;
+        isInManageProductsFragment = true;    }
 }
