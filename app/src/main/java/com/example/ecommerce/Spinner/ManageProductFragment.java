@@ -42,8 +42,8 @@ public class ManageProductFragment extends Fragment {
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().finish();
                 CategoryUtils.setIsInHomeFragment();
+                getActivity().finish();
             }
         });
 
