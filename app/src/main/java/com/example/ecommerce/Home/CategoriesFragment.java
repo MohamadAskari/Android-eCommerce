@@ -23,7 +23,7 @@ public class CategoriesFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_categories, container, false);
 
-        CategoryUtils.setIsInHomeFragment(false);
+        CategoryUtils.setIsInCategoryFragment();
 
         expand_all_electronics = view.findViewById(R.id.expand_all_electronics);
         expand_all_electronics.setOnClickListener(new View.OnClickListener() {

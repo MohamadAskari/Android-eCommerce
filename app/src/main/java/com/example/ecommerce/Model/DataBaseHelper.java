@@ -333,6 +333,48 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return (added != -1) && (addedProductToCategory);
     }
 
+    public boolean removeProduct(Product product) {
+
+        boolean removeProductFromCategory = false;
+
+        switch (product.getCategory()) {
+            case "Electronics": {
+                removeProductFromCategory = this.removeProductFromCategory(ELECTRONIC_TABLE, product);
+                break;
+            }
+            case "Fashion": {
+                removeProductFromCategory = this.removeProductFromCategory(FASHION_TABLE, product);
+                break;
+            }
+            case "Sports": {
+                removeProductFromCategory = this.removeProductFromCategory(SPORTS_TABLE, product);
+                break;
+            }
+            case "Home": {
+                removeProductFromCategory = this.removeProductFromCategory(HOME_TABLE, product);
+                break;
+            }
+            case "Motors": {
+                removeProductFromCategory = this.removeProductFromCategory(MOTORS_TABLE, product);
+                break;
+            }
+            case "Real State": {
+                removeProductFromCategory = this.removeProductFromCategory(REALSTATE_TABLE, product);
+                break;
+            }
+            case "Entertainment": {
+                removeProductFromCategory = this.removeProductFromCategory(ENTERTAINMENT_TABLE, product);
+                break;
+            }
+        }
+
+        SQLiteDatabase DB = this.getWritableDatabase();
+
+        long removed = DB.delete(PRODUCTS_TABLE, PRODUCT_ID + " = ?" ,new String[] {product.getId()});
+
+        return (removed > 0) && (removeProductFromCategory);
+    }
+
     public boolean addProductToCategory(String TableName, Product product){
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues CV = new ContentValues();
@@ -350,6 +392,14 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         long added = DB.insert(TableName, null, CV);
 
         return added != -1;
+    }
+
+    public boolean removeProductFromCategory(String TableName, Product product){
+        SQLiteDatabase DB = this.getWritableDatabase();
+
+        long removed = DB.delete(TableName,PRODUCT_ID + " = ?" ,new String[] {product.getId()});
+
+        return removed > 0;
     }
 
     public List<Product> getAllProducts(){
@@ -443,6 +493,17 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 && updated6 != -1 && updated7 != -1 ;
     }
 
+    public List<Product> getAddedToFavoritesProducts(String phonenumber){
+
+        List<Product> addedToFavoritesProducts = new ArrayList<>();
+
+        for(Product product : getAllProducts())
+            if(isProductInFavorites(product, phonenumber))
+                addedToFavoritesProducts.add(product);
+
+        return addedToFavoritesProducts;
+    }
+
     public boolean removeProductFromFavorites(Product product, String phonenumber){
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues CV = new ContentValues();
@@ -468,16 +529,5 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     public boolean isProductInFavorites(Product product, String phonenumber){
         return product.getFavoriteAddedUsersPhonenumber().contains(phonenumber);
-    }
-
-    public List<Product> getAddedToFavoritesProducts(String phonenumber){
-
-        List<Product> addedToFavoritesProducts = new ArrayList<>();
-
-        for(Product product : getAllProducts())
-            if(isProductInFavorites(product, phonenumber))
-                addedToFavoritesProducts.add(product);
-
-        return addedToFavoritesProducts;
     }
 }
