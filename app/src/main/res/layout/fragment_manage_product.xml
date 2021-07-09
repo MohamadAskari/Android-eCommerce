@@ -1,14 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Spinner.ManageProductFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="manage" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-</FrameLayout>
+        <ImageView
+            android:id="@+id/manage_products_back_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_arrow_back_24"
+            android:padding="15dp" />
+
+        <TextView
+            android:id="@+id/manage_products_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Manage your products"
+            android:textSize="24sp"
+            android:fontFamily="@font/montserrat_bold"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/lv_productList_manage_products"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"/>
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

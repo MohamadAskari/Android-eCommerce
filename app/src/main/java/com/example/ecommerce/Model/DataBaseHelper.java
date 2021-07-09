@@ -189,6 +189,16 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return set != -1;
     }
 
+    public List<Product> getAllProductsOfClient(Client client){
+        List<Product> AllProducts = this.getAllProducts();
+        List<Product> AllProductsOfClient = new ArrayList<>();
+        for (Product product : AllProducts){
+            if(product.getSellerPhonenumber().equalsIgnoreCase(client.getPhoneNumber()))
+                AllProductsOfClient.add(product);
+        }
+        return AllProductsOfClient;
+    }
+
     public List<Client> getEveryClient(){
         List<Client> clients = new ArrayList<>();
 
