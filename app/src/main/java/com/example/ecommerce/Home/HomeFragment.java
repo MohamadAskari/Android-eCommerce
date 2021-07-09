@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,6 +17,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -23,9 +25,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.GridLayout;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
+import android.widget.PopupMenu;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.models.SlideModel;
@@ -36,7 +41,9 @@ import com.example.ecommerce.Model.DataBaseHelper;
 import com.example.ecommerce.Model.Product;
 import com.example.ecommerce.Model.RecyclerViewAdapter;
 import com.example.ecommerce.R;
+import com.example.ecommerce.Spinner.ManageProductFragment;
 import com.example.ecommerce.Spinner.SpinnerOptionsActivity;
+import com.example.ecommerce.ViewAndEditProduct.EditProductActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +52,7 @@ public class HomeFragment extends Fragment {
 
 //    private String active_username;
     private EditText search_bar;
-    private Spinner profile_spinner;
+    private ImageView dp_profile;
     private ImageSlider imageSlider;
     private List<Product> productList = new ArrayList<>();
     DataBaseHelper dataBaseHelper;
@@ -62,12 +69,9 @@ public class HomeFragment extends Fragment {
 
         CategoryUtils.setIsInHomeFragment();
 
-//        active_username = ((HomeActivity)getActivity()).getActiveUsername();
-
         imageSlider = view.findViewById(R.id.image_slider);
         setImageSlider(imageSlider);
 
-//        ActiveClient = ((HomeActivity)getActivity()).getActiveClient();
         ActiveClient = Client.getActive_client();
 
         dataBaseHelper = new DataBaseHelper(getActivity());
@@ -87,12 +91,12 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        profile_spinner = view.findViewById(R.id.profile_dropdown);
+        /*dp_profile = view.findViewById(R.id.profile_dropdown);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.profile_dropdown_items, R.layout.support_simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        profile_spinner.setAdapter(adapter);
-        profile_spinner.setSelection(0);
-        profile_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        dp_profile.setAdapter(adapter);
+        dp_profile.setSelection(0);
+        dp_profile.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 ((TextView)view).setText(null);
@@ -117,7 +121,7 @@ public class HomeFragment extends Fragment {
                     });
 
                     builder.show();
-                    profile_spinner.setSelection(0);
+                    dp_profile.setSelection(0);
                 }
                 else if(!item.equals("Select")) {
                     Intent intent = new Intent(getActivity(), SpinnerOptionsActivity.class);
@@ -130,6 +134,52 @@ public class HomeFragment extends Fragment {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
+            }
+        });*/
+
+        dp_profile = view.findViewById(R.id.profile_dropdown);
+        dp_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PopupMenu popup = new PopupMenu(getContext(), dp_profile);
+                popup.inflate(R.menu.profile_dropdown_menu);
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        String selected_item = null;
+                        switch (item.getItemId()) {
+                            case R.id.edit_profile_item:
+                                selected_item = "Edit your profile";
+                                break;
+                            case R.id.manage_products_item:
+                                selected_item = "Manage your products";
+                                break;
+                            case R.id.setting_item:
+                                selected_item = "Setting";
+                                break;
+                            default : // case R.id.log_out_item:
+                                builder = new AlertDialog.Builder(getActivity());
+                                builder.setIcon(R.drawable.ic_baseline_warning_24);
+                                builder.setTitle(R.string.confirm_log_out_title);
+                                builder.setMessage(R.string.confirm_log_out_message);
+                                builder.setPositiveButton(R.string.confirm_log_out, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Intent intent = new Intent(getActivity(), MainActivity.class);
+                                        startActivity(intent);
+                                    }
+                                });
+                                break;
+                        }
+                        if(selected_item != null){
+                            Intent intent = new Intent(getActivity(), SpinnerOptionsActivity.class);
+                            intent.putExtra("Selected Item", selected_item);
+                            startActivity(intent);
+                        }
+                        return true;
+                    }
+                });
+                popup.show();
             }
         });
 

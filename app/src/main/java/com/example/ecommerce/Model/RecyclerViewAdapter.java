@@ -102,7 +102,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                         @Override
                         public boolean onMenuItemClick(MenuItem item) {
                             switch (item.getItemId()) {
-                                case R.id.delete_product:
+                                case R.id.delete_product_item:
                                     DataBaseHelper db = new DataBaseHelper(context);
                                     boolean removed = db.removeProduct(productList.get(position));
                                     if(removed){
@@ -113,7 +113,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                                     }
                                     ((AppCompatActivity)context).getSupportFragmentManager().beginTransaction().replace(R.id.fragment_spinner, new ManageProductFragment()).commit();
                                     return true;
-                                case R.id.edit_product:
+                                case R.id.edit_product_item:
                                     Intent intent = new Intent(context, EditProductActivity.class);
                                     intent.putExtra("product", productList.get(position));
                                     context.startActivity(intent);
@@ -123,7 +123,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                             }
                         }
                     });
-                    //displaying the popup
                     popup.show();
                 }
             });
