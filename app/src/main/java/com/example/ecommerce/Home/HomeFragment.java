@@ -48,11 +48,13 @@ import com.example.ecommerce.ViewAndEditProduct.EditProductActivity;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class HomeFragment extends Fragment {
 
 //    private String active_username;
     private EditText search_bar;
-    private ImageView dp_profile;
+    private CircleImageView dp_profile;
     private ImageSlider imageSlider;
     private List<Product> productList = new ArrayList<>();
     DataBaseHelper dataBaseHelper;
@@ -138,6 +140,7 @@ public class HomeFragment extends Fragment {
         });*/
 
         dp_profile = view.findViewById(R.id.profile_dropdown);
+        dp_profile.setImageURI(ActiveClient.getImageUrl());
         dp_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -169,6 +172,14 @@ public class HomeFragment extends Fragment {
                                         startActivity(intent);
                                     }
                                 });
+                                builder.setNegativeButton(R.string.cancel_log_out, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        //DO NOTHING
+                                    }
+                                });
+
+                                builder.show();
                                 break;
                         }
                         if(selected_item != null){

@@ -42,8 +42,9 @@
             android:layout_marginTop="43dp"
             android:layout_marginBottom="27dp"
             android:fontFamily="@font/montserrat_regular"
-            android:text="Night mode"
-            android:textSize="20dp" />
+            android:textColor="@color/black"
+            android:text="NIGHT MODE"
+            android:textSize="20sp" />
 
     </RelativeLayout>
 
@@ -51,18 +52,22 @@
         android:layout_width="match_parent"
         android:layout_height="100dp">
 
-        <TextView
-            android:id="@+id/remove_favs_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/remove_favs_btn"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="43dp"
-            android:layout_marginBottom="27dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:textAlignment="textStart"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
             android:fontFamily="@font/montserrat_regular"
             android:text="Remove all favorite products"
-            android:textSize="20dp" />
+            android:textSize="20sp"
+            android:textColor="@color/black"/>
 
     </RelativeLayout>
 
@@ -72,30 +77,39 @@
         android:layout_width="match_parent"
         android:layout_height="200dp">
 
-        <TextView
-            android:id="@+id/FAQS_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/FAQS_btn"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="43dp"
-            android:layout_marginBottom="127dp"
-            android:fontFamily="@font/montserrat_regular"
-            android:text="FAQS  "
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="105dp"
+            android:background="?android:attr/selectableItemBackground"
             android:drawableEnd="@drawable/ic_baseline_info_24"
-            android:textSize="20dp" />
-
-        <TextView
-            android:id="@+id/contact_us_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/FAQS_tv"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="-60dp"
             android:fontFamily="@font/montserrat_regular"
+            android:paddingStart="20dp"
+            android:paddingEnd="300dp"
+            android:text="FAQS  "
+            android:textAlignment="textStart"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/contact_us_btn"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_below="@+id/FAQS_btn"
+            android:layout_marginTop="-90dp"
+            android:layout_marginBottom="20dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:fontFamily="@font/montserrat_regular"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
             android:text="Contact us"
-            android:textSize="20dp" />
+            android:textAlignment="textStart"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
 
 
     </RelativeLayout>

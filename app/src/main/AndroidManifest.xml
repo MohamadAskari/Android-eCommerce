@@ -19,7 +19,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ECommerce">
-        <activity android:name=".ViewAndEditProduct.EditProductActivity"></activity>
+        <activity android:name=".Admin.AdminActivity"/>
+        <activity android:name=".ViewAndEditProduct.EditProductActivity"/>
         <activity android:name=".Bridge.BridgeActivity" />
         <activity android:name=".Splash.SplashActivity">
             <intent-filter>

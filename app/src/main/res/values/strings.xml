@@ -54,5 +54,12 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="skip">Skip</string>
+    <string name="see_name_and_quantity_of_products">See name and quantity of products</string>
+    <string name="see_name_of_sellers">See name of sellers</string>
+    <string name="see_summation_of_products_prices">See summation of products\' prices</string>
+    <string name="see_the_top_seller">See the top seller</string>
+    <string name="see_users_login_count">See users\' login count</string>
+    <string name="prioritize_products">Prioritize products</string>
+    <string name="log_out">Log out</string>
 
 </resources>

@@ -1,0 +1,273 @@
+Index: app/src/main/AndroidManifest.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<manifest xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    package=\"com.example.ecommerce\">\r\n\r\n    <uses-permission android:name=\"android.permission.INTERNET\" />\r\n\r\n    <uses-feature\r\n        android:name=\"android.hardware.camera\"\r\n        android:required=\"true\" />\r\n\r\n    <uses-permission android:name=\"android.permission.READ_EXTERNAL_STORAGE\" />\r\n    <uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />\r\n    <uses-permission android:name=\"android.permission.CAMERA\" />\r\n\r\n    <application\r\n        android:allowBackup=\"true\"\r\n        android:icon=\"@mipmap/ic_launcher\"\r\n        android:label=\"@string/app_name\"\r\n        android:roundIcon=\"@mipmap/ic_launcher_round\"\r\n        android:supportsRtl=\"true\"\r\n        android:theme=\"@style/Theme.ECommerce\">\r\n        <activity android:name=\".Bridge.BridgeActivity\"></activity>\r\n        <activity android:name=\".Splash.SplashActivity\">\r\n            <intent-filter>\r\n                <action android:name=\"android.intent.action.MAIN\" />\r\n\r\n                <category android:name=\"android.intent.category.LAUNCHER\" />\r\n            </intent-filter>\r\n        </activity>\r\n        <activity android:name=\".InCategory.InCategoryProductsActivity\" />\r\n        <activity android:name=\".Home.HomeActivity\" />\r\n        <activity android:name=\".ViewProduct.ViewProductActivity\" />\r\n        <activity android:name=\".Spinner.SpinnerOptionsActivity\" />\r\n        <activity android:name=\".Main.MainActivity\" />\r\n\r\n        <provider\r\n            android:name=\"androidx.core.content.FileProvider\"\r\n            android:authorities=\"com.example.android.fileprovider\"\r\n            android:exported=\"false\"\r\n            android:grantUriPermissions=\"true\">\r\n            <meta-data\r\n                android:name=\"android.support.FILE_PROVIDER_PATHS\"\r\n                android:resource=\"@xml/file_paths\" />\r\n        </provider>\r\n    </application>\r\n\r\n</manifest>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/AndroidManifest.xml	(revision 3ab10ecf29e8fdf5066c607b7ad2907dca60c7e9)
++++ app/src/main/AndroidManifest.xml	(date 1625822480643)
+@@ -19,7 +19,8 @@
+         android:roundIcon="@mipmap/ic_launcher_round"
+         android:supportsRtl="true"
+         android:theme="@style/Theme.ECommerce">
+-        <activity android:name=".Bridge.BridgeActivity"></activity>
++        <activity android:name=".Admin.AdminActivity"></activity>
++        <activity android:name=".Bridge.BridgeActivity" />
+         <activity android:name=".Splash.SplashActivity">
+             <intent-filter>
+                 <action android:name="android.intent.action.MAIN" />
+Index: app/src/main/java/com/example/ecommerce/Spinner/SettingFragment.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.ecommerce.Spinner;\r\n\r\nimport android.content.Intent;\r\nimport android.os.Bundle;\r\n\r\nimport androidx.appcompat.app.AlertDialog;\r\nimport androidx.appcompat.app.AppCompatDelegate;\r\nimport androidx.appcompat.widget.SwitchCompat;\r\nimport androidx.fragment.app.Fragment;\r\n\r\nimport android.view.LayoutInflater;\r\nimport android.view.View;\r\nimport android.view.ViewGroup;\r\nimport android.widget.CompoundButton;\r\nimport android.widget.ImageView;\r\nimport android.widget.TextView;\r\nimport android.widget.Toast;\r\n\r\nimport com.example.ecommerce.Home.HomeActivity;\r\nimport com.example.ecommerce.Model.Client;\r\nimport com.example.ecommerce.Model.DataBaseHelper;\r\nimport com.example.ecommerce.Model.Product;\r\nimport com.example.ecommerce.R;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\npublic class SettingFragment extends Fragment {\r\n\r\n    private SwitchCompat switchCompat;\r\n    private ImageView back_btn_image_view, back_btn_popup_faq, back_btn_popup_contact_us;\r\n    private TextView FAQ_tv, contactUs_tv, removeFavs_tv;\r\n    private AlertDialog.Builder dialogBuilder;\r\n    private AlertDialog dialog;\r\n    private DataBaseHelper dataBaseHelper;\r\n    private List<Product> allFavProducts;\r\n\r\n    @Override\r\n    public View onCreateView(LayoutInflater inflater, ViewGroup container,\r\n                             Bundle savedInstanceState) {\r\n        View view = inflater.inflate(R.layout.fragment_setting, container, false);\r\n\r\n        switchCompat = view.findViewById(R.id.night_mode_switch);\r\n        back_btn_image_view = view.findViewById(R.id.view_setting_back_icon);\r\n        removeFavs_tv = view.findViewById(R.id.remove_favs_tv);\r\n        contactUs_tv = view.findViewById(R.id.contact_us_tv);\r\n        FAQ_tv = view.findViewById(R.id.FAQS_tv);\r\n        Client ActiveClient = Client.getActive_client();\r\n        String clientPhonenumber = ActiveClient.getPhoneNumber();\r\n        dataBaseHelper = new DataBaseHelper(getActivity());\r\n\r\n        back_btn_image_view.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v) {\r\n                Intent intent = new Intent(getActivity(), HomeActivity.class);\r\n                intent.putExtra(\"Active Username\", ActiveClient.getUserName());\r\n                intent.putExtra(\"Is Seller\", ActiveClient.isSeller());\r\n//                intent.putExtra(\"Active User\", ActiveClient);\r\n                startActivity(intent);\r\n            }\r\n        });\r\n\r\n        switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {\r\n            @Override\r\n            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {\r\n                if(isChecked)\r\n                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);\r\n                else\r\n                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);\r\n            }\r\n        });\r\n\r\n        removeFavs_tv.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v) {\r\n                boolean removed = false;\r\n                String phonenumber = ActiveClient.getPhoneNumber();\r\n                allFavProducts = dataBaseHelper.getAddedToFavoritesProducts(phonenumber);\r\n                for(Product product : allFavProducts)\r\n                    removed = dataBaseHelper.removeProductFromFavorites(product, phonenumber);\r\n                if (removed)\r\n                    Toast.makeText(getActivity(), \"Products removed from favorites\", Toast.LENGTH_SHORT).show();\r\n            }\r\n        });\r\n\r\n        contactUs_tv.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v) {\r\n                showPopupWindow(\"Contact us\");\r\n            }\r\n        });\r\n\r\n        FAQ_tv.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v) {\r\n                showPopupWindow(\"FAQ\");\r\n            }\r\n        });\r\n\r\n        return view;\r\n    }\r\n    public void showPopupWindow(String Case){\r\n\r\n        dialogBuilder = new AlertDialog.Builder(getActivity());\r\n        View viewFAQorContactUsPopup = null;\r\n\r\n        switch (Case){\r\n            case \"Contact us\":{\r\n                viewFAQorContactUsPopup  = getLayoutInflater().inflate(R.layout.popup_contact_us, null);\r\n                back_btn_popup_contact_us = viewFAQorContactUsPopup.findViewById(R.id.popup_contact_us_back_icon);\r\n                back_btn_popup_contact_us.setOnClickListener(new View.OnClickListener() {\r\n                    @Override\r\n                    public void onClick(View v) {\r\n                        dialog.dismiss();\r\n                    }\r\n                });\r\n                break;\r\n            }\r\n            case \"FAQ\":{\r\n                viewFAQorContactUsPopup  = getLayoutInflater().inflate(R.layout.popup_faq, null);\r\n                back_btn_popup_faq = viewFAQorContactUsPopup.findViewById(R.id.popup_faq_back_icon);\r\n                back_btn_popup_faq.setOnClickListener(new View.OnClickListener() {\r\n                    @Override\r\n                    public void onClick(View v) {\r\n                        dialog.dismiss();\r\n                    }\r\n                });\r\n                break;\r\n            }\r\n        }\r\n        dialogBuilder = new AlertDialog.Builder(getActivity());\r\n        dialogBuilder.setView(viewFAQorContactUsPopup);\r\n        dialog = dialogBuilder.create();\r\n        dialog.show();\r\n    }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/ecommerce/Spinner/SettingFragment.java	(revision 3ab10ecf29e8fdf5066c607b7ad2907dca60c7e9)
++++ app/src/main/java/com/example/ecommerce/Spinner/SettingFragment.java	(date 1625827317112)
+@@ -5,6 +5,7 @@
+ 
+ import androidx.appcompat.app.AlertDialog;
+ import androidx.appcompat.app.AppCompatDelegate;
++import androidx.appcompat.widget.AppCompatButton;
+ import androidx.appcompat.widget.SwitchCompat;
+ import androidx.fragment.app.Fragment;
+ 
+@@ -29,7 +30,7 @@
+ 
+     private SwitchCompat switchCompat;
+     private ImageView back_btn_image_view, back_btn_popup_faq, back_btn_popup_contact_us;
+-    private TextView FAQ_tv, contactUs_tv, removeFavs_tv;
++    private AppCompatButton FAQ_btn, contactUs_btn, removeFavs_btn;
+     private AlertDialog.Builder dialogBuilder;
+     private AlertDialog dialog;
+     private DataBaseHelper dataBaseHelper;
+@@ -42,9 +43,9 @@
+ 
+         switchCompat = view.findViewById(R.id.night_mode_switch);
+         back_btn_image_view = view.findViewById(R.id.view_setting_back_icon);
+-        removeFavs_tv = view.findViewById(R.id.remove_favs_tv);
+-        contactUs_tv = view.findViewById(R.id.contact_us_tv);
+-        FAQ_tv = view.findViewById(R.id.FAQS_tv);
++        removeFavs_btn = view.findViewById(R.id.remove_favs_btn);
++        contactUs_btn = view.findViewById(R.id.contact_us_btn);
++        FAQ_btn = view.findViewById(R.id.FAQS_btn);
+         Client ActiveClient = Client.getActive_client();
+         String clientPhonenumber = ActiveClient.getPhoneNumber();
+         dataBaseHelper = new DataBaseHelper(getActivity());
+@@ -70,7 +71,7 @@
+             }
+         });
+ 
+-        removeFavs_tv.setOnClickListener(new View.OnClickListener() {
++        removeFavs_btn.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 boolean removed = false;
+@@ -83,14 +84,14 @@
+             }
+         });
+ 
+-        contactUs_tv.setOnClickListener(new View.OnClickListener() {
++        contactUs_btn.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 showPopupWindow("Contact us");
+             }
+         });
+ 
+-        FAQ_tv.setOnClickListener(new View.OnClickListener() {
++        FAQ_btn.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 showPopupWindow("FAQ");
+Index: app/src/main/java/com/example/ecommerce/Main/MainActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.ecommerce.Main;\r\n\r\nimport androidx.appcompat.app.AppCompatActivity;\r\n\r\n\r\nimport androidx.navigation.Navigation;\r\n\r\nimport android.os.Bundle;\r\nimport android.view.View;\r\nimport android.widget.ImageView;\r\nimport android.widget.RadioButton;\r\n\r\nimport com.example.ecommerce.Model.Admin;\r\nimport com.example.ecommerce.Model.DataBaseHelper;\r\nimport com.example.ecommerce.R;\r\n\r\npublic class MainActivity extends AppCompatActivity {\r\n\r\n    private RadioButton login_btn, register_btn;\r\n    private ImageView back_btn;\r\n    DataBaseHelper dataBaseHelper;\r\n\r\n    @Override\r\n    protected void onCreate(Bundle savedInstanceState) {\r\n        super.onCreate(savedInstanceState);\r\n        setContentView(R.layout.activity_main);\r\n\r\n        dataBaseHelper = new DataBaseHelper(this);\r\n\r\n        if (dataBaseHelper.getAdmins().isEmpty()) {\r\n            Admin admin1 = new Admin(\"Ali_Ghasemi\", \"2710376601\");\r\n            Admin admin2 = new Admin(\"Mohamad_Askari\", \"2710380773\");\r\n\r\n            dataBaseHelper.addAdmin(admin1);\r\n            dataBaseHelper.addAdmin(admin2);\r\n        }\r\n\r\n\r\n        login_btn = findViewById(R.id.log_in_btn);\r\n        register_btn = findViewById(R.id.register_btn);\r\n        back_btn = findViewById(R.id.forgotpassword_back_button);\r\n        hideBackButton();\r\n\r\n        login_btn.setEnabled(false);\r\n        login_btn.setChecked(true);\r\n        register_btn.setEnabled(true);\r\n\r\n        login_btn.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v) {\r\n                Navigation.findNavController(MainActivity.this, R.id.fragment_main).navigate(R.id.action_registerFragment_to_logInFragment);\r\n                login_btn.setEnabled(false);\r\n                register_btn.setEnabled(true);\r\n            }\r\n        });\r\n\r\n        register_btn.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v) {\r\n                Navigation.findNavController(MainActivity.this, R.id.fragment_main).navigate(R.id.action_logInFragment_to_registerFragment);\r\n                register_btn.setEnabled(false);\r\n                login_btn.setEnabled(true);\r\n            }\r\n        });\r\n\r\n        back_btn.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v) {\r\n                Navigation.findNavController(MainActivity.this, R.id.fragment_main).navigate(R.id.action_fragment_forgot_password_to_logInFragment);\r\n                showButtons();\r\n                hideBackButton();\r\n            }\r\n        });\r\n    }\r\n    public void hideButtons(){\r\n        login_btn.setVisibility(View.INVISIBLE);\r\n        register_btn.setVisibility(View.INVISIBLE);\r\n    }\r\n    public void showButtons(){\r\n        login_btn.setVisibility(View.VISIBLE);\r\n        register_btn.setVisibility(View.VISIBLE);\r\n    }\r\n    public void hideBackButton(){\r\n        back_btn.setVisibility(View.GONE);\r\n    }\r\n    public void showBackButton(){\r\n        back_btn.setVisibility(View.VISIBLE);\r\n    }\r\n\r\n    @Override\r\n    public void onBackPressed() {\r\n\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/ecommerce/Main/MainActivity.java	(revision 3ab10ecf29e8fdf5066c607b7ad2907dca60c7e9)
++++ app/src/main/java/com/example/ecommerce/Main/MainActivity.java	(date 1625821905206)
+@@ -28,11 +28,9 @@
+         dataBaseHelper = new DataBaseHelper(this);
+ 
+         if (dataBaseHelper.getAdmins().isEmpty()) {
+-            Admin admin1 = new Admin("Ali_Ghasemi", "2710376601");
+-            Admin admin2 = new Admin("Mohamad_Askari", "2710380773");
++            Admin admin = new Admin("admin", "1234");
+ 
+-            dataBaseHelper.addAdmin(admin1);
+-            dataBaseHelper.addAdmin(admin2);
++            dataBaseHelper.addAdmin(admin);
+         }
+ 
+ 
+Index: app/src/main/res/layout/fragment_setting.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.appcompat.widget.LinearLayoutCompat\r\n    xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    android:orientation=\"vertical\"\r\n    tools:context=\".Spinner.SettingFragment\">\r\n\r\n    <ImageView\r\n        android:id=\"@+id/view_setting_back_icon\"\r\n        android:layout_width=\"wrap_content\"\r\n        android:layout_height=\"wrap_content\"\r\n        android:layout_alignParentStart=\"true\"\r\n        android:layout_marginTop=\"4dp\"\r\n        android:padding=\"15dp\"\r\n        android:src=\"@drawable/ic_baseline_arrow_back_24\" />\r\n\r\n    <RelativeLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"100dp\">\r\n\r\n        <androidx.appcompat.widget.SwitchCompat\r\n            android:id=\"@+id/night_mode_switch\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_alignParentTop=\"true\"\r\n            android:layout_alignParentEnd=\"true\"\r\n            android:layout_alignParentBottom=\"true\"\r\n            android:layout_marginTop=\"35dp\"\r\n            android:layout_marginEnd=\"34dp\"\r\n            android:layout_marginBottom=\"17dp\" />\r\n\r\n        <TextView\r\n            android:id=\"@+id/night_mode_tv\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"37dp\"\r\n            android:layout_alignParentTop=\"true\"\r\n            android:layout_alignParentBottom=\"true\"\r\n            android:layout_marginStart=\"20dp\"\r\n            android:layout_marginTop=\"43dp\"\r\n            android:layout_marginBottom=\"27dp\"\r\n            android:fontFamily=\"@font/montserrat_regular\"\r\n            android:text=\"Night mode\"\r\n            android:textSize=\"20dp\" />\r\n\r\n    </RelativeLayout>\r\n\r\n    <RelativeLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"100dp\">\r\n\r\n        <TextView\r\n            android:id=\"@+id/remove_favs_tv\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_alignParentTop=\"true\"\r\n            android:layout_alignParentBottom=\"true\"\r\n            android:layout_marginStart=\"20dp\"\r\n            android:layout_marginTop=\"43dp\"\r\n            android:layout_marginBottom=\"27dp\"\r\n            android:fontFamily=\"@font/montserrat_regular\"\r\n            android:text=\"Remove all favorite products\"\r\n            android:textSize=\"20dp\" />\r\n\r\n    </RelativeLayout>\r\n\r\n\r\n\r\n    <RelativeLayout\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"200dp\">\r\n\r\n        <TextView\r\n            android:id=\"@+id/FAQS_tv\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_alignParentTop=\"true\"\r\n            android:layout_alignParentBottom=\"true\"\r\n            android:layout_marginStart=\"20dp\"\r\n            android:layout_marginTop=\"43dp\"\r\n            android:layout_marginBottom=\"127dp\"\r\n            android:fontFamily=\"@font/montserrat_regular\"\r\n            android:text=\"FAQS  \"\r\n            android:drawableEnd=\"@drawable/ic_baseline_info_24\"\r\n            android:textSize=\"20dp\" />\r\n\r\n        <TextView\r\n            android:id=\"@+id/contact_us_tv\"\r\n            android:layout_width=\"wrap_content\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:layout_below=\"@+id/FAQS_tv\"\r\n            android:layout_marginStart=\"20dp\"\r\n            android:layout_marginTop=\"-60dp\"\r\n            android:fontFamily=\"@font/montserrat_regular\"\r\n            android:text=\"Contact us\"\r\n            android:textSize=\"20dp\" />\r\n\r\n\r\n    </RelativeLayout>\r\n\r\n\r\n</androidx.appcompat.widget.LinearLayoutCompat>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/fragment_setting.xml	(revision 3ab10ecf29e8fdf5066c607b7ad2907dca60c7e9)
++++ app/src/main/res/layout/fragment_setting.xml	(date 1625827949809)
+@@ -32,18 +32,20 @@
+             android:layout_marginEnd="34dp"
+             android:layout_marginBottom="17dp" />
+ 
+-        <TextView
+-            android:id="@+id/night_mode_tv"
++        <androidx.appcompat.widget.AppCompatButton
++            android:id="@+id/night_mode_btn"
+             android:layout_width="wrap_content"
+             android:layout_height="37dp"
++            android:background="?android:attr/selectableItemBackground"
++            android:textAlignment="textStart"
+             android:layout_alignParentTop="true"
+             android:layout_alignParentBottom="true"
+             android:layout_marginStart="20dp"
+             android:layout_marginTop="43dp"
+-            android:layout_marginBottom="27dp"
++            android:layout_marginBottom="20dp"
+             android:fontFamily="@font/montserrat_regular"
+             android:text="Night mode"
+-            android:textSize="20dp" />
++            android:textSize="20sp" />
+ 
+     </RelativeLayout>
+ 
+@@ -51,18 +53,21 @@
+         android:layout_width="match_parent"
+         android:layout_height="100dp">
+ 
+-        <TextView
+-            android:id="@+id/remove_favs_tv"
+-            android:layout_width="wrap_content"
++        <androidx.appcompat.widget.AppCompatButton
++            android:id="@+id/remove_favs_btn"
++            android:layout_width="match_parent"
+             android:layout_height="wrap_content"
++            android:background="?android:attr/selectableItemBackground"
++            android:textAlignment="textStart"
++            android:paddingStart="20dp"
++            android:paddingEnd="20dp"
+             android:layout_alignParentTop="true"
+             android:layout_alignParentBottom="true"
+-            android:layout_marginStart="20dp"
+-            android:layout_marginTop="43dp"
+-            android:layout_marginBottom="27dp"
++            android:layout_marginTop="10dp"
++            android:layout_marginBottom="17dp"
+             android:fontFamily="@font/montserrat_regular"
+             android:text="Remove all favorite products"
+-            android:textSize="20dp" />
++            android:textSize="20sp" />
+ 
+     </RelativeLayout>
+ 
+@@ -72,30 +77,36 @@
+         android:layout_width="match_parent"
+         android:layout_height="200dp">
+ 
+-        <TextView
+-            android:id="@+id/FAQS_tv"
+-            android:layout_width="wrap_content"
++        <androidx.appcompat.widget.AppCompatButton
++            android:id="@+id/FAQS_btn"
++            android:layout_width="match_parent"
+             android:layout_height="wrap_content"
++            android:background="?android:attr/selectableItemBackground"
++            android:textAlignment="textStart"
+             android:layout_alignParentTop="true"
+             android:layout_alignParentBottom="true"
+-            android:layout_marginStart="20dp"
+-            android:layout_marginTop="43dp"
+-            android:layout_marginBottom="127dp"
++            android:paddingStart="20dp"
++            android:paddingEnd="300dp"
++            android:layout_marginTop="5dp"
++            android:layout_marginBottom="140dp"
+             android:fontFamily="@font/montserrat_regular"
+             android:text="FAQS  "
+             android:drawableEnd="@drawable/ic_baseline_info_24"
+-            android:textSize="20dp" />
++            android:textSize="20sp" />
+ 
+-        <TextView
+-            android:id="@+id/contact_us_tv"
+-            android:layout_width="wrap_content"
++        <androidx.appcompat.widget.AppCompatButton
++            android:id="@+id/contact_us_btn"
++            android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+-            android:layout_below="@+id/FAQS_tv"
+-            android:layout_marginStart="20dp"
+-            android:layout_marginTop="-60dp"
++            android:background="?android:attr/selectableItemBackground"
++            android:textAlignment="textStart"
++            android:layout_below="@+id/FAQS_btn"
++            android:paddingStart="20dp"
++            android:paddingEnd="20dp"
++            android:layout_marginTop="-110dp"
+             android:fontFamily="@font/montserrat_regular"
+             android:text="Contact us"
+-            android:textSize="20dp" />
++            android:textSize="20sp" />
+ 
+ 
+     </RelativeLayout>
+Index: app/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><resources>\r\n    <string name=\"app_name\">eCommerce</string>\r\n\r\n    <string name=\"hello_blank_fragment\">Hello blank fragment</string>\r\n\r\n    <string name=\"username_taken\"><font fgcolor='#EA2603'>Username is already taken</font></string>\r\n    <string name=\"email_taken\"><font fgcolor='#EA2603'>Email is already taken</font></string>\r\n    <string name=\"phonenumber_taken\"><font fgcolor='#EA2603'>Phonenumber is already taken</font></string>\r\n\r\n    <string name=\"forgot_password\"><u>Forgot your password?</u></string>\r\n    <string name=\"electronics\">Electronics</string>\r\n    <string name=\"expand_all\">Expand All</string>\r\n    <string name=\"categories\">CATEGORIES</string>\r\n    <string name=\"fashion\">Fashion</string>\r\n    <string name=\"sports\">Sports</string>\r\n    <string name=\"home\">Home</string>\r\n    <string name=\"motors\">Motors</string>\r\n    <string name=\"real_state\">Real State</string>\r\n    <string name=\"entertainment\">Entertainment</string>\r\n\r\n    <string name=\"FAQ1\">What\\'s eCommerce?</string>\r\n    <string name=\"FAQ2\">\r\n        eCommerce is a simple app developed to help you find what you need as fast as possible.\r\n        Seller or a simple customer, this app works either way!</string>\r\n    <string name=\"FAQ3\">Various Categories</string>\r\n    <string name=\"FAQ4\">You can search in a variety of categories, so you probably will find what you\\'re looking for.</string>\r\n    <string name=\"FAQ5\">No Brokers!</string>\r\n    <string name=\"FAQ6\">There are no brokers and you call the seller directly,\r\n        and ofcourse both sellers and customers are responsible for all security issues.</string>\r\n\r\n    <string name=\"ContactUs1\">Contact us via Email</string>\r\n    <string name=\"ContactUs2\">Mohamad_ask@aut.ac.ir</string>\r\n    <string name=\"ContactUs3\">Alighasemi1@aut.ac.ir</string>\r\n\r\n    <string name=\"confirm_log_out_title\">Log out</string>\r\n    <string name=\"confirm_log_out_message\">Are you sure you want to log out?</string>\r\n    <string name=\"confirm_log_out\">Yes</string>\r\n    <string name=\"cancel_log_out\">Cancel</string>\r\n\r\n\r\n    <string-array name=\"profile_dropdown_items\">\r\n        <item><font fgcolor='#d3d3d3'><font size=\"20\">Select</font></font></item>\r\n        <item>Edit your profile</item>\r\n        <item>Manage your products</item>\r\n        <item>Setting</item>\r\n        <item>Log out</item>\r\n    </string-array>\r\n\r\n    <string-array name=\"initial_slider_values\">\r\n        <item>0</item>\r\n        <item>10</item>\r\n    </string-array>\r\n\r\n    <string name=\"next\">Next</string>\r\n    <string name=\"previous\">Previous</string>\r\n    <string name=\"skip\">Skip</string>\r\n\r\n</resources>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values/strings.xml	(revision 3ab10ecf29e8fdf5066c607b7ad2907dca60c7e9)
++++ app/src/main/res/values/strings.xml	(date 1625824162048)
+@@ -55,4 +55,12 @@
+     <string name="previous">Previous</string>
+     <string name="skip">Skip</string>
+ 
++    <string name="see_name_and_quantity_of_products">See name and quantity of products</string>
++    <string name="prioritize_products">Prioritize products</string>
++    <string name="log_out">Log out</string>
++    <string name="see_users_login_count">See users login count</string>
++    <string name="see_the_top_seller">See the top seller</string>
++    <string name="see_summation_of_products_prices">See summation of products\' prices</string>
++    <string name="see_name_of_sellers">See name of sellers</string>
++
+ </resources>
+\ No newline at end of file
+Index: app/src/main/java/com/example/ecommerce/Main/LogInFragment.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.ecommerce.Main;\r\n\r\nimport android.content.Intent;\r\nimport android.os.Bundle;\r\n\r\nimport androidx.fragment.app.Fragment;\r\nimport androidx.navigation.Navigation;\r\n\r\nimport android.view.LayoutInflater;\r\nimport android.view.View;\r\nimport android.view.ViewGroup;\r\nimport android.widget.Button;\r\nimport android.widget.EditText;\r\nimport android.widget.TextView;\r\nimport android.widget.Toast;\r\n\r\nimport com.example.ecommerce.Home.HomeActivity;\r\nimport com.example.ecommerce.Model.Admin;\r\nimport com.example.ecommerce.Model.Client;\r\nimport com.example.ecommerce.Model.DataBaseHelper;\r\nimport com.example.ecommerce.R;\r\n\r\nimport java.util.List;\r\n\r\npublic class LogInFragment extends Fragment {\r\n\r\n    private Button login_btn;\r\n    private EditText inputUsername, inputPassword;\r\n    private TextView forgotPassword;\r\n    DataBaseHelper dataBaseHelper;\r\n\r\n\r\n    public View onCreateView(LayoutInflater inflater, ViewGroup container,\r\n                             Bundle savedInstanceState) {\r\n\r\n        View view = inflater.inflate(R.layout.fragment_log_in, container, false);\r\n\r\n        login_btn = view.findViewById(R.id.login_btn);\r\n        inputUsername = view.findViewById(R.id.username_login);\r\n        inputPassword = view.findViewById(R.id.password_login);\r\n        forgotPassword = view.findViewById(R.id.forgot_password_textView);\r\n        dataBaseHelper = new DataBaseHelper(getActivity());\r\n\r\n\r\n        login_btn.setOnClickListener(v -> {\r\n            String username = inputUsername.getText().toString();\r\n            String password = inputPassword.getText().toString();\r\n            List<Admin> admins = dataBaseHelper.getAdmins();\r\n            List<Client> clients = dataBaseHelper.getEveryClient();\r\n            boolean flag = true;\r\n            for (Admin admin : admins){\r\n                if(admin.getUsername().equalsIgnoreCase(username) && admin.getPassword().equals(password)){\r\n                    Toast.makeText(getActivity(), \"Welcome back \" + admin.getUsername(), Toast.LENGTH_LONG).show();\r\n                    flag = false;\r\n                    Intent intent = new Intent(getActivity(), HomeActivity.class);\r\n                    startActivity(intent);\r\n                }\r\n            }\r\n            for (Client client : clients){\r\n                if(client.getUserName().equalsIgnoreCase(username) && client.getPassword().equals(password)){\r\n                    int login_count = client.getLogin_count() + 1;\r\n                    boolean updated = dataBaseHelper.updateLoginCount(client, String.valueOf(login_count));\r\n                    if (updated) {\r\n                        Toast.makeText(getActivity(), \"Welcome back \" + client.getUserName(), Toast.LENGTH_LONG).show();\r\n                        Intent intent = new Intent(getActivity(), HomeActivity.class);\r\n                        Client.setActive_client(client);\r\n                        // intent.putExtra(\"Active User\", client);\r\n                        startActivity(intent);\r\n                    }\r\n                    else\r\n                        Toast.makeText(getActivity(), \"Task failed, try again\", Toast.LENGTH_LONG).show();\r\n                    flag = false;\r\n\r\n                }\r\n            }\r\n            if(flag)\r\n                Toast.makeText(getActivity(),\"Invalid Username or Password\", Toast.LENGTH_LONG).show();\r\n        });\r\n        forgotPassword.setOnClickListener(new View.OnClickListener() {\r\n            @Override\r\n            public void onClick(View v) {\r\n                Navigation.findNavController(getActivity(), R.id.fragment_main).navigate(R.id.action_logInFragment_to_fragment_forgot_password);\r\n                ((MainActivity)getActivity()).hideButtons();\r\n            }\r\n        });\r\n\r\n        return view;\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/ecommerce/Main/LogInFragment.java	(revision 3ab10ecf29e8fdf5066c607b7ad2907dca60c7e9)
++++ app/src/main/java/com/example/ecommerce/Main/LogInFragment.java	(date 1625822480629)
+@@ -14,6 +14,7 @@
+ import android.widget.TextView;
+ import android.widget.Toast;
+ 
++import com.example.ecommerce.Admin.AdminActivity;
+ import com.example.ecommerce.Home.HomeActivity;
+ import com.example.ecommerce.Model.Admin;
+ import com.example.ecommerce.Model.Client;
+@@ -50,9 +51,9 @@
+             boolean flag = true;
+             for (Admin admin : admins){
+                 if(admin.getUsername().equalsIgnoreCase(username) && admin.getPassword().equals(password)){
+-                    Toast.makeText(getActivity(), "Welcome back " + admin.getUsername(), Toast.LENGTH_LONG).show();
++                    Toast.makeText(getActivity(), "Welcome back admin" , Toast.LENGTH_LONG).show();
+                     flag = false;
+-                    Intent intent = new Intent(getActivity(), HomeActivity.class);
++                    Intent intent = new Intent(getActivity(), AdminActivity.class);
+                     startActivity(intent);
+                 }
+             }

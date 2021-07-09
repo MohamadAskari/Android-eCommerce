@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ecommerce.Admin.AdminActivity;
 import com.example.ecommerce.Home.HomeActivity;
 import com.example.ecommerce.Model.Admin;
 import com.example.ecommerce.Model.Client;
@@ -52,7 +53,7 @@ public class LogInFragment extends Fragment {
                 if(admin.getUsername().equalsIgnoreCase(username) && admin.getPassword().equals(password)){
                     Toast.makeText(getActivity(), "Welcome back " + admin.getUsername(), Toast.LENGTH_LONG).show();
                     flag = false;
-                    Intent intent = new Intent(getActivity(), HomeActivity.class);
+                    Intent intent = new Intent(getActivity(), AdminActivity.class);
                     startActivity(intent);
                 }
             }

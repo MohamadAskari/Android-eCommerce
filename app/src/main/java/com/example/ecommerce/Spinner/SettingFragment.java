@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 
@@ -29,7 +30,7 @@ public class SettingFragment extends Fragment {
 
     private SwitchCompat switchCompat;
     private ImageView back_btn_image_view, back_btn_popup_faq, back_btn_popup_contact_us;
-    private TextView FAQ_tv, contactUs_tv, removeFavs_tv;
+    private AppCompatButton FAQ_btn, contactUs_btn, removeFavs_btn;
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
     private DataBaseHelper dataBaseHelper;
@@ -42,9 +43,9 @@ public class SettingFragment extends Fragment {
 
         switchCompat = view.findViewById(R.id.night_mode_switch);
         back_btn_image_view = view.findViewById(R.id.view_setting_back_icon);
-        removeFavs_tv = view.findViewById(R.id.remove_favs_tv);
-        contactUs_tv = view.findViewById(R.id.contact_us_tv);
-        FAQ_tv = view.findViewById(R.id.FAQS_tv);
+        removeFavs_btn = view.findViewById(R.id.remove_favs_btn);
+        contactUs_btn = view.findViewById(R.id.contact_us_btn);
+        FAQ_btn = view.findViewById(R.id.FAQS_btn);
         Client ActiveClient = Client.getActive_client();
         String clientPhonenumber = ActiveClient.getPhoneNumber();
         dataBaseHelper = new DataBaseHelper(getActivity());
@@ -70,7 +71,7 @@ public class SettingFragment extends Fragment {
             }
         });
 
-        removeFavs_tv.setOnClickListener(new View.OnClickListener() {
+        removeFavs_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 boolean removed = false;
@@ -83,14 +84,14 @@ public class SettingFragment extends Fragment {
             }
         });
 
-        contactUs_tv.setOnClickListener(new View.OnClickListener() {
+        contactUs_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showPopupWindow("Contact us");
             }
         });
 
-        FAQ_tv.setOnClickListener(new View.OnClickListener() {
+        FAQ_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showPopupWindow("FAQ");

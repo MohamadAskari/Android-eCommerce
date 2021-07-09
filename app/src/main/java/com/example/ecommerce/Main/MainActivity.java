@@ -28,11 +28,8 @@ public class MainActivity extends AppCompatActivity {
         dataBaseHelper = new DataBaseHelper(this);
 
         if (dataBaseHelper.getAdmins().isEmpty()) {
-            Admin admin1 = new Admin("Ali_Ghasemi", "2710376601");
-            Admin admin2 = new Admin("Mohamad_Askari", "2710380773");
-
-            dataBaseHelper.addAdmin(admin1);
-            dataBaseHelper.addAdmin(admin2);
+            Admin admin = new Admin("admin", "1234");
+            dataBaseHelper.addAdmin(admin);
         }
 
 
