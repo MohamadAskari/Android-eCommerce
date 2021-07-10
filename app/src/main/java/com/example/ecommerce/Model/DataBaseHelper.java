@@ -154,22 +154,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return admins;
     }
 
-    public boolean updateLoginCount(Client client, String newCount){
-        SQLiteDatabase DB = this.getWritableDatabase();
-        ContentValues CV = new ContentValues();
-        CV.put(CLIENT_LOGINCOUNT, newCount);
-        long updated =  DB.update(CLIENT_TABLE, CV, CLIENT_PHONENUMBER + " = ?" , new String[] {client.getPhoneNumber()});
-        return updated != -1;
-    }
-
-    public boolean updateProductCount(Client client, String newCount){
-        SQLiteDatabase DB = this.getWritableDatabase();
-        ContentValues CV = new ContentValues();
-        CV.put(SELLER_PRODUCT_COUNT, newCount);
-        long updated =  DB.update(CLIENT_TABLE, CV, CLIENT_PHONENUMBER + " = ?" , new String[] {client.getPhoneNumber()});
-        return updated != -1;
-    }
-
     public Uri getProfileUri(String phonenumber){
         Uri uri = null;
         List<Client> allClients = this.getEveryClient();
@@ -236,6 +220,20 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return clients;
     }
 
+    public Client getClientByUsername(String username){
+        Client client;
+        List<Client> clients = this.getEveryClient();
+        for (Client c : clients){
+            if(c.getUserName().equalsIgnoreCase(username)){
+                client = new Client(c.getUserName(), c.getFirstName(), c.getLastName(),
+                        c.getEmail(), c.getPhoneNumber(), c.getPassword(),
+                        c.isSeller(), c.getLogin_count(), c.getProduct_count());
+                return client;
+            }
+        }
+        return null;
+    }
+
     public Client getClientByPhonenumber(String phonenumber){
         Client client;
         List<Client> clients = this.getEveryClient();
@@ -248,6 +246,22 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             }
         }
         return null;
+    }
+
+    public boolean updateLoginCount(Client client, String newCount){
+        SQLiteDatabase DB = this.getWritableDatabase();
+        ContentValues CV = new ContentValues();
+        CV.put(CLIENT_LOGINCOUNT, newCount);
+        long updated =  DB.update(CLIENT_TABLE, CV, CLIENT_PHONENUMBER + " = ?" , new String[] {client.getPhoneNumber()});
+        return updated != -1;
+    }
+
+    public boolean updateProductCount(Client client, String newCount){
+        SQLiteDatabase DB = this.getWritableDatabase();
+        ContentValues CV = new ContentValues();
+        CV.put(SELLER_PRODUCT_COUNT, newCount);
+        long updated =  DB.update(CLIENT_TABLE, CV, CLIENT_PHONENUMBER + " = ?" , new String[] {client.getPhoneNumber()});
+        return updated != -1;
     }
 
     public boolean updatePassword(Client client, String newPassword) {
