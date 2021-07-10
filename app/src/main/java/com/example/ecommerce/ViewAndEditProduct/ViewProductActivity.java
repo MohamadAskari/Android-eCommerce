@@ -119,7 +119,7 @@ public class ViewProductActivity extends AppCompatActivity {
         Client seller = dataBaseHelper.getClientByPhonenumber(sellerPhonenumber);
         seller_username.setText(seller.getUserName());
         seller_phonenumber.setText(seller.getPhoneNumber());
-        seller_profile_pic.setImageURI(active_client.getImageUrl());
+        seller_profile_pic.setImageURI(seller.getImageUrl());
 
         dialogBuilder.setView(viewSellerInfo_popupView);
         dialog = dialogBuilder.create();

@@ -110,7 +110,7 @@ public class EditProductActivity extends AppCompatActivity {
             }
         });
 
-        apply_btn.setOnClickListener(v -> apply_changes(product));
+        apply_btn.setOnClickListener(v -> applyChanges(product));
     }
 
     private void askCameraPermission() {
@@ -216,7 +216,7 @@ public class EditProductActivity extends AppCompatActivity {
         }
     }
 
-    private void apply_changes(Product product) {
+    private void applyChanges(Product product) {
         if(TextUtils.isEmpty(inputproductname.getText().toString().trim()) || TextUtils.isEmpty(inputproductprice.getText().toString().trim())){
             Toast.makeText(this, "Please fill out all required fields", Toast.LENGTH_LONG).show();
         }

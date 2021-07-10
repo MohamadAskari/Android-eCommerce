@@ -219,4 +219,15 @@ public class Product implements Parcelable {
     public void removeFromFavoriteAddedUsers(String phonenumber) {
         FavoriteAddedUsersPhonenumber.remove(phonenumber);
     }
+
+    @Override
+    public String toString() {
+        return
+                "\n" +
+                "Name : " + Name + "\n" +
+                "Price : " + Price + "$" + "\n" +
+                "Category : " + Category + "\n" +
+                "SubCategory : " + SubCategory + "\n" +
+                "Seller's phone number : " + SellerPhonenumber + "\n" ;
+    }
 }

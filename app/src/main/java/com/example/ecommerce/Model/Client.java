@@ -133,4 +133,20 @@ public class Client {
         ImageUrl = imageUrl;
     }
 
+    @Override
+    public String toString() {
+        return "\n" +
+                "User name : " + UserName + "\n" +
+                "First name : " + FirstName + "\n" +
+                "Last name : " + LastName + "\n" +
+                "Email : " + Email + "\n" +
+                "Phone number : " + PhoneNumber + "\n" +
+                "Number of products : " + Product_count + "\n";
+    }
+
+    public String showLoginCount() {
+        return "\n" +
+                "User name : " + UserName + "\n" +
+                "Login count : " + Login_count + " visits" + "\n" ;
+    }
 }

@@ -42,7 +42,7 @@
             android:layout_marginTop="43dp"
             android:layout_marginBottom="27dp"
             android:fontFamily="@font/montserrat_regular"
-            android:textColor="@color/black"
+            android:textColor="@color/dark_gray"
             android:text="NIGHT MODE"
             android:textSize="20sp" />
 
@@ -67,7 +67,7 @@
             android:fontFamily="@font/montserrat_regular"
             android:text="Remove all favorite products"
             android:textSize="20sp"
-            android:textColor="@color/black"/>
+            android:textColor="@color/dark_gray"/>
 
     </RelativeLayout>
 
@@ -92,7 +92,7 @@
             android:paddingEnd="300dp"
             android:text="FAQS  "
             android:textAlignment="textStart"
-            android:textColor="@color/black"
+            android:textColor="@color/dark_gray"
             android:textSize="20sp" />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -108,7 +108,7 @@
             android:paddingEnd="20dp"
             android:text="Contact us"
             android:textAlignment="textStart"
-            android:textColor="@color/black"
+            android:textColor="@color/dark_gray"
             android:textSize="20sp" />
 
 

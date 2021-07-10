@@ -183,6 +183,16 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return AllProductsOfClient;
     }
 
+    public List<Client> getAllSellers(){
+        List<Client> AllClients = this.getEveryClient();
+        List<Client> AllSellers = new ArrayList<>();
+        for (Client client : AllClients){
+            if(client.isSeller())
+                AllSellers.add(client);
+        }
+        return AllSellers;
+    }
+
     public List<Client> getEveryClient(){
         List<Client> clients = new ArrayList<>();
 
@@ -330,7 +340,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             }
         }
 
-        CV.put(PRODUCT_PRICE, product.getName());
+        CV.put(PRODUCT_NAME, product.getName());
         CV.put(PRODUCT_PRICE, product.getPrice());
         CV.put(PRODUCT_DESCRIPTION, product.getDescription());
         CV.put(PRODUCT_PIC, product.getImagePath());
