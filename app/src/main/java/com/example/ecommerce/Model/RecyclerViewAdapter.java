@@ -106,6 +106,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                                     DataBaseHelper db = new DataBaseHelper(context);
                                     boolean removed = db.removeProduct(productList.get(position));
                                     if(removed){
+                                        int product_count = Client.getActive_client().getProduct_count() - 1;
+                                        db.updateProductCount(Client.getActive_client(), String.valueOf(product_count));
                                         Toast.makeText(context, "Product deleted successfully", Toast.LENGTH_LONG).show();
                                     }
                                     else{
