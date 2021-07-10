@@ -57,11 +57,15 @@ public class ManageProductFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-        clientsProducts = dataBaseHelper.getAllProductsOfClient(ActiveClient);
-
-        mAdapter = new RecyclerViewAdapter(clientsProducts, getActivity());
-        recyclerView.setAdapter(mAdapter);
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        clientsProducts = dataBaseHelper.getAllProductsOfClient(ActiveClient);
+        mAdapter = new RecyclerViewAdapter(clientsProducts, getActivity());
+        recyclerView.setAdapter(mAdapter);
     }
 }

@@ -4,7 +4,6 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentResolver;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -19,7 +18,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 
 import android.provider.MediaStore;
 import android.text.SpannableString;
@@ -146,7 +144,7 @@ public class EditProfileFragment extends Fragment {
                         || TextUtils.isEmpty(email) || TextUtils.isEmpty(phonenumber))
                     Toast.makeText(getActivity(), "Please don't leave any field empty", Toast.LENGTH_SHORT).show();
                 else {
-                    boolean updated = dataBaseHelper.updateAllValues(ActiveClient, firstname, lastname, username, email, phonenumber, imagepath);
+                    boolean updated = dataBaseHelper.updateClientValues(ActiveClient, firstname, lastname, username, email, phonenumber, imagepath);
                     if (updated){
                         Toast.makeText(getActivity(), "Applied changes successfully", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getActivity(), HomeActivity.class);
