@@ -277,7 +277,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return updated != -1;
     }
 
-    public boolean updateAllValues(Client client, String firstname, String lastname, String username, String email, String phonenumber, String ImagePath){
+    public boolean updateClientValues(Client client, String firstname, String lastname, String username, String email, String phonenumber, String ImagePath){
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues CV = new ContentValues();
 
@@ -289,6 +289,67 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         CV.put(CLIENT_PIC, ImagePath);
 
         long updated = DB.update(CLIENT_TABLE, CV, CLIENT_PHONENUMBER + " = ?" , new String[] {client.getPhoneNumber()});
+
+        return updated != -1;
+    }
+
+    public boolean updateProductValues(Product product){
+        SQLiteDatabase DB = this.getWritableDatabase();
+        ContentValues CV = new ContentValues();
+
+        boolean updatedProductInCategory = false;
+
+        switch (product.getCategory()) {
+            case "Electronics": {
+                updatedProductInCategory = this.updateProductInCategory(ELECTRONIC_TABLE, product);
+                break;
+            }
+            case "Fashion": {
+                updatedProductInCategory = this.updateProductInCategory(FASHION_TABLE, product);
+                break;
+            }
+            case "Sports": {
+                updatedProductInCategory = this.updateProductInCategory(SPORTS_TABLE, product);
+                break;
+            }
+            case "Home": {
+                updatedProductInCategory = this.updateProductInCategory(HOME_TABLE, product);
+                break;
+            }
+            case "Motors": {
+                updatedProductInCategory = this.updateProductInCategory(MOTORS_TABLE, product);
+                break;
+            }
+            case "Real State": {
+                updatedProductInCategory = this.updateProductInCategory(REALSTATE_TABLE, product);
+                break;
+            }
+            case "Entertainment": {
+                updatedProductInCategory = this.updateProductInCategory(ENTERTAINMENT_TABLE, product);
+                break;
+            }
+        }
+
+        CV.put(PRODUCT_PRICE, product.getName());
+        CV.put(PRODUCT_PRICE, product.getPrice());
+        CV.put(PRODUCT_DESCRIPTION, product.getDescription());
+        CV.put(PRODUCT_PIC, product.getImagePath());
+
+        long updated = DB.update(PRODUCTS_TABLE, CV, PRODUCT_ID + " = ?" , new String[] {product.getId()});
+
+        return (updated != -1) && (updatedProductInCategory);
+    }
+
+    public boolean updateProductInCategory(String TableName, Product product){
+        SQLiteDatabase DB = this.getWritableDatabase();
+        ContentValues CV = new ContentValues();
+
+        CV.put(PRODUCT_NAME, product.getName());
+        CV.put(PRODUCT_PRICE, product.getPrice());
+        CV.put(PRODUCT_DESCRIPTION, product.getDescription());
+        CV.put(PRODUCT_PIC, product.getImagePath());
+
+        long updated = DB.update(TableName, CV, PRODUCT_ID + " = ?" , new String[] {product.getId()});
 
         return updated != -1;
     }
