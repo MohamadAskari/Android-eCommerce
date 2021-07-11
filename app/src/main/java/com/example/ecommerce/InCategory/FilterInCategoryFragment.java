@@ -33,6 +33,7 @@ public class FilterInCategoryFragment extends Fragment {
     private EditText price_from_value, price_to_value;
     private TextView tv_select_subcategory;
     private List<CheckBox> subCategoriesCheckboxes = new ArrayList<>();
+    private CheckBox only_with_image_checkbox;
     private RadioButton mostExpensive_rb, cheapest_rb;
     private String category;
     private Button apply_btn;
@@ -45,13 +46,13 @@ public class FilterInCategoryFragment extends Fragment {
 
         tv_select_subcategory = view.findViewById(R.id.tv_select_subcategory);
         category = CategoryUtils.getSelectedCategoryTitle();
-        if(category.equalsIgnoreCase("Realstate"))
-            category = "Real State";
-        else if(category.equalsIgnoreCase("Electronic"))
-            category = "Electronics";
 
         String text = "In " + category + " :";
         tv_select_subcategory.setText(text);
+
+        // sub category checkboxes
+        LinearLayout linearLayout = view.findViewById(R.id.checkBox_linear_layout);
+        createSubCategoriesCheckbox(linearLayout);
 
         price_slider = view.findViewById(R.id.price_slider);
         price_slider.setLabelFormatter(new LabelFormatter() {
@@ -85,8 +86,7 @@ public class FilterInCategoryFragment extends Fragment {
             }
         });
 
-        LinearLayout linearLayout = view.findViewById(R.id.checkBox_linear_layout);
-        createSubCategoriesCheckbox(linearLayout);
+        only_with_image_checkbox = view.findViewById(R.id.only_with_image_checkbox);
 
         mostExpensive_rb = view.findViewById(R.id.rb_most_expensive);
         cheapest_rb = view.findViewById(R.id.rb_cheapest);
@@ -95,8 +95,7 @@ public class FilterInCategoryFragment extends Fragment {
         apply_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(getActivity(), getSelectedSubCategories(subCategoriesCheckboxes).toString(), Toast.LENGTH_LONG).show();
-                ApplyFilter();
+                applyFilter();
                 getActivity().getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right,
                         R.anim.enter_from_right, R.anim.exit_to_left).replace(R.id.in_category_fragment_container, new InCategoryProductsFragment()).commit();
             }
@@ -129,9 +128,9 @@ public class FilterInCategoryFragment extends Fragment {
         }
         return selectedSubCategories;
     }
-    private void ApplyFilter(){
+    private void applyFilter(){
         CategoryUtils.filterCategoryProducts(getSelectedSubCategories(subCategoriesCheckboxes), Integer.parseInt(price_from_value.getText().toString()),
-                Integer.parseInt(price_to_value.getText().toString()), false, getSelectedSortType());
+                Integer.parseInt(price_to_value.getText().toString()), only_with_image_checkbox.isChecked(), getSelectedSortType());
     }
     private String getSelectedSortType(){
         if(cheapest_rb.isChecked())

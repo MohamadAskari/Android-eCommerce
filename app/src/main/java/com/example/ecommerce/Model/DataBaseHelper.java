@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -57,6 +58,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String PRODUCT_DESCRIPTION = "PRODUCT_DESCRIPTION";
     public static final String PRODUCT_PIC = "PRODUCT_PIC";
     public static final String PRODUCT_ADDED_FAVORITE_USERS = "PRODUCT_ADDED_FAVORITE_USERS";
+    public static final String PRODUCT_HAS_IMAGE = "PRODUCT_HAS_IMAGE";
 
 
     public DataBaseHelper(@Nullable Context context) {
@@ -68,14 +70,14 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String onCreateTableString_Users = "CREATE TABLE " + CLIENT_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + CLIENT_USERNAME + " TEXT , " + CLIENT_FIRSTNAME + " TEXT, " + CLIENT_LASTNAME + " TEXT, " + CLIENT_EMAIL + " TEXT, " + CLIENT_PHONENUMBER + " TEXT, " + CLIENT_PASSWORD + " TEXT, " + IS_SELLER + " BOOLEAN, " + CLIENT_LOGINCOUNT + " TEXT, " + SELLER_PRODUCT_COUNT + " TEXT, " + CLIENT_PIC + " TEXT, " + CLIENT_INTERESTS + " TEXT ) ";
         String onCreateTableString_Admins = "CREATE TABLE " + ADMIN_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + ADMIN_USERNAME + " TEXT , " + ADMIN_PASSWORD + " TEXT ) ";
-        String onCreateTableString_Products = "CREATE TABLE " + PRODUCTS_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_ID + " TEXT , " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_CATEGORY + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT , " + PRODUCT_PIC + " TEXT , " + PRODUCT_ADDED_FAVORITE_USERS + " TEXT ) ";
-        String onCreateTableString_Electronics = "CREATE TABLE " + ELECTRONICS_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_ID + " TEXT , " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT , " + PRODUCT_PIC + " TEXT , " + PRODUCT_ADDED_FAVORITE_USERS + " TEXT ) ";
-        String onCreateTableString_Fashion = "CREATE TABLE " + FASHION_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_ID + " TEXT , " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT , " + PRODUCT_PIC + " TEXT , " + PRODUCT_ADDED_FAVORITE_USERS + " TEXT ) ";
-        String onCreateTableString_Home = "CREATE TABLE " + HOME_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_ID + " TEXT , " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT , " + PRODUCT_PIC + " TEXT , " + PRODUCT_ADDED_FAVORITE_USERS + " TEXT ) ";
-        String onCreateTableString_Sports = "CREATE TABLE " + SPORTS_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_ID + " TEXT , " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT , " + PRODUCT_PIC + " TEXT , " + PRODUCT_ADDED_FAVORITE_USERS + " TEXT ) ";
-        String onCreateTableString_Motors = "CREATE TABLE " + MOTORS_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_ID + " TEXT , " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT , " + PRODUCT_PIC + " TEXT , " + PRODUCT_ADDED_FAVORITE_USERS + " TEXT ) ";
-        String onCreateTableString_Realstate = "CREATE TABLE " + REALESTATE_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_ID + " TEXT , " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT , " + PRODUCT_PIC + " TEXT , " + PRODUCT_ADDED_FAVORITE_USERS + " TEXT ) ";
-        String onCreateTableString_Entertainment = "CREATE TABLE " + ENTERTAINMENT_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_ID + " TEXT , " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT , " + PRODUCT_PIC + " TEXT , " + PRODUCT_ADDED_FAVORITE_USERS + " TEXT ) ";
+        String onCreateTableString_Products = "CREATE TABLE " + PRODUCTS_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_ID + " TEXT , " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_CATEGORY + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT , " + PRODUCT_PIC + " TEXT , " + PRODUCT_ADDED_FAVORITE_USERS + " TEXT , " + PRODUCT_HAS_IMAGE + " TEXT ) ";
+        String onCreateTableString_Electronics = "CREATE TABLE " + ELECTRONICS_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_ID + " TEXT , " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT , " + PRODUCT_PIC + " TEXT , " + PRODUCT_ADDED_FAVORITE_USERS + " TEXT , " + PRODUCT_HAS_IMAGE + " TEXT ) ";
+        String onCreateTableString_Fashion = "CREATE TABLE " + FASHION_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_ID + " TEXT , " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT , " + PRODUCT_PIC + " TEXT , " + PRODUCT_ADDED_FAVORITE_USERS + " TEXT , " + PRODUCT_HAS_IMAGE + " TEXT ) ";
+        String onCreateTableString_Home = "CREATE TABLE " + HOME_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_ID + " TEXT , " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT , " + PRODUCT_PIC + " TEXT , " + PRODUCT_ADDED_FAVORITE_USERS + " TEXT , " + PRODUCT_HAS_IMAGE + " TEXT ) ";
+        String onCreateTableString_Sports = "CREATE TABLE " + SPORTS_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_ID + " TEXT , " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT , " + PRODUCT_PIC + " TEXT , " + PRODUCT_ADDED_FAVORITE_USERS + " TEXT , " + PRODUCT_HAS_IMAGE + " TEXT ) ";
+        String onCreateTableString_Motors = "CREATE TABLE " + MOTORS_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_ID + " TEXT , " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT , " + PRODUCT_PIC + " TEXT , " + PRODUCT_ADDED_FAVORITE_USERS + " TEXT , " + PRODUCT_HAS_IMAGE + " TEXT ) ";
+        String onCreateTableString_Realstate = "CREATE TABLE " + REALESTATE_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_ID + " TEXT , " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT , " + PRODUCT_PIC + " TEXT , " + PRODUCT_ADDED_FAVORITE_USERS + " TEXT , " + PRODUCT_HAS_IMAGE + " TEXT ) ";
+        String onCreateTableString_Entertainment = "CREATE TABLE " + ENTERTAINMENT_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_ID + " TEXT , " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT , " + PRODUCT_PIC + " TEXT , " + PRODUCT_ADDED_FAVORITE_USERS + " TEXT , " + PRODUCT_HAS_IMAGE + " TEXT ) ";
 
 
         db.execSQL(onCreateTableString_Users);
@@ -343,38 +345,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     // Product methods
     public boolean addProduct(Product product) {
 
-        boolean addedProductToCategory = false;
-
-        switch (product.getCategory()) {
-            case "Electronics": {
-                addedProductToCategory = this.addProductToCategory(ELECTRONICS_TABLE, product);
-                break;
-            }
-            case "Fashion": {
-                addedProductToCategory = this.addProductToCategory(FASHION_TABLE, product);
-                break;
-            }
-            case "Sports": {
-                addedProductToCategory = this.addProductToCategory(SPORTS_TABLE, product);
-                break;
-            }
-            case "Home": {
-                addedProductToCategory = this.addProductToCategory(HOME_TABLE, product);
-                break;
-            }
-            case "Motors": {
-                addedProductToCategory = this.addProductToCategory(MOTORS_TABLE, product);
-                break;
-            }
-            case "Real Estate": {
-                addedProductToCategory = this.addProductToCategory(REALESTATE_TABLE, product);
-                break;
-            }
-            case "Entertainment": {
-                addedProductToCategory = this.addProductToCategory(ENTERTAINMENT_TABLE, product);
-                break;
-            }
-        }
+        String category_table = CategoryUtils.getCategoryTableFromTitle(product.getCategory());
+        boolean addedProductToCategory = this.addProductToCategory(category_table, product);
 
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues CV = new ContentValues();
@@ -388,47 +360,21 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         CV.put(PRODUCT_SELLER, product.getSellerPhonenumber());
         CV.put(PRODUCT_PIC, product.getImagePath());
         Gson gson = new Gson();
-        CV.put(PRODUCT_ADDED_FAVORITE_USERS, gson.toJson(product.getFavoriteAddedUsersPhonenumber()));;
+        CV.put(PRODUCT_ADDED_FAVORITE_USERS, gson.toJson(product.getFavoriteAddedUsersPhonenumber()));
+        String hasImage = (product.hasImage()) ? "true" : "false";
+        CV.put(PRODUCT_HAS_IMAGE, hasImage);
 
         long added = DB.insert(PRODUCTS_TABLE, null, CV);
+
+        Log.d("TAG", hasImage);
 
         return (added != -1) && (addedProductToCategory);
     }
 
     public boolean removeProduct(Product product) {
 
-        boolean removeProductFromCategory = false;
-
-        switch (product.getCategory()) {
-            case "Electronics": {
-                removeProductFromCategory = this.removeProductFromCategory(ELECTRONICS_TABLE, product);
-                break;
-            }
-            case "Fashion": {
-                removeProductFromCategory = this.removeProductFromCategory(FASHION_TABLE, product);
-                break;
-            }
-            case "Sports": {
-                removeProductFromCategory = this.removeProductFromCategory(SPORTS_TABLE, product);
-                break;
-            }
-            case "Home": {
-                removeProductFromCategory = this.removeProductFromCategory(HOME_TABLE, product);
-                break;
-            }
-            case "Motors": {
-                removeProductFromCategory = this.removeProductFromCategory(MOTORS_TABLE, product);
-                break;
-            }
-            case "Real State": {
-                removeProductFromCategory = this.removeProductFromCategory(REALESTATE_TABLE, product);
-                break;
-            }
-            case "Entertainment": {
-                removeProductFromCategory = this.removeProductFromCategory(ENTERTAINMENT_TABLE, product);
-                break;
-            }
-        }
+        String category_table = CategoryUtils.getCategoryTableFromTitle(product.getCategory());
+        boolean removeProductFromCategory = this.removeProductFromCategory(category_table, product);
 
         SQLiteDatabase DB = this.getWritableDatabase();
 
@@ -441,15 +387,15 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues CV = new ContentValues();
 
-        boolean updatedProductInCategory = false;
-
         String category_table = CategoryUtils.getCategoryTableFromTitle(product.getCategory());
-        updatedProductInCategory = this.updateProductInCategory(category_table, product);
+        boolean updatedProductInCategory = this.updateProductInCategory(category_table, product);
 
         CV.put(PRODUCT_NAME, product.getName());
         CV.put(PRODUCT_PRICE, product.getPrice());
         CV.put(PRODUCT_DESCRIPTION, product.getDescription());
         CV.put(PRODUCT_PIC, product.getImagePath());
+        String hasImage = (product.hasImage()) ? "true" : "false";
+        CV.put(PRODUCT_HAS_IMAGE, hasImage);
 
         long updated = DB.update(PRODUCTS_TABLE, CV, PRODUCT_ID + " = ?" , new String[] {product.getId()});
 
@@ -464,6 +410,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         CV.put(PRODUCT_PRICE, product.getPrice());
         CV.put(PRODUCT_DESCRIPTION, product.getDescription());
         CV.put(PRODUCT_PIC, product.getImagePath());
+        String hasImage = (product.hasImage()) ? "true" : "false";
+        CV.put(PRODUCT_HAS_IMAGE, hasImage);
 
         long updated = DB.update(TableName, CV, PRODUCT_ID + " = ?" , new String[] {product.getId()});
 
@@ -483,6 +431,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         CV.put(PRODUCT_PIC, product.getImagePath());
         Gson gson = new Gson();
         CV.put(PRODUCT_ADDED_FAVORITE_USERS, gson.toJson(product.getFavoriteAddedUsersPhonenumber()));;
+        String hasImage = (product.hasImage()) ? "true" : "false";
+        CV.put(PRODUCT_HAS_IMAGE, hasImage);
 
         long added = DB.insert(TableName, null, CV);
 
@@ -521,6 +471,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 Gson gson = new Gson();
                 ArrayList<String> favoriteAddedUsers = gson.fromJson(FavoriteAddedUsers, type);
                 Product product = new Product(Id, ImagePath, Name, Price, Description, Category, SubCategory, Seller, favoriteAddedUsers);
+                String hasImage =  cursor.getString(10);
+                product.setHasImage(hasImage.equals("true"));
                 products.add(product);
 
             } while (cursor.moveToNext());
@@ -560,6 +512,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                     Gson gson = new Gson();
                     ArrayList<String> favoriteAddedUsers = gson.fromJson(FavoriteAddedUsers, type);
                     Product product = new Product(Id, ImagePath, Name, Price, Description, Category, SubCategory, Seller, favoriteAddedUsers);
+                    String hasImage =  cursor.getString(9);
+                    product.setHasImage(hasImage.equals("true"));
                     interestedProducts.add(product);
                 } while (cursor.moveToNext());
             }
@@ -594,6 +548,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 Gson gson = new Gson();
                 ArrayList<String> favoriteAddedUsers = gson.fromJson(FavoriteAddedUsers, type);
                 Product product = new Product(Id, ImagePath, Name, Price, Description, Category, SubCategory, Seller, favoriteAddedUsers);
+                String hasImage =  cursor.getString(9);
+                product.setHasImage(hasImage.equals("true"));
                 products.add(product);
 
             } while (cursor.moveToNext());
