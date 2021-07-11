@@ -29,10 +29,10 @@
                 android:layout_width="125dp"
                 android:layout_height="125dp"
                 android:layout_margin="10dp"
-
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:srcCompat="@tools:sample/avatars" />
+                tools:srcCompat="@tools:sample/avatars"
+                android:transitionName="example_transition" />
 
             <TextView
                 android:id="@+id/tv_product_name"
