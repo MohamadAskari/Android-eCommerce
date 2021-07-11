@@ -5,32 +5,20 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.GridLayout;
-import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.PopupMenu;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.models.SlideModel;
@@ -41,9 +29,7 @@ import com.example.ecommerce.Model.DataBaseHelper;
 import com.example.ecommerce.Model.Product;
 import com.example.ecommerce.Model.RecyclerViewAdapter;
 import com.example.ecommerce.R;
-import com.example.ecommerce.Spinner.ManageProductFragment;
-import com.example.ecommerce.Spinner.SpinnerOptionsActivity;
-import com.example.ecommerce.ViewAndEditProduct.EditProductActivity;
+import com.example.ecommerce.ProfileMenu.SpinnerOptionsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -209,7 +195,7 @@ public class HomeFragment extends Fragment {
     public void onResume() {
 
         dataBaseHelper = new DataBaseHelper(getActivity());
-        productList = dataBaseHelper.getAllProducts();
+        productList = dataBaseHelper.getInterestedProducts(Client.getActive_client());
 
         mAdapter = new RecyclerViewAdapter(productList, getActivity());
         recyclerView.setAdapter(mAdapter);

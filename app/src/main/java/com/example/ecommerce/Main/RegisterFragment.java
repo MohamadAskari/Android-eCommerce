@@ -21,6 +21,7 @@ import com.example.ecommerce.Model.Client;
 import com.example.ecommerce.Model.DataBaseHelper;
 import com.example.ecommerce.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RegisterFragment extends Fragment {
@@ -73,7 +74,7 @@ public class RegisterFragment extends Fragment {
             Toast.makeText(getActivity(), "Your password and confirmation password do not match", Toast.LENGTH_LONG).show();
         }
         else {
-            Client newClient = new Client(username, firstname, lastname, email, phonenumber, pass, isSeller);
+            Client newClient = new Client(username, firstname, lastname, email, phonenumber, pass, isSeller, new ArrayList<>());
             //check if username already exists
             boolean UsernameExists = checkIfUsernameExists(newClient);
             boolean EmailExists = checkIfEmailExists(newClient);

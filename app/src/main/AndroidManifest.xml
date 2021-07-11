@@ -32,7 +32,7 @@
         <activity android:name=".InCategory.InCategoryProductsActivity" />
         <activity android:name=".Home.HomeActivity" />
         <activity android:name=".ViewAndEditProduct.ViewProductActivity" />
-        <activity android:name=".Spinner.SpinnerOptionsActivity" />
+        <activity android:name=".ProfileMenu.SpinnerOptionsActivity" />
         <activity android:name=".Main.MainActivity" />
 
         <provider

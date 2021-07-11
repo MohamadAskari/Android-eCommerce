@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.ecommerce.InCategory.CategoryUtils;
 import com.example.ecommerce.R;
-import com.example.ecommerce.Spinner.ManageProductFragment;
+import com.example.ecommerce.ProfileMenu.ManageProductFragment;
 import com.example.ecommerce.ViewAndEditProduct.EditProductActivity;
 import com.example.ecommerce.ViewAndEditProduct.ViewProductActivity;
 

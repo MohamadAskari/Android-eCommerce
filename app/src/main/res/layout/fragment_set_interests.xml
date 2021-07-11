@@ -65,6 +65,16 @@
                     android:layout_marginBottom="0dp"
                     android:src="@drawable/electronics" />
 
+                <CheckBox
+                    android:id="@+id/electronics_checkbox"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:button="@drawable/custom_round_checkbox"
+                    android:clickable="true"
+                    android:focusable="true"/>
+
             </RelativeLayout>
 
             <RelativeLayout
@@ -91,6 +101,15 @@
                     android:layout_marginTop="45dp"
                     android:layout_marginBottom="0dp"
                     android:src="@drawable/fashion" />
+                <CheckBox
+                    android:id="@+id/fashion_checkbox"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:button="@drawable/custom_round_checkbox"
+                    android:clickable="true"
+                    android:focusable="true"/>
 
             </RelativeLayout>
 
@@ -120,6 +139,16 @@
                     android:layout_marginBottom="0dp"
                     android:src="@drawable/sports" />
 
+                <CheckBox
+                    android:id="@+id/sports_checkbox"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:button="@drawable/custom_round_checkbox"
+                    android:clickable="true"
+                    android:focusable="true"/>
+
             </RelativeLayout>
 
             <RelativeLayout
@@ -148,6 +177,16 @@
                     android:layout_marginBottom="0dp"
                     android:src="@drawable/home" />
 
+                <CheckBox
+                    android:id="@+id/home_checkbox"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:button="@drawable/custom_round_checkbox"
+                    android:clickable="true"
+                    android:focusable="true"/>
+
             </RelativeLayout>
 
             <RelativeLayout
@@ -175,6 +214,16 @@
                     android:layout_marginBottom="0dp"
                     android:src="@drawable/motors" />
 
+                <CheckBox
+                    android:id="@+id/motors_checkbox"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:button="@drawable/custom_round_checkbox"
+                    android:clickable="true"
+                    android:focusable="true"/>
+
             </RelativeLayout>
 
             <RelativeLayout
@@ -183,25 +232,35 @@
                 android:layout_margin="20dp"
                 android:background="@drawable/bg_realstate">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:padding="25dp"
-                android:text="@string/real_state"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:fontFamily="@font/montserrat_regular"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:padding="25dp"
+                    android:text="@string/real_state"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:fontFamily="@font/montserrat_regular"/>
 
 
-            <ImageView
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="55dp"
-                android:layout_marginBottom="0dp"
-                android:src="@drawable/real_state" />
+                <ImageView
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="55dp"
+                    android:layout_marginBottom="0dp"
+                    android:src="@drawable/real_state" />
+
+                <CheckBox
+                    android:id="@+id/realstate_checkbox"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:button="@drawable/custom_round_checkbox"
+                    android:clickable="true"
+                    android:focusable="true"/>
 
             </RelativeLayout>
 
@@ -231,6 +290,16 @@
                     android:layout_marginTop="55dp"
                     android:layout_marginBottom="0dp"
                     android:src="@drawable/entertainment" />
+
+                <CheckBox
+                    android:id="@+id/entertainment_checkbox"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:button="@drawable/custom_round_checkbox"
+                    android:clickable="true"
+                    android:focusable="true"/>
 
             </RelativeLayout>
 
@@ -265,9 +334,7 @@
                 android:text="@string/previous"
                 android:textSize="30sp" />
 
-
         </RelativeLayout>
-
 
     </LinearLayout>
 
