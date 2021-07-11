@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_admin"
+    app:startDestination="@id/adminFragment">
+
+    <fragment
+        android:id="@+id/adminFragment"
+        android:name="com.example.ecommerce.Admin.AdminFragment"
+        android:label="fragment_admin"
+        tools:layout="@layout/fragment_admin" >
+        <action
+            android:id="@+id/action_adminFragment_to_prioritizeFragment"
+            app:destination="@id/prioritizeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/prioritizeFragment"
+        android:name="com.example.ecommerce.Admin.PrioritizeFragment"
+        android:label="fragment_prioritize"
+        tools:layout="@layout/fragment_prioritize" >
+        <action
+            android:id="@+id/action_prioritizeFragment_to_adminFragment"
+            app:destination="@id/adminFragment" />
+    </fragment>
+</navigation>

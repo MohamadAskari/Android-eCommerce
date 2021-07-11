@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Admin.AdminFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/admin_name_of_products_btn"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:textAlignment="textStart"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:layout_marginTop="40dp"
+            android:text="@string/see_name_and_quantity_of_products"
+            android:fontFamily="@font/montserrat_regular"
+            android:textSize="20sp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/admin_name_of_sellers_btn"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:textAlignment="textStart"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/see_name_of_sellers"
+            android:fontFamily="@font/montserrat_regular"
+            android:textSize="20sp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/admin_sum_of_prices_btn"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="20dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:fontFamily="@font/montserrat_regular"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:text="@string/see_summation_of_products_prices"
+            android:textAlignment="textStart"
+            android:textSize="20sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/admin_top_seller_btn"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="20dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:fontFamily="@font/montserrat_regular"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:text="@string/see_the_top_seller"
+            android:textAlignment="textStart"
+            android:textSize="20sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/admin_users_login_count_btn"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:textAlignment="textStart"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/see_users_login_count"
+            android:fontFamily="@font/montserrat_regular"
+            android:textSize="20sp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/admin_prioritize_products_btn"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:textAlignment="textStart"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/prioritize_products"
+            android:fontFamily="@font/montserrat_regular"
+            android:textSize="20sp"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/admin_log_out_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:textAlignment="textStart"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="25dp"
+                android:text="@string/log_out"
+                android:padding="15dp"
+                android:fontFamily="@font/montserrat_regular"
+                android:textSize="18sp" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</ScrollView>

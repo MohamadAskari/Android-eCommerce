@@ -47,14 +47,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         switch (viewType){
             case 0 : // HomeFragment
-                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.in_home_product_view, parent, false);
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_in_home_product, parent, false);
                 break;
             case 1 : // InCategoryFragment
             case 2 : // FavoritesFragment
-                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.in_category_product_view, parent, false);
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_in_category_product, parent, false);
                 break;
             default : // ManageProductsFragment : return 3
-                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.in_manage_products_view, parent, false);
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_in_manage_products, parent, false);
                 break;
         }
 

@@ -230,4 +230,8 @@ public class Product implements Parcelable {
                 "SubCategory : " + SubCategory + "\n" +
                 "Seller's phone number : " + SellerPhonenumber + "\n" ;
     }
+
+    public String toString_Prioritize() {
+        return Name + " - " + Price + "$" + " - " + SellerPhonenumber;
+    }
 }

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize">
+
+            <ImageView
+                android:id="@+id/prioritize_products_back_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_arrow_back_24"
+                android:padding="15dp"
+                android:layout_alignParentStart="true"/>
+
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/promote_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="28sp"
+            android:text="Promote:"
+            android:fontFamily="@font/montserrat_regular"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"/>
+
+        <ListView
+            android:id="@+id/lv_prioritize_products"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:layout_margin="15dp"
+            android:choiceMode="multipleChoice" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/done_btn"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:layout_gravity="end"
+            android:layout_marginEnd="15dp"
+            android:text="Done"
+            android:fontFamily="@font/montserrat_regular"
+            android:textSize="18sp"
+            android:background="@drawable/bg_buttons5" />
+
+    </LinearLayout>
+
+</ScrollView>
