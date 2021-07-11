@@ -17,6 +17,7 @@ public class Product implements Parcelable {
     private String Category;
     private String SubCategory;
     private String SellerPhonenumber;
+    private boolean hasImage;
     private ArrayList<String> FavoriteAddedUsersPhonenumber;
     private Uri ImageUrl;
 
@@ -206,6 +207,14 @@ public class Product implements Parcelable {
 
     public void setSellerPhonenumber(String sellerPhonenumber) {
         SellerPhonenumber = sellerPhonenumber;
+    }
+
+    public boolean hasImage() {
+        return hasImage;
+    }
+
+    public void setHasImage(boolean hasImage) {
+        this.hasImage = hasImage;
     }
 
     public ArrayList<String> getFavoriteAddedUsersPhonenumber() {
