@@ -1,7 +1,9 @@
 package com.example.ecommerce.Model;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.transition.Fade;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +16,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -84,9 +88,19 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.product_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Fade fade = new Fade();
+                View decor = ((Activity) context).getWindow().getDecorView();
+                fade.excludeTarget(decor.findViewById(R.id.action_bar_container), true);
+                fade.excludeTarget(android.R.id.statusBarBackground, true);
+                fade.excludeTarget(android.R.id.navigationBarBackground, true);
+                ((Activity) context).getWindow().setEnterTransition(fade);
+                ((Activity) context).getWindow().setExitTransition(fade);
+
                 Intent intent = new Intent(context, ViewProductActivity.class);
                 intent.putExtra("product", productList.get(position));
-                context.startActivity(intent);
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                        (Activity) context, holder.iv_product_image, ViewCompat.getTransitionName(holder.iv_product_image));
+                context.startActivity(intent, options.toBundle());
             }
         });
 
