@@ -30,7 +30,7 @@ public class CategoriesFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), InCategoryProductsActivity.class);
-                intent.putExtra("Category", "ELECTRONIC_TABLE");
+                intent.putExtra("Category", "ELECTRONICS_TABLE");
                 startActivity(intent);
             }
         });
@@ -80,7 +80,7 @@ public class CategoriesFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), InCategoryProductsActivity.class);
-                intent.putExtra("Category", "REALSTATE_TABLE");
+                intent.putExtra("Category", "REALESTATE_TABLE");
                 startActivity(intent);
             }
         });

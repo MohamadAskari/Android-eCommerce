@@ -42,7 +42,7 @@ public class InCategoryProductsFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_in_category_products, container, false);
 
         dataBaseHelper = new DataBaseHelper(getActivity());
-        category = ((InCategoryProductsActivity)getActivity()).getSelectedCategory();
+        category = CategoryUtils.getSelectedCategory();
 
         search_bar_in_category = view.findViewById(R.id.search_bar_in_category);
         search_bar_in_category.addTextChangedListener(new TextWatcher() {
@@ -59,7 +59,7 @@ public class InCategoryProductsFragment extends Fragment {
         });
 
         tv_selected_category = view.findViewById(R.id.tv_selected_category);
-        tv_selected_category.setText(((InCategoryProductsActivity)getActivity()).getSelectedCategoryTitle());
+        tv_selected_category.setText(CategoryUtils.getSelectedCategoryTitle());
         recyclerView = view.findViewById(R.id.lv_productList_in_category);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getActivity());

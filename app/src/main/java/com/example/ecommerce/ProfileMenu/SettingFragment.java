@@ -1,4 +1,4 @@
-package com.example.ecommerce.Spinner;
+package com.example.ecommerce.ProfileMenu;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ecommerce.Home.HomeActivity;
@@ -23,7 +22,6 @@ import com.example.ecommerce.Model.DataBaseHelper;
 import com.example.ecommerce.Model.Product;
 import com.example.ecommerce.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class SettingFragment extends Fragment {

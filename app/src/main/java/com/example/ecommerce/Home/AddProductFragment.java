@@ -85,7 +85,7 @@ public class AddProductFragment extends Fragment {
         categories.add("Sports");
         categories.add("Home");
         categories.add("Motors");
-        categories.add("Real State");
+        categories.add("Real Estate");
         categories.add("Entertainment");
 
         ArrayAdapter<String> adapter_1 = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, categories);
@@ -154,7 +154,7 @@ public class AddProductFragment extends Fragment {
                     subcategories.add("Others");
                     fillSpinner();
                 }
-                else if(parent.getItemAtPosition(position).equals("Real State")){
+                else if(parent.getItemAtPosition(position).equals("Real Estate")){
                     subcategories.clear();
                     subcategories.add("Office");
                     subcategories.add("Department");

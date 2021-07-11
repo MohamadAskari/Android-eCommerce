@@ -3,6 +3,7 @@ package com.example.ecommerce.Model;
 import android.net.Uri;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Client {
 
@@ -14,30 +15,33 @@ public class Client {
     private String Email;
     private String PhoneNumber;
     private String Password;
+    private ArrayList<String> InterestedCategories;
     private boolean IsSeller;
     private int Login_count;
     private int Product_count;
     private Uri ImageUrl;
 
-    public Client(String userName, String firstName, String lastName, String email, String phoneNumber, String password, boolean is_Seller) {
+    public Client(String userName, String firstName, String lastName, String email, String phoneNumber, String password, boolean is_Seller, ArrayList<String> interestedCategories) {
         UserName = userName;
         FirstName = firstName;
         LastName = lastName;
         Email = email;
         PhoneNumber = phoneNumber;
         Password = password;
+        InterestedCategories = interestedCategories;
         IsSeller = is_Seller;
         Login_count = 1;
         Product_count = 0;
     }
 
-    public Client(String userName, String firstName, String lastName, String email, String phoneNumber, String password, boolean isSeller,  int login_count, int product_count) {
+    public Client(String userName, String firstName, String lastName, String email, String phoneNumber, String password, boolean isSeller,  int login_count, int product_count, ArrayList<String> interestedCategories) {
         UserName = userName;
         FirstName = firstName;
         LastName = lastName;
         Email = email;
         PhoneNumber = phoneNumber;
         Password = password;
+        InterestedCategories = interestedCategories;
         IsSeller = isSeller;
         Login_count = login_count;
         Product_count = product_count;
@@ -131,6 +135,18 @@ public class Client {
 
     public void setImageUrl(Uri imageUrl) {
         ImageUrl = imageUrl;
+    }
+
+    public ArrayList<String> getInterestedCategories() {
+        return InterestedCategories;
+    }
+
+    public void addToInterestedCategories(String category){
+        InterestedCategories.add(category);
+    }
+
+    public void removeFromInterestedCategories(String category){
+        InterestedCategories.remove(category);
     }
 
     @Override

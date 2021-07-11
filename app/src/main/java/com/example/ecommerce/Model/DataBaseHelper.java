@@ -9,10 +9,9 @@ import android.net.Uri;
 
 import androidx.annotation.Nullable;
 
+import com.example.ecommerce.InCategory.CategoryUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
-import org.w3c.dom.Text;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -33,6 +32,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String CLIENT_LOGINCOUNT = "CLIENT_LOGINCOUNT";
     public static final String SELLER_PRODUCT_COUNT = "SELLER_PRODUCT_COUNT";
     public static final String CLIENT_PIC = "CLIENT_PIC";
+    public static final String CLIENT_INTERESTS = "CLIENT_INTERESTS";
 
     // admin
     public static final String ADMIN_USERNAME = "ADMIN_USERNAME";
@@ -41,12 +41,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     // product
     public static final String PRODUCTS_TABLE = "PRODUCTS_TABLE";
-    public static final String ELECTRONIC_TABLE = "ELECTRONIC_TABLE";
+    public static final String ELECTRONICS_TABLE = "ELECTRONICS_TABLE";
     public static final String FASHION_TABLE = "FASHION_TABLE";
     public static final String HOME_TABLE = "HOME_TABLE";
     public static final String SPORTS_TABLE = "SPORTS_TABLE";
     public static final String MOTORS_TABLE = "MOTORS_TABLE";
-    public static final String REALSTATE_TABLE = "REALSTATE_TABLE";
+    public static final String REALESTATE_TABLE = "REALESTATE_TABLE";
     public static final String ENTERTAINMENT_TABLE = "ENTERTAINMENT_TABLE";
     public static final String PRODUCT_ID = "PRODUCT_ID";
     public static final String PRODUCT_NAME = "PRODUCT_NAME";
@@ -66,15 +66,15 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     //creating the table
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String onCreateTableString_Users = "CREATE TABLE " + CLIENT_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + CLIENT_USERNAME + " TEXT , " + CLIENT_FIRSTNAME + " TEXT, " + CLIENT_LASTNAME + " TEXT, " + CLIENT_EMAIL + " TEXT, " + CLIENT_PHONENUMBER + " TEXT, " + CLIENT_PASSWORD + " TEXT, " + IS_SELLER + " BOOLEAN, " + CLIENT_LOGINCOUNT + " TEXT, " + SELLER_PRODUCT_COUNT + " TEXT, " + CLIENT_PIC + " TEXT ) ";
+        String onCreateTableString_Users = "CREATE TABLE " + CLIENT_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + CLIENT_USERNAME + " TEXT , " + CLIENT_FIRSTNAME + " TEXT, " + CLIENT_LASTNAME + " TEXT, " + CLIENT_EMAIL + " TEXT, " + CLIENT_PHONENUMBER + " TEXT, " + CLIENT_PASSWORD + " TEXT, " + IS_SELLER + " BOOLEAN, " + CLIENT_LOGINCOUNT + " TEXT, " + SELLER_PRODUCT_COUNT + " TEXT, " + CLIENT_PIC + " TEXT, " + CLIENT_INTERESTS + " TEXT ) ";
         String onCreateTableString_Admins = "CREATE TABLE " + ADMIN_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + ADMIN_USERNAME + " TEXT , " + ADMIN_PASSWORD + " TEXT ) ";
         String onCreateTableString_Products = "CREATE TABLE " + PRODUCTS_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_ID + " TEXT , " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_CATEGORY + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT , " + PRODUCT_PIC + " TEXT , " + PRODUCT_ADDED_FAVORITE_USERS + " TEXT ) ";
-        String onCreateTableString_Electronics = "CREATE TABLE " + ELECTRONIC_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_ID + " TEXT , " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT , " + PRODUCT_PIC + " TEXT , " + PRODUCT_ADDED_FAVORITE_USERS + " TEXT ) ";
+        String onCreateTableString_Electronics = "CREATE TABLE " + ELECTRONICS_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_ID + " TEXT , " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT , " + PRODUCT_PIC + " TEXT , " + PRODUCT_ADDED_FAVORITE_USERS + " TEXT ) ";
         String onCreateTableString_Fashion = "CREATE TABLE " + FASHION_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_ID + " TEXT , " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT , " + PRODUCT_PIC + " TEXT , " + PRODUCT_ADDED_FAVORITE_USERS + " TEXT ) ";
         String onCreateTableString_Home = "CREATE TABLE " + HOME_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_ID + " TEXT , " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT , " + PRODUCT_PIC + " TEXT , " + PRODUCT_ADDED_FAVORITE_USERS + " TEXT ) ";
         String onCreateTableString_Sports = "CREATE TABLE " + SPORTS_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_ID + " TEXT , " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT , " + PRODUCT_PIC + " TEXT , " + PRODUCT_ADDED_FAVORITE_USERS + " TEXT ) ";
         String onCreateTableString_Motors = "CREATE TABLE " + MOTORS_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_ID + " TEXT , " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT , " + PRODUCT_PIC + " TEXT , " + PRODUCT_ADDED_FAVORITE_USERS + " TEXT ) ";
-        String onCreateTableString_Realstate = "CREATE TABLE " + REALSTATE_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_ID + " TEXT , " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT , " + PRODUCT_PIC + " TEXT , " + PRODUCT_ADDED_FAVORITE_USERS + " TEXT ) ";
+        String onCreateTableString_Realstate = "CREATE TABLE " + REALESTATE_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_ID + " TEXT , " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT , " + PRODUCT_PIC + " TEXT , " + PRODUCT_ADDED_FAVORITE_USERS + " TEXT ) ";
         String onCreateTableString_Entertainment = "CREATE TABLE " + ENTERTAINMENT_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_ID + " TEXT , " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT , " + PRODUCT_PIC + " TEXT , " + PRODUCT_ADDED_FAVORITE_USERS + " TEXT ) ";
 
 
@@ -96,7 +96,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     }
 
-    //method to add a new client
+    // Admin methods
     public boolean addAdmin(Admin admin) {
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues CV = new ContentValues();
@@ -105,25 +105,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         CV.put(ADMIN_PASSWORD, admin.getPassword());
 
         long added = DB.insert(ADMIN_TABLE, null, CV);
-
-        return added != -1;
-    }
-
-    public boolean addClient(Client client){
-        SQLiteDatabase DB = this.getWritableDatabase();
-        ContentValues CV = new ContentValues();
-
-        CV.put(CLIENT_USERNAME, client.getUserName());
-        CV.put(CLIENT_FIRSTNAME, client.getFirstName());
-        CV.put(CLIENT_LASTNAME, client.getLastName());
-        CV.put(CLIENT_EMAIL, client.getEmail());
-        CV.put(CLIENT_PHONENUMBER, client.getPhoneNumber());
-        CV.put(CLIENT_PASSWORD, client.getPassword());
-        CV.put(IS_SELLER, client.isSeller());
-        CV.put(CLIENT_LOGINCOUNT, client.getLogin_count());
-        CV.put(SELLER_PRODUCT_COUNT, client.getProduct_count());
-
-        long added = DB.insert(CLIENT_TABLE, null, CV);
 
         return added != -1;
     }
@@ -152,6 +133,28 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         cursor.close();
         DB.close();
         return admins;
+    }
+
+    // Client methods
+    public boolean addClient(Client client){
+        SQLiteDatabase DB = this.getWritableDatabase();
+        ContentValues CV = new ContentValues();
+
+        CV.put(CLIENT_USERNAME, client.getUserName());
+        CV.put(CLIENT_FIRSTNAME, client.getFirstName());
+        CV.put(CLIENT_LASTNAME, client.getLastName());
+        CV.put(CLIENT_EMAIL, client.getEmail());
+        CV.put(CLIENT_PHONENUMBER, client.getPhoneNumber());
+        CV.put(CLIENT_PASSWORD, client.getPassword());
+        CV.put(IS_SELLER, client.isSeller());
+        CV.put(CLIENT_LOGINCOUNT, client.getLogin_count());
+        CV.put(SELLER_PRODUCT_COUNT, client.getProduct_count());
+        Gson gson = new Gson();
+        CV.put(CLIENT_INTERESTS, gson.toJson(client.getInterestedCategories()));;
+
+        long added = DB.insert(CLIENT_TABLE, null, CV);
+
+        return added != -1;
     }
 
     public Uri getProfileUri(String phonenumber){
@@ -216,7 +219,11 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 String LoginCount = cursor.getString(8);
                 String ProductCount = cursor.getString(9);
                 String ImagePath = cursor.getString(10);
-                Client client = new Client(UserName, FirstName, LastName, Email, PhoneNumber, Password, isSeller, Integer.parseInt(LoginCount), Integer.parseInt(ProductCount));
+                String InterestedCategories = cursor.getString(11);
+                Type type = new TypeToken<ArrayList<String>>() {}.getType();
+                Gson gson = new Gson();
+                ArrayList<String> interestedCategories = gson.fromJson(InterestedCategories, type);
+                Client client = new Client(UserName, FirstName, LastName, Email, PhoneNumber, Password, isSeller, Integer.parseInt(LoginCount), Integer.parseInt(ProductCount), interestedCategories);
                 client.setImageUrl(Uri.parse(ImagePath));
                 clients.add(client);
 
@@ -237,7 +244,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             if(c.getUserName().equalsIgnoreCase(username)){
                 client = new Client(c.getUserName(), c.getFirstName(), c.getLastName(),
                         c.getEmail(), c.getPhoneNumber(), c.getPassword(),
-                        c.isSeller(), c.getLogin_count(), c.getProduct_count());
+                        c.isSeller(), c.getLogin_count(), c.getProduct_count(), c.getInterestedCategories());
                 return client;
             }
         }
@@ -251,7 +258,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             if(c.getPhoneNumber().equalsIgnoreCase(phonenumber)){
                 client = new Client(c.getUserName(), c.getFirstName(), c.getLastName(),
                         c.getEmail(), c.getPhoneNumber(), c.getPassword(),
-                        c.isSeller(), c.getLogin_count(), c.getProduct_count());
+                        c.isSeller(), c.getLogin_count(), c.getProduct_count(), c.getInterestedCategories());
                 return client;
             }
         }
@@ -303,74 +310,44 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return updated != -1;
     }
 
-    public boolean updateProductValues(Product product){
+    public boolean addToInterestedCategories(Client client, String category){
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues CV = new ContentValues();
 
-        boolean updatedProductInCategory = false;
+        Gson gson = new Gson();
+        client.addToInterestedCategories(category);
+        String interestedCategories = gson.toJson(client.getInterestedCategories());
 
-        switch (product.getCategory()) {
-            case "Electronics": {
-                updatedProductInCategory = this.updateProductInCategory(ELECTRONIC_TABLE, product);
-                break;
-            }
-            case "Fashion": {
-                updatedProductInCategory = this.updateProductInCategory(FASHION_TABLE, product);
-                break;
-            }
-            case "Sports": {
-                updatedProductInCategory = this.updateProductInCategory(SPORTS_TABLE, product);
-                break;
-            }
-            case "Home": {
-                updatedProductInCategory = this.updateProductInCategory(HOME_TABLE, product);
-                break;
-            }
-            case "Motors": {
-                updatedProductInCategory = this.updateProductInCategory(MOTORS_TABLE, product);
-                break;
-            }
-            case "Real State": {
-                updatedProductInCategory = this.updateProductInCategory(REALSTATE_TABLE, product);
-                break;
-            }
-            case "Entertainment": {
-                updatedProductInCategory = this.updateProductInCategory(ENTERTAINMENT_TABLE, product);
-                break;
-            }
-        }
+        CV.put(CLIENT_INTERESTS, interestedCategories);
 
-        CV.put(PRODUCT_NAME, product.getName());
-        CV.put(PRODUCT_PRICE, product.getPrice());
-        CV.put(PRODUCT_DESCRIPTION, product.getDescription());
-        CV.put(PRODUCT_PIC, product.getImagePath());
-
-        long updated = DB.update(PRODUCTS_TABLE, CV, PRODUCT_ID + " = ?" , new String[] {product.getId()});
-
-        return (updated != -1) && (updatedProductInCategory);
-    }
-
-    public boolean updateProductInCategory(String TableName, Product product){
-        SQLiteDatabase DB = this.getWritableDatabase();
-        ContentValues CV = new ContentValues();
-
-        CV.put(PRODUCT_NAME, product.getName());
-        CV.put(PRODUCT_PRICE, product.getPrice());
-        CV.put(PRODUCT_DESCRIPTION, product.getDescription());
-        CV.put(PRODUCT_PIC, product.getImagePath());
-
-        long updated = DB.update(TableName, CV, PRODUCT_ID + " = ?" , new String[] {product.getId()});
+        long updated =  DB.update(CLIENT_TABLE, CV, CLIENT_PHONENUMBER + " = ?" , new String[] {client.getPhoneNumber()});
 
         return updated != -1;
     }
 
+    public boolean removeFromInterestedCategories(Client client, String category){
+        SQLiteDatabase DB = this.getWritableDatabase();
+        ContentValues CV = new ContentValues();
+
+        Gson gson = new Gson();
+        client.removeFromInterestedCategories(category);
+        String interestedCategories = gson.toJson(client.getInterestedCategories());
+
+        CV.put(CLIENT_INTERESTS, interestedCategories);
+
+        long updated =  DB.update(CLIENT_TABLE, CV, CLIENT_PHONENUMBER + " = ?" , new String[] {client.getPhoneNumber()});
+
+        return updated != -1;
+    }
+
+    // Product methods
     public boolean addProduct(Product product) {
 
         boolean addedProductToCategory = false;
 
         switch (product.getCategory()) {
             case "Electronics": {
-                addedProductToCategory = this.addProductToCategory(ELECTRONIC_TABLE, product);
+                addedProductToCategory = this.addProductToCategory(ELECTRONICS_TABLE, product);
                 break;
             }
             case "Fashion": {
@@ -389,8 +366,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 addedProductToCategory = this.addProductToCategory(MOTORS_TABLE, product);
                 break;
             }
-            case "Real State": {
-                addedProductToCategory = this.addProductToCategory(REALSTATE_TABLE, product);
+            case "Real Estate": {
+                addedProductToCategory = this.addProductToCategory(REALESTATE_TABLE, product);
                 break;
             }
             case "Entertainment": {
@@ -424,7 +401,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         switch (product.getCategory()) {
             case "Electronics": {
-                removeProductFromCategory = this.removeProductFromCategory(ELECTRONIC_TABLE, product);
+                removeProductFromCategory = this.removeProductFromCategory(ELECTRONICS_TABLE, product);
                 break;
             }
             case "Fashion": {
@@ -444,7 +421,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 break;
             }
             case "Real State": {
-                removeProductFromCategory = this.removeProductFromCategory(REALSTATE_TABLE, product);
+                removeProductFromCategory = this.removeProductFromCategory(REALESTATE_TABLE, product);
                 break;
             }
             case "Entertainment": {
@@ -458,6 +435,39 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         long removed = DB.delete(PRODUCTS_TABLE, PRODUCT_ID + " = ?" ,new String[] {product.getId()});
 
         return (removed > 0) && (removeProductFromCategory);
+    }
+
+    public boolean updateProductValues(Product product){
+        SQLiteDatabase DB = this.getWritableDatabase();
+        ContentValues CV = new ContentValues();
+
+        boolean updatedProductInCategory = false;
+
+        String category_table = CategoryUtils.getCategoryTableFromTitle(product.getCategory());
+        updatedProductInCategory = this.updateProductInCategory(category_table, product);
+
+        CV.put(PRODUCT_NAME, product.getName());
+        CV.put(PRODUCT_PRICE, product.getPrice());
+        CV.put(PRODUCT_DESCRIPTION, product.getDescription());
+        CV.put(PRODUCT_PIC, product.getImagePath());
+
+        long updated = DB.update(PRODUCTS_TABLE, CV, PRODUCT_ID + " = ?" , new String[] {product.getId()});
+
+        return (updated != -1) && (updatedProductInCategory);
+    }
+
+    public boolean updateProductInCategory(String TableName, Product product){
+        SQLiteDatabase DB = this.getWritableDatabase();
+        ContentValues CV = new ContentValues();
+
+        CV.put(PRODUCT_NAME, product.getName());
+        CV.put(PRODUCT_PRICE, product.getPrice());
+        CV.put(PRODUCT_DESCRIPTION, product.getDescription());
+        CV.put(PRODUCT_PIC, product.getImagePath());
+
+        long updated = DB.update(TableName, CV, PRODUCT_ID + " = ?" , new String[] {product.getId()});
+
+        return updated != -1;
     }
 
     public boolean addProductToCategory(String TableName, Product product){
@@ -521,6 +531,45 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return products;
     }
 
+    public List<Product> getInterestedProducts(Client client){
+
+        if(client.getInterestedCategories().isEmpty())
+            return getAllProducts();
+
+        SQLiteDatabase DB = this.getReadableDatabase();
+        Cursor cursor;
+        List<Product> interestedProducts = new LinkedList<>();
+
+        for(String category : client.getInterestedCategories()){
+
+            String query = "SELECT * FROM " + category;
+            cursor = DB.rawQuery(query, null);
+
+            if(cursor.moveToFirst()){
+                do {
+                    int Id = Integer.parseInt(cursor.getString(1));
+                    String Name = cursor.getString(2);
+                    String Price = cursor.getString(3);
+                    String Description = cursor.getString(4);
+                    String Category = CategoryUtils.getCategoryTitleFromTableName(category);
+                    String SubCategory = cursor.getString(5);
+                    String Seller = cursor.getString(6);
+                    String ImagePath = cursor.getString(7);
+                    String FavoriteAddedUsers = cursor.getString(8);
+                    Type type = new TypeToken<ArrayList<String>>() {}.getType();
+                    Gson gson = new Gson();
+                    ArrayList<String> favoriteAddedUsers = gson.fromJson(FavoriteAddedUsers, type);
+                    Product product = new Product(Id, ImagePath, Name, Price, Description, Category, SubCategory, Seller, favoriteAddedUsers);
+                    interestedProducts.add(product);
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+        }
+
+        DB.close();
+        return interestedProducts;
+    }
+
     public List<Product> getCategoryProducts(final String category_table){
         List<Product> products = new LinkedList<>();
         String query = "SELECT * FROM " + category_table;
@@ -566,12 +615,35 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         CV.put(PRODUCT_ADDED_FAVORITE_USERS, favoriteAddedUsers);
 
         long updated =  DB.update(PRODUCTS_TABLE, CV, PRODUCT_ID + " = ?" , new String[] {product.getId()});
-        long updated1 =  DB.update(ELECTRONIC_TABLE, CV, PRODUCT_ID + " = ?" , new String[] {product.getId()});
+        long updated1 =  DB.update(ELECTRONICS_TABLE, CV, PRODUCT_ID + " = ?" , new String[] {product.getId()});
         long updated2 =  DB.update(FASHION_TABLE, CV, PRODUCT_ID + " = ?" , new String[] {product.getId()});
         long updated3 =  DB.update(HOME_TABLE, CV, PRODUCT_ID + " = ?" , new String[] {product.getId()});
         long updated4 =  DB.update(SPORTS_TABLE, CV, PRODUCT_ID + " = ?" , new String[] {product.getId()});
         long updated5 =  DB.update(MOTORS_TABLE, CV, PRODUCT_ID + " = ?" , new String[] {product.getId()});
-        long updated6 =  DB.update(REALSTATE_TABLE, CV, PRODUCT_ID + " = ?" , new String[] {product.getId()});
+        long updated6 =  DB.update(REALESTATE_TABLE, CV, PRODUCT_ID + " = ?" , new String[] {product.getId()});
+        long updated7 =  DB.update(ENTERTAINMENT_TABLE, CV, PRODUCT_ID + " = ?" , new String[] {product.getId()});
+
+        return updated != -1 && updated1 != -1 && updated2 != -1 && updated3 != -1 && updated4 != -1 && updated5 != -1
+                && updated6 != -1 && updated7 != -1 ;
+    }
+
+    public boolean removeProductFromFavorites(Product product, String phonenumber){
+        SQLiteDatabase DB = this.getWritableDatabase();
+        ContentValues CV = new ContentValues();
+
+        Gson gson = new Gson();
+        product.removeFromFavoriteAddedUsers(phonenumber);
+        String favoriteAddedUsers = gson.toJson(product.getFavoriteAddedUsersPhonenumber());
+
+        CV.put(PRODUCT_ADDED_FAVORITE_USERS, favoriteAddedUsers);
+
+        long updated =  DB.update(PRODUCTS_TABLE, CV, PRODUCT_ID + " = ?" , new String[] {product.getId()});
+        long updated1 =  DB.update(ELECTRONICS_TABLE, CV, PRODUCT_ID + " = ?" , new String[] {product.getId()});
+        long updated2 =  DB.update(FASHION_TABLE, CV, PRODUCT_ID + " = ?" , new String[] {product.getId()});
+        long updated3 =  DB.update(HOME_TABLE, CV, PRODUCT_ID + " = ?" , new String[] {product.getId()});
+        long updated4 =  DB.update(SPORTS_TABLE, CV, PRODUCT_ID + " = ?" , new String[] {product.getId()});
+        long updated5 =  DB.update(MOTORS_TABLE, CV, PRODUCT_ID + " = ?" , new String[] {product.getId()});
+        long updated6 =  DB.update(REALESTATE_TABLE, CV, PRODUCT_ID + " = ?" , new String[] {product.getId()});
         long updated7 =  DB.update(ENTERTAINMENT_TABLE, CV, PRODUCT_ID + " = ?" , new String[] {product.getId()});
 
         return updated != -1 && updated1 != -1 && updated2 != -1 && updated3 != -1 && updated4 != -1 && updated5 != -1
@@ -587,29 +659,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 addedToFavoritesProducts.add(product);
 
         return addedToFavoritesProducts;
-    }
-
-    public boolean removeProductFromFavorites(Product product, String phonenumber){
-        SQLiteDatabase DB = this.getWritableDatabase();
-        ContentValues CV = new ContentValues();
-
-        Gson gson = new Gson();
-        product.removeFromFavoriteAddedUsers(phonenumber);
-        String favoriteAddedUsers = gson.toJson(product.getFavoriteAddedUsersPhonenumber());
-
-        CV.put(PRODUCT_ADDED_FAVORITE_USERS, favoriteAddedUsers);
-
-        long updated =  DB.update(PRODUCTS_TABLE, CV, PRODUCT_ID + " = ?" , new String[] {product.getId()});
-        long updated1 =  DB.update(ELECTRONIC_TABLE, CV, PRODUCT_ID + " = ?" , new String[] {product.getId()});
-        long updated2 =  DB.update(FASHION_TABLE, CV, PRODUCT_ID + " = ?" , new String[] {product.getId()});
-        long updated3 =  DB.update(HOME_TABLE, CV, PRODUCT_ID + " = ?" , new String[] {product.getId()});
-        long updated4 =  DB.update(SPORTS_TABLE, CV, PRODUCT_ID + " = ?" , new String[] {product.getId()});
-        long updated5 =  DB.update(MOTORS_TABLE, CV, PRODUCT_ID + " = ?" , new String[] {product.getId()});
-        long updated6 =  DB.update(REALSTATE_TABLE, CV, PRODUCT_ID + " = ?" , new String[] {product.getId()});
-        long updated7 =  DB.update(ENTERTAINMENT_TABLE, CV, PRODUCT_ID + " = ?" , new String[] {product.getId()});
-
-        return updated != -1 && updated1 != -1 && updated2 != -1 && updated3 != -1 && updated4 != -1 && updated5 != -1
-                && updated6 != -1 && updated7 != -1 ;
     }
 
     public boolean isProductInFavorites(Product product, String phonenumber){

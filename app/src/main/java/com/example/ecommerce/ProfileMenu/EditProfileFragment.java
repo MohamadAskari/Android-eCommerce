@@ -1,4 +1,4 @@
-package com.example.ecommerce.Spinner;
+package com.example.ecommerce.ProfileMenu;
 
 import android.Manifest;
 import android.annotation.SuppressLint;

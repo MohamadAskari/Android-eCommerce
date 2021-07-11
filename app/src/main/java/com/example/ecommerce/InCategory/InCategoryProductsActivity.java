@@ -21,33 +21,15 @@ public class InCategoryProductsActivity extends AppCompatActivity {
 
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-//        ActiveClient = (Client) getIntent().getSerializableExtra("Active User");
-
         ActiveClient = Client.getActive_client();
 
         selected_category = (String) getIntent().getSerializableExtra("Category");
+        CategoryUtils.setSelectedCategory(selected_category);
 
         setCurrentFragment(new InCategoryProductsFragment(), ActiveClient);
     }
 
     private void setCurrentFragment(Fragment fragment, Client client){
-//        Bundle bundle = sendData(client);
-//        fragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().replace(R.id.in_category_fragment_container, fragment).commit();
     }
-
-//    private Bundle sendData(Client client) {
-//        Bundle bundle = new Bundle();
-////        bundle.putSerializable("Active User", client);
-//        return bundle;
-//    }
-
-    public String getSelectedCategory(){
-        return selected_category;
-    }
-
-    public String getSelectedCategoryTitle(){
-        return selected_category.substring(0, 1).toUpperCase() + selected_category.substring(1, selected_category.length() - 6).toLowerCase();
-    }
-
 }

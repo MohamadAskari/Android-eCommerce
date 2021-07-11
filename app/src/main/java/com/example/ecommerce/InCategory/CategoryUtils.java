@@ -13,6 +13,7 @@ public class CategoryUtils {
 
     private static List<Product> allProductsList;
     private static List<Product> filteredProducts = new LinkedList<>();
+    private static String selectedCategory;
     // All fragments with recyclerview
     private static boolean isInHomeFragment = true;
     private static boolean isInCategoryFragment = true;
@@ -138,6 +139,54 @@ public class CategoryUtils {
                 return subCategoriesList;
         }
         return null;
+    }
+
+    public static void setSelectedCategory(String selectedCategory) {
+        CategoryUtils.selectedCategory = selectedCategory;
+    }
+
+    public static String getSelectedCategory() {
+        return selectedCategory;
+    }
+
+    public static String getSelectedCategoryTitle(){
+        if(selectedCategory.equals("REALESTATE_TABLE"))
+            return "Real Estate";
+        return selectedCategory.substring(0, 1).toUpperCase() + selectedCategory.substring(1, selectedCategory.length() - 6).toLowerCase();
+    }
+
+    public static String getCategoryTitleFromTableName(String table_name){
+        if(table_name.equals("REALESTATE_TABLE"))
+            return "Real Estate";
+        return table_name.substring(0, 1).toUpperCase() + table_name.substring(1, table_name.length() - 6).toLowerCase();
+    }
+
+    public static String getCategoryTableFromTitle(String category_title){
+        switch (category_title) {
+            case "Electronics": {
+                return "ELECTRONICS_TABLE";
+            }
+            case "Fashion": {
+                return "FASHION_TABLE";
+            }
+            case "Sports": {
+                return "SPORTS_TABLE";
+            }
+            case "Home": {
+                return "HOME_TABLE";
+            }
+            case "Motors": {
+                return "MOTORS_TABLE";
+            }
+            case "Real Estate": {
+                return "REALESTATE_TABLE";
+            }
+            case "Entertainment": {
+                return "ENTERTAINMENT_TABLE";
+            }
+            default:
+                return null;
+        }
     }
 
     public static boolean isIsInHomeFragment() {
