@@ -7,7 +7,6 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -192,7 +191,7 @@ public class AddProductFragment extends Fragment {
         from_gallery_btn = view.findViewById(R.id.fromgallery_btn);
 
         product_pic.setImageResource(R.drawable.default_pic);
-        product_pic_url = getUriToDrawable(getActivity(), R.drawable.default_pic);
+        product_pic_url = getUriFromDrawable(getActivity(), R.drawable.default_pic);
 
         take_photo_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -320,7 +319,7 @@ public class AddProductFragment extends Fragment {
         }
     }
 
-    public Uri getUriToDrawable(@NonNull Context context, @AnyRes int drawableId) {
+    public Uri getUriFromDrawable(@NonNull Context context, @AnyRes int drawableId) {
         return Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
                 "://" + context.getResources().getResourcePackageName(drawableId)
                 + '/' + context.getResources().getResourceTypeName(drawableId)

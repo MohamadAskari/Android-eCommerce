@@ -1,5 +1,7 @@
 package com.example.ecommerce.InCategory;
 
+import android.util.Log;
+
 import com.example.ecommerce.Model.DataBaseHelper;
 import com.example.ecommerce.Model.Product;
 
@@ -28,16 +30,22 @@ public class CategoryUtils {
         allProductsList = dataBaseHelper.getCategoryProducts(category);
         return (getFilteredCategoryProducts().isEmpty()) ? allProductsList : filteredProducts; // bug : shows all when no product matches
     }
+
     public static List<Product> getFilteredCategoryProducts(){
         return filteredProducts;
     }
+
     public static void filterCategoryProducts(List<String> selectedSubCategories, int minPrice, int maxPrice, boolean withImageOnly, String sortType){
-        // To Do : with images only
         filteredProducts.clear();
         for(Product p : allProductsList) {
             if (Integer.parseInt(p.getPrice()) <= maxPrice && Integer.parseInt(p.getPrice()) >= minPrice) {
                 if(selectedSubCategories.contains(p.getSubCategory()) || selectedSubCategories.isEmpty()){
-                    filteredProducts.add(p);
+                    if(withImageOnly)
+                        if(p.hasImage()){
+                            filteredProducts.add(p);
+                        }
+                    else
+                        filteredProducts.add(p);
                 }
             }
         }

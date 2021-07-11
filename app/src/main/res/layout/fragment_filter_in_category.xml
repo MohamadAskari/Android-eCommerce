@@ -83,10 +83,10 @@
         </RelativeLayout>
 
         <CheckBox
-            android:id="@+id/only_with_pictures_checkbox"
+            android:id="@+id/only_with_image_checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Only show product with picture"
+            android:text="Only show product with image"
             android:fontFamily="@font/josefinsans__regular" />
 
         <TextView
