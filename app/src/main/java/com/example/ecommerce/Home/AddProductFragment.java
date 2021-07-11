@@ -4,11 +4,14 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
+
+import androidx.annotation.AnyRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
@@ -54,7 +57,7 @@ public class AddProductFragment extends Fragment {
     private ImageView product_pic, back_btn;
     private Uri product_pic_url;
     private Client ActiveClient;
-    private boolean hasImage;
+    private boolean hasImage = false;
     private static final int CAMERA_PERM_CODE = 101;
     private static final int CAMERA_REQUEST_CODE = 102;
     private static final int GALLERY_REQUEST_CODE = 105;
@@ -77,7 +80,6 @@ public class AddProductFragment extends Fragment {
         inputproductdescription = view.findViewById(R.id.product_description);
         submit_btn = view.findViewById(R.id.submit_btn);
         dataBaseHelper = new DataBaseHelper(getActivity());
-        hasImage = false;
 
         List<String> categories = new ArrayList<>();
         categories.add("Electronics");
@@ -189,6 +191,9 @@ public class AddProductFragment extends Fragment {
         take_photo_btn = view.findViewById(R.id.takephoto_btn);
         from_gallery_btn = view.findViewById(R.id.fromgallery_btn);
 
+        product_pic.setImageResource(R.drawable.default_pic);
+        product_pic_url = getUriToDrawable(getActivity(), R.drawable.default_pic);
+
         take_photo_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -266,10 +271,10 @@ public class AddProductFragment extends Fragment {
                 Uri contentUri = data.getData();
                 String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
                 String imageFileName = "JPEG_" + timeStamp + "." + getFileExt(contentUri);
-                Log.d("tag", "Uri Gallery Image : " + imageFileName);
-                hasImage = true;
                 product_pic_url = contentUri;
                 product_pic.setImageURI(product_pic_url);
+                hasImage = true;
+                Log.d("tag", "Uri Gallery Image : " + imageFileName);
             }
         }
     }
@@ -284,13 +289,10 @@ public class AddProductFragment extends Fragment {
         // Create an image file name
         @SuppressLint("SimpleDateFormat") String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
-        //File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        //File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(
                 imageFileName,
                 ".jpg"
         );
-
         // Save a file: path for use with ACTION_VIEW intents
         currentPhotoPath = image.getAbsolutePath();
         return image;
@@ -318,6 +320,13 @@ public class AddProductFragment extends Fragment {
         }
     }
 
+    public Uri getUriToDrawable(@NonNull Context context, @AnyRes int drawableId) {
+        return Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
+                "://" + context.getResources().getResourcePackageName(drawableId)
+                + '/' + context.getResources().getResourceTypeName(drawableId)
+                + '/' + context.getResources().getResourceEntryName(drawableId) );
+    }
+
     private void submitProduct() {
 
         String product_name = inputproductname.getText().toString();
@@ -330,8 +339,6 @@ public class AddProductFragment extends Fragment {
         if(TextUtils.isEmpty(product_name) || TextUtils.isEmpty(product_price)){
             Toast.makeText(getActivity(), "Please fill out all required fields", Toast.LENGTH_LONG).show();
         }
-        else if(product_pic.getDrawable() == null || !hasImage)
-            Toast.makeText(getActivity(), "Please set a photo for your product", Toast.LENGTH_SHORT).show();
         else {
             Product product;
             if(TextUtils.isEmpty(product_description))
@@ -339,8 +346,8 @@ public class AddProductFragment extends Fragment {
             else
                 product = new Product(product_pic_url, product_name, product_price, product_description, product_category, product_subCategory, product_seller);
 
+            product.setHasImage(hasImage);
             boolean succeed = dataBaseHelper.addProduct(product);
-
             if(succeed) {
                 Client client = dataBaseHelper.getClientByPhonenumber(product_seller);
                 int product_count = client.getProduct_count() + 1;
@@ -356,7 +363,6 @@ public class AddProductFragment extends Fragment {
             else
                 Toast.makeText(getActivity(), "Failed to add", Toast.LENGTH_LONG).show();
         }
-
     }
 
     public void fillSpinner(){
