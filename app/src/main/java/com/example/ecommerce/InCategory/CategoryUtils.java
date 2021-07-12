@@ -1,6 +1,7 @@
 package com.example.ecommerce.InCategory;
 
 import android.util.Log;
+import android.widget.CheckBox;
 
 import com.example.ecommerce.Model.DataBaseHelper;
 import com.example.ecommerce.Model.Product;
@@ -10,6 +11,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 public class CategoryUtils {
 
@@ -17,6 +19,11 @@ public class CategoryUtils {
     private static List<Product> filteredProducts = new LinkedList<>();
     private static String selectedCategory;
     private static boolean isFirstTimeInCategory;
+    // save values
+    public static int[] save_price_slider = new int[2];
+    public static String save_price_from_value, save_price_to_value;
+    public static Queue<Boolean> save_subCategoriesCheckboxes = new LinkedList<>();
+    public static boolean save_only_with_image_checkbox, save_mostExpensive_rb, save_cheapest_rb;
     // All fragments with recyclerview
     private static boolean isInHomeFragment = true;
     private static boolean isInCategoryFragment = true;
