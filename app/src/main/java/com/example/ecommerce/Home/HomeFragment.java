@@ -48,6 +48,7 @@ public class HomeFragment extends Fragment {
 //    private ImageSlider imageSlider;
     private List<Product> productList = new ArrayList<>();
     private List<Product> promotedProducts = new ArrayList<>();
+    private List<Product> EverySingleProduct;
     private TextView emptyListView_tv;
     DataBaseHelper dataBaseHelper;
     private RecyclerView recyclerView, recyclerViewPromoted;
@@ -71,6 +72,8 @@ public class HomeFragment extends Fragment {
         dataBaseHelper = new DataBaseHelper(getActivity());
         productList = dataBaseHelper.getAllProducts();
         promotedProducts = dataBaseHelper.getAllPromotedProducts();
+
+        EverySingleProduct = dataBaseHelper.getAllProducts();
 
         emptyListView_tv = view.findViewById(R.id.empty_lv);
         emptyListView_tv.setVisibility(View.INVISIBLE);
@@ -221,6 +224,8 @@ public class HomeFragment extends Fragment {
         promotedAdapter = new RecyclerViewAdapter(promotedProducts, getActivity());
         recyclerViewPromoted.setAdapter(promotedAdapter);
 
+        search_bar.setText("");
+
         mAdapter = new RecyclerViewAdapter(productList, getActivity());
         recyclerView.setAdapter(mAdapter);
         super.onResume();
@@ -238,12 +243,22 @@ public class HomeFragment extends Fragment {
 
         ArrayList<Product> filteredList = new ArrayList<>();
 
+        if (text.equalsIgnoreCase("")){
             for (Product item : productList) {
                 if (item.getName().toLowerCase().contains(text.toLowerCase())) {
                     filteredList.add(item);
                 }
             }
             mAdapter.filterList(filteredList);
+        }
+        else {
+            for (Product item : EverySingleProduct) {
+                if (item.getName().toLowerCase().contains(text.toLowerCase())) {
+                    filteredList.add(item);
+                }
+            }
+            mAdapter.filterList(filteredList);
+        }
 
     }
 }
