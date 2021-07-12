@@ -21,21 +21,10 @@ public class Product implements Parcelable {
     private ArrayList<String> FavoriteAddedUsersPhonenumber;
     private Uri ImageUrl;
 
-    public Product(String name, String price, String description, String category, String subCategory, String sellerPhonenumber) {
-        Id = String.valueOf(name.hashCode());
-        Name = name;
-        Price = price;
-        Description = description;
-        Category = category;
-        SubCategory = subCategory;
-        SellerPhonenumber = sellerPhonenumber;
-        FavoriteAddedUsersPhonenumber = new ArrayList<String>();
-    }
-
     // with image path
-    public Product(String imageUrl, String name, String price, String description, String category, String subCategory, String sellerPhonenumber) {
+    public Product(String imagePath, String name, String price, String description, String category, String subCategory, String sellerPhonenumber) {
         Id = String.valueOf(name.hashCode());
-        ImageUrl = Uri.parse(imageUrl);
+        ImageUrl = Uri.parse(imagePath);
         Name = name;
         Price = price;
         Description = description;
@@ -72,9 +61,9 @@ public class Product implements Parcelable {
         FavoriteAddedUsersPhonenumber = favoriteAddedUsersPhonenumber;
     }
     // with image path
-    public Product(int id, String imageUrl, String name, String price, String description, String category, String subCategory, String sellerPhonenumber, ArrayList<String> favoriteAddedUsersPhonenumber) {
+    public Product(int id, String imagePath, String name, String price, String description, String category, String subCategory, String sellerPhonenumber, ArrayList<String> favoriteAddedUsersPhonenumber) {
         this.Id = String.valueOf(id);
-        ImageUrl = Uri.parse(imageUrl);
+        ImageUrl = Uri.parse(imagePath);
         Name = name;
         Price = price;
         Description = description;
@@ -98,7 +87,6 @@ public class Product implements Parcelable {
     //////
 
 
-
     protected Product(Parcel in) {
         Id = in.readString();
         Name = in.readString();
@@ -107,8 +95,14 @@ public class Product implements Parcelable {
         Category = in.readString();
         SubCategory = in.readString();
         SellerPhonenumber = in.readString();
+        HasImage = in.readByte() != 0;
         FavoriteAddedUsersPhonenumber = in.createStringArrayList();
         ImageUrl = in.readParcelable(Uri.class.getClassLoader());
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     @Override
@@ -120,6 +114,7 @@ public class Product implements Parcelable {
         dest.writeString(Category);
         dest.writeString(SubCategory);
         dest.writeString(SellerPhonenumber);
+        dest.writeByte((byte) (HasImage ? 1 : 0));
         dest.writeStringList(FavoriteAddedUsersPhonenumber);
         dest.writeParcelable(ImageUrl, flags);
     }
@@ -135,11 +130,6 @@ public class Product implements Parcelable {
             return new Product[size];
         }
     };
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
 
     public String getId() {
         return Id;

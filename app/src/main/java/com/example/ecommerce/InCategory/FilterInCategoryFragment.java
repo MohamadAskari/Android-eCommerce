@@ -31,10 +31,10 @@ public class FilterInCategoryFragment extends Fragment {
 
     private RangeSlider price_slider;
     private EditText price_from_value, price_to_value;
-    private TextView tv_select_subcategory;
     private List<CheckBox> subCategoriesCheckboxes = new ArrayList<>();
     private CheckBox only_with_image_checkbox;
     private RadioButton mostExpensive_rb, cheapest_rb;
+    private TextView tv_select_subcategory;
     private String category;
     private Button apply_btn;
 
@@ -55,6 +55,12 @@ public class FilterInCategoryFragment extends Fragment {
         createSubCategoriesCheckbox(linearLayout);
 
         price_slider = view.findViewById(R.id.price_slider);
+        price_from_value = view.findViewById(R.id.price_slider_from_value);
+        price_to_value = view.findViewById(R.id.price_slider_to_value);
+        only_with_image_checkbox = view.findViewById(R.id.only_with_image_checkbox);
+        mostExpensive_rb = view.findViewById(R.id.rb_most_expensive);
+        cheapest_rb = view.findViewById(R.id.rb_cheapest);
+
         price_slider.setLabelFormatter(new LabelFormatter() {
             @NonNull
             @NotNull
@@ -69,8 +75,6 @@ public class FilterInCategoryFragment extends Fragment {
         price_slider.setValueTo(CategoryUtils.getMaxPrice());
         price_slider.setValues((float)(0), (float)CategoryUtils.getMaxPrice());
 
-        price_from_value = view.findViewById(R.id.price_slider_from_value);
-        price_to_value = view.findViewById(R.id.price_slider_to_value);
         price_from_value.setText(String.valueOf((int)price_slider.getValueFrom()));
         price_to_value.setText(String.valueOf((int)price_slider.getValueTo()));
 
@@ -85,11 +89,6 @@ public class FilterInCategoryFragment extends Fragment {
                 price_to_value.setText(String.valueOf(Math.round(price_slider.getValues().get(1))));
             }
         });
-
-        only_with_image_checkbox = view.findViewById(R.id.only_with_image_checkbox);
-
-        mostExpensive_rb = view.findViewById(R.id.rb_most_expensive);
-        cheapest_rb = view.findViewById(R.id.rb_cheapest);
 
         apply_btn = view.findViewById(R.id.apply_filter_btn);
         apply_btn.setOnClickListener(new View.OnClickListener() {

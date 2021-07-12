@@ -64,7 +64,6 @@ public class InCategoryProductsFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-        inCategoryProductList = CategoryUtils.getAllCategoryProducts(category, dataBaseHelper);
 
         filter_btn = view.findViewById(R.id.filter_btn);
         filter_btn.setOnClickListener(new View.OnClickListener() {
@@ -75,10 +74,6 @@ public class InCategoryProductsFragment extends Fragment {
 
             }
         });
-        if(inCategoryProductList.isEmpty())
-            filter_btn.setVisibility(View.GONE);
-        else
-            filter_btn.setVisibility(View.VISIBLE);
 
         back_btn = view.findViewById(R.id.in_category_back_icon);
         back_btn.setOnClickListener(new View.OnClickListener() {
@@ -88,15 +83,27 @@ public class InCategoryProductsFragment extends Fragment {
             }
         });
 
+
+        if(CategoryUtils.isIsFirstTimeInCategory()){
+            inCategoryProductList = CategoryUtils.getAllCategoryProducts(category, dataBaseHelper);
+            if(inCategoryProductList.isEmpty())
+                filter_btn.setVisibility(View.GONE);
+            else
+                filter_btn.setVisibility(View.VISIBLE);
+        }
+        else {
+            inCategoryProductList = CategoryUtils.getFilteredCategoryProducts();
+        }
+        mAdapter = new RecyclerViewAdapter(inCategoryProductList, getActivity());
+        recyclerView.setAdapter(mAdapter);
+
         return view;
     }
 
     @Override
-    public void onResume() {
-        inCategoryProductList = CategoryUtils.getAllCategoryProducts(category, dataBaseHelper);
-        mAdapter = new RecyclerViewAdapter(inCategoryProductList, getActivity());
-        recyclerView.setAdapter(mAdapter);
-        super.onResume();
+    public void onDestroy() {
+        CategoryUtils.setIsFirstTimeInCategory(false);
+        super.onDestroy();
     }
 
     private void filter(String text){

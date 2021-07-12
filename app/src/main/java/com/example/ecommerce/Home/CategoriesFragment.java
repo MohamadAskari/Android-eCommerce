@@ -31,6 +31,7 @@ public class CategoriesFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), InCategoryProductsActivity.class);
                 intent.putExtra("Category", "ELECTRONICS_TABLE");
+                CategoryUtils.setIsFirstTimeInCategory(true);
                 startActivity(intent);
             }
         });
@@ -41,6 +42,7 @@ public class CategoriesFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), InCategoryProductsActivity.class);
                 intent.putExtra("Category", "FASHION_TABLE");
+                CategoryUtils.setIsFirstTimeInCategory(true);
                 startActivity(intent);
             }
         });
@@ -51,6 +53,7 @@ public class CategoriesFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), InCategoryProductsActivity.class);
                 intent.putExtra("Category", "SPORTS_TABLE");
+                CategoryUtils.setIsFirstTimeInCategory(true);
                 startActivity(intent);
             }
         });
@@ -61,6 +64,7 @@ public class CategoriesFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), InCategoryProductsActivity.class);
                 intent.putExtra("Category", "HOME_TABLE");
+                CategoryUtils.setIsFirstTimeInCategory(true);
                 startActivity(intent);
             }
         });
@@ -71,6 +75,7 @@ public class CategoriesFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), InCategoryProductsActivity.class);
                 intent.putExtra("Category", "MOTORS_TABLE");
+                CategoryUtils.setIsFirstTimeInCategory(true);
                 startActivity(intent);
             }
         });
@@ -81,6 +86,7 @@ public class CategoriesFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), InCategoryProductsActivity.class);
                 intent.putExtra("Category", "REALESTATE_TABLE");
+                CategoryUtils.setIsFirstTimeInCategory(true);
                 startActivity(intent);
             }
         });
@@ -91,6 +97,7 @@ public class CategoriesFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), InCategoryProductsActivity.class);
                 intent.putExtra("Category", "ENTERTAINMENT_TABLE");
+                CategoryUtils.setIsFirstTimeInCategory(true);
                 startActivity(intent);
             }
         });
