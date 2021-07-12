@@ -38,6 +38,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     // admin
     public static final String ADMIN_USERNAME = "ADMIN_USERNAME";
     public static final String ADMIN_PASSWORD = "ADMIN_PASSWORD";
+    public static final String ADMIN_PROMOTED_PRODUCTS = "ADMIN_PROMOTED_PRODUCTS";
     public static final String ADMIN_TABLE = "ADMIN_TABLE";
 
     // product
@@ -69,7 +70,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String onCreateTableString_Users = "CREATE TABLE " + CLIENT_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + CLIENT_USERNAME + " TEXT , " + CLIENT_FIRSTNAME + " TEXT, " + CLIENT_LASTNAME + " TEXT, " + CLIENT_EMAIL + " TEXT, " + CLIENT_PHONENUMBER + " TEXT, " + CLIENT_PASSWORD + " TEXT, " + IS_SELLER + " BOOLEAN, " + CLIENT_LOGINCOUNT + " TEXT, " + SELLER_PRODUCT_COUNT + " TEXT, " + CLIENT_PIC + " TEXT, " + CLIENT_INTERESTS + " TEXT ) ";
-        String onCreateTableString_Admins = "CREATE TABLE " + ADMIN_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + ADMIN_USERNAME + " TEXT , " + ADMIN_PASSWORD + " TEXT ) ";
+        String onCreateTableString_Admins = "CREATE TABLE " + ADMIN_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + ADMIN_USERNAME + " TEXT , " + ADMIN_PASSWORD + " TEXT ," + ADMIN_PROMOTED_PRODUCTS + " TEXT ) ";
         String onCreateTableString_Products = "CREATE TABLE " + PRODUCTS_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_ID + " TEXT , " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_CATEGORY + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT , " + PRODUCT_PIC + " TEXT , " + PRODUCT_ADDED_FAVORITE_USERS + " TEXT , " + PRODUCT_HAS_IMAGE + " TEXT ) ";
         String onCreateTableString_Electronics = "CREATE TABLE " + ELECTRONICS_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_ID + " TEXT , " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT , " + PRODUCT_PIC + " TEXT , " + PRODUCT_ADDED_FAVORITE_USERS + " TEXT , " + PRODUCT_HAS_IMAGE + " TEXT ) ";
         String onCreateTableString_Fashion = "CREATE TABLE " + FASHION_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + PRODUCT_ID + " TEXT , " + PRODUCT_NAME + " TEXT , " + PRODUCT_PRICE + " TEXT , " + PRODUCT_DESCRIPTION + " TEXT , " + PRODUCT_SUBCATEGORY + " TEXT , " + PRODUCT_SELLER + " TEXT , " + PRODUCT_PIC + " TEXT , " + PRODUCT_ADDED_FAVORITE_USERS + " TEXT , " + PRODUCT_HAS_IMAGE + " TEXT ) ";
@@ -105,6 +106,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         CV.put(ADMIN_USERNAME, admin.getUsername());
         CV.put(ADMIN_PASSWORD, admin.getPassword());
+        Gson gson = new Gson();
+        CV.put(ADMIN_PROMOTED_PRODUCTS, gson.toJson(admin.getPromotedProductsID()));
 
         long added = DB.insert(ADMIN_TABLE, null, CV);
 
@@ -124,7 +127,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             do {
                 String UserName = cursor.getString(1);
                 String Password = cursor.getString(2);
+                String PromotedProducts = cursor.getString(3);
+                Type type = new TypeToken<ArrayList<String>>() {}.getType();
+                Gson gson = new Gson();
+                ArrayList<String> promotedProductsIDs = gson.fromJson(PromotedProducts, type);
                 Admin admin = new Admin(UserName, Password);
+                admin.setPromotedProductsID(promotedProductsIDs);
                 admins.add(admin);
 
             } while (cursor.moveToNext());
@@ -135,6 +143,74 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         cursor.close();
         DB.close();
         return admins;
+    }
+
+    public boolean addProductToPromoted(Admin admin, ArrayList<String> IDs){
+        SQLiteDatabase DB = this.getWritableDatabase();
+        ContentValues CV = new ContentValues();
+
+        for (String ID : IDs)
+            admin.addToPromotedProducts(ID);
+
+        Gson gson = new Gson();
+        String promotedProducts = gson.toJson(admin.getPromotedProductsID());
+
+        CV.put(ADMIN_PROMOTED_PRODUCTS, promotedProducts);
+
+        long updated = DB.update(ADMIN_TABLE, CV, ADMIN_USERNAME + " = ? " , new String[] {admin.getUsername()});
+
+        return updated != -1;
+    }
+
+    public ArrayList<String> getAdminPromotedProducts(Admin admin){
+        List<Product> AllProducts = getAllProducts();
+        ArrayList<String> PromotedProducts = new ArrayList<>();
+        for (Product product : AllProducts){
+            if(admin.getPromotedProductsID().contains(product.getId()))
+                PromotedProducts.add(product.getId());
+        }
+
+        return PromotedProducts;
+    }
+
+
+    public ArrayList<Product> getAllPromotedProducts(){
+        ArrayList<Product> AllPromotedProducts = new ArrayList<>();
+        List<Admin> AllAdmins = getAdmins();
+        List<String> AdminsPromotedProducts;
+
+        for (Admin admin : AllAdmins){
+            AdminsPromotedProducts = admin.getPromotedProductsID();
+            for (String productsID : AdminsPromotedProducts) {
+                AllPromotedProducts.add(getProductByID(productsID));
+            }
+        }
+
+        return AllPromotedProducts;
+    }
+
+    public boolean clearAllPromotedProducts(Admin admin){
+        List<String> AllPromotedProducts = getAdminPromotedProducts(admin);
+        boolean removed = false;
+        for (String ID : AllPromotedProducts){
+            removed = removeFromPromotedProducts(ID, admin);
+        }
+        return removed;
+    }
+
+    private boolean removeFromPromotedProducts(String id, Admin admin) {
+        SQLiteDatabase DB = this.getWritableDatabase();
+        ContentValues CV = new ContentValues();
+
+        Gson gson = new Gson();
+        admin.removeFromPromotedProducts(id);
+        String promotedProducts = gson.toJson(admin.getPromotedProductsID());
+
+        CV.put(ADMIN_PROMOTED_PRODUCTS, promotedProducts);
+
+        long updated =  DB.update(ADMIN_TABLE, CV, ADMIN_USERNAME + " = ?" , new String[] {admin.getUsername()});
+
+        return updated != -1;
     }
 
     // Client methods
@@ -381,6 +457,15 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         long removed = DB.delete(PRODUCTS_TABLE, PRODUCT_ID + " = ?" ,new String[] {product.getId()});
 
         return (removed > 0) && (removeProductFromCategory);
+    }
+
+    public Product getProductByID(String id){
+        List<Product> AllProducts = getAllProducts();
+        for (Product product : AllProducts){
+            if (product.getId().equalsIgnoreCase(id))
+                return product;
+        }
+        return null;
     }
 
     public boolean updateProductValues(Product product){

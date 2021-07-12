@@ -47,4 +47,12 @@ public class Admin {
     public static void setActive_admin(Admin active_admin) {
         Admin.active_admin = active_admin;
     }
+
+    public void addToPromotedProducts(String id){
+        PromotedProductsID.add(id);
+    }
+
+    public void removeFromPromotedProducts(String id){
+        PromotedProductsID.remove(id);
+    }
 }

@@ -6,7 +6,9 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.denzcoskun.imageslider.constants.ScaleTypes;
@@ -19,11 +21,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.ecommerce.InCategory.CategoryUtils;
 import com.example.ecommerce.Main.MainActivity;
+import com.example.ecommerce.Model.Admin;
 import com.example.ecommerce.Model.Client;
 import com.example.ecommerce.Model.DataBaseHelper;
 import com.example.ecommerce.Model.Product;
@@ -41,11 +45,13 @@ public class HomeFragment extends Fragment {
 //    private String active_username;
     private EditText search_bar;
     private CircleImageView dp_profile;
-    private ImageSlider imageSlider;
+//    private ImageSlider imageSlider;
     private List<Product> productList = new ArrayList<>();
+    private List<Product> promotedProducts = new ArrayList<>();
+    private TextView emptyListView_tv;
     DataBaseHelper dataBaseHelper;
-    private RecyclerView recyclerView;
-    private RecyclerViewAdapter mAdapter;
+    private RecyclerView recyclerView, recyclerViewPromoted;
+    private RecyclerViewAdapter mAdapter, promotedAdapter;
 //    private RecyclerView.LayoutManager layoutManager;
     private AlertDialog.Builder builder;
     private Client ActiveClient;
@@ -57,13 +63,19 @@ public class HomeFragment extends Fragment {
 
         CategoryUtils.setIsInHomeFragment();
 
-        imageSlider = view.findViewById(R.id.image_slider);
-        setImageSlider(imageSlider);
+//        imageSlider = view.findViewById(R.id.image_slider);
+//        setImageSlider(imageSlider);
 
         ActiveClient = Client.getActive_client();
 
         dataBaseHelper = new DataBaseHelper(getActivity());
         productList = dataBaseHelper.getAllProducts();
+        promotedProducts = dataBaseHelper.getAllPromotedProducts();
+
+        emptyListView_tv = view.findViewById(R.id.empty_lv);
+        emptyListView_tv.setVisibility(View.INVISIBLE);
+        if (promotedProducts.isEmpty())
+            emptyListView_tv.setVisibility(View.VISIBLE);
 
         search_bar = view.findViewById(R.id.search_bar_main);
         search_bar.addTextChangedListener(new TextWatcher() {
@@ -180,6 +192,14 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        recyclerViewPromoted = view.findViewById(R.id.lv_promoted);
+        promotedAdapter = new RecyclerViewAdapter(promotedProducts, getActivity());
+        recyclerViewPromoted.setAdapter(promotedAdapter);
+        recyclerViewPromoted.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerViewPromoted.setLayoutManager(linearLayoutManager);
+        recyclerViewPromoted.setItemAnimator(new DefaultItemAnimator());
+
         recyclerView = view.findViewById(R.id.lv_productList);
         mAdapter = new RecyclerViewAdapter(productList, getActivity());
         recyclerView.setAdapter(mAdapter);
@@ -196,20 +216,24 @@ public class HomeFragment extends Fragment {
 
         dataBaseHelper = new DataBaseHelper(getActivity());
         productList = dataBaseHelper.getInterestedProducts(Client.getActive_client());
+        promotedProducts = dataBaseHelper.getAllPromotedProducts();
+
+        promotedAdapter = new RecyclerViewAdapter(promotedProducts, getActivity());
+        recyclerViewPromoted.setAdapter(promotedAdapter);
 
         mAdapter = new RecyclerViewAdapter(productList, getActivity());
         recyclerView.setAdapter(mAdapter);
         super.onResume();
     }
 
-    private void setImageSlider(ImageSlider imageSlider) {
-        List<SlideModel> slideModels = new ArrayList<>();
-        slideModels.add(new SlideModel(R.drawable.image1, null, ScaleTypes.CENTER_CROP));
-        slideModels.add(new SlideModel(R.drawable.image2, null, ScaleTypes.CENTER_CROP));
-        slideModels.add(new SlideModel(R.drawable.image3, null, ScaleTypes.CENTER_CROP));
-        imageSlider.setImageList(slideModels, ScaleTypes.CENTER_CROP);
-    }
-
+//    private void setImageSlider(ImageSlider imageSlider) {
+//        List<SlideModel> slideModels = new ArrayList<>();
+//        slideModels.add(new SlideModel(R.drawable.image1, null, ScaleTypes.CENTER_CROP));
+//        slideModels.add(new SlideModel(R.drawable.image2, null, ScaleTypes.CENTER_CROP));
+//        slideModels.add(new SlideModel(R.drawable.image3, null, ScaleTypes.CENTER_CROP));
+//        imageSlider.setImageList(slideModels, ScaleTypes.CENTER_CROP);
+//    }
+//
     private void filter(String text){
 
         ArrayList<Product> filteredList = new ArrayList<>();

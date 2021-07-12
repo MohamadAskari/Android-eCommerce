@@ -44,24 +44,32 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Popular categories"
+            android:text="Promoted"
             android:fontFamily="@font/montserrat_semibold"
             android:textSize="22dp"
             android:layout_marginStart="10dp"
             android:layout_marginBottom="5dp"/>
 
-        <com.denzcoskun.imageslider.ImageSlider
-            android:id="@+id/image_slider"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginEnd="5dp"
-            app:iss_corner_radius="5"
-            app:iss_auto_cycle="true"
-            app:iss_delay="0"
-            app:iss_period="1000" >
+            android:layout_height="240dp">
 
-        </com.denzcoskun.imageslider.ImageSlider>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/lv_promoted"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:id="@+id/empty_lv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No promoted products yet!"
+                android:textSize="22sp"
+                android:fontFamily="@font/montserrat_regular"
+                android:layout_centerInParent="true" />
+
+        </RelativeLayout>
+
 
         <TextView
             android:layout_width="wrap_content"
