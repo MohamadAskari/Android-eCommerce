@@ -74,6 +74,11 @@ public class PrioritizeFragment extends Fragment {
                         selectedProducts.add(AllProducts.get(i));
                 }
 
+                for (int i = 0 ; i < products_lv.getCount() ; i++){
+                    if(!products_lv.isItemChecked(i))
+                        selectedProducts.remove(AllProducts.get(i));
+                }
+
                 ArrayList<String> PromotedProductsID = new ArrayList<>();
                 for (Product product : selectedProducts)
                     PromotedProductsID.add(product.getId());

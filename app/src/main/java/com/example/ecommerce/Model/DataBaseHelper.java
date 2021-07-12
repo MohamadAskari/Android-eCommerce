@@ -149,8 +149,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues CV = new ContentValues();
 
-        for (String ID : IDs)
-            admin.addToPromotedProducts(ID);
+        admin.setPromotedProductsID(IDs);
+
+//        for (String ID : IDs) {
+//            if (!admin.getPromotedProductsID().contains(ID))
+//                admin.addToPromotedProducts(ID);
+//        }
 
         Gson gson = new Gson();
         String promotedProducts = gson.toJson(admin.getPromotedProductsID());
