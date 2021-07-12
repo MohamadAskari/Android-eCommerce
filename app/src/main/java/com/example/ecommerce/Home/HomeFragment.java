@@ -11,8 +11,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.denzcoskun.imageslider.constants.ScaleTypes;
-
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -21,13 +19,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.denzcoskun.imageslider.ImageSlider;
-import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.ecommerce.InCategory.CategoryUtils;
 import com.example.ecommerce.Main.MainActivity;
-import com.example.ecommerce.Model.Admin;
 import com.example.ecommerce.Model.Client;
 import com.example.ecommerce.Model.DataBaseHelper;
 import com.example.ecommerce.Model.Product;
@@ -49,7 +45,8 @@ public class HomeFragment extends Fragment {
     private List<Product> productList = new ArrayList<>();
     private List<Product> promotedProducts = new ArrayList<>();
     private List<Product> EverySingleProduct;
-    private TextView emptyListView_tv;
+    private TextView emptyListView_tv, promoted_tv, based_on_your_interest_tv;
+    private RelativeLayout promoted_rl;
     DataBaseHelper dataBaseHelper;
     private RecyclerView recyclerView, recyclerViewPromoted;
     private RecyclerViewAdapter mAdapter, promotedAdapter;
@@ -75,6 +72,9 @@ public class HomeFragment extends Fragment {
 
         EverySingleProduct = dataBaseHelper.getAllProducts();
 
+        promoted_tv = view.findViewById(R.id.tv_promoted);
+        promoted_rl = view.findViewById(R.id.promoted_rl);
+        based_on_your_interest_tv =view.findViewById(R.id.based_on_your_interest_tv);
         emptyListView_tv = view.findViewById(R.id.empty_lv);
         emptyListView_tv.setVisibility(View.INVISIBLE);
         if (promotedProducts.isEmpty())
@@ -84,13 +84,17 @@ public class HomeFragment extends Fragment {
         search_bar.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                setEverythingVisible();
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                setEverythingInvisible();
             }
             @Override
             public void afterTextChanged(Editable s) {
                 filter(s.toString());
+                if(search_bar.getText().toString().trim().equals(""))
+                    setEverythingVisible();
             }
         });
 
@@ -260,5 +264,17 @@ public class HomeFragment extends Fragment {
             mAdapter.filterList(filteredList);
         }
 
+    }
+
+    private void setEverythingVisible(){
+        promoted_tv.setVisibility(View.VISIBLE);
+        promoted_rl.setVisibility(View.VISIBLE);
+        based_on_your_interest_tv.setVisibility(View.VISIBLE);
+    }
+
+    private void setEverythingInvisible(){
+        promoted_tv.setVisibility(View.GONE);
+        promoted_rl.setVisibility(View.GONE);
+        based_on_your_interest_tv.setVisibility(View.GONE);
     }
 }
