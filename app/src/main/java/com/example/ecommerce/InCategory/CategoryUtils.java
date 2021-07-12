@@ -16,6 +16,7 @@ public class CategoryUtils {
     private static List<Product> allProductsList;
     private static List<Product> filteredProducts = new LinkedList<>();
     private static String selectedCategory;
+    private static boolean isFirstTimeInCategory;
     // All fragments with recyclerview
     private static boolean isInHomeFragment = true;
     private static boolean isInCategoryFragment = true;
@@ -28,7 +29,7 @@ public class CategoryUtils {
 
     public static List<Product> getAllCategoryProducts(final String category, DataBaseHelper dataBaseHelper){
         allProductsList = dataBaseHelper.getCategoryProducts(category);
-        return (getFilteredCategoryProducts().isEmpty()) ? allProductsList : filteredProducts; // bug : shows all when no product matches
+        return allProductsList; // bug : shows all when no product matches
     }
 
     public static List<Product> getFilteredCategoryProducts(){
@@ -40,22 +41,29 @@ public class CategoryUtils {
         for(Product p : allProductsList) {
             if (Integer.parseInt(p.getPrice()) <= maxPrice && Integer.parseInt(p.getPrice()) >= minPrice) {
                 if(selectedSubCategories.contains(p.getSubCategory()) || selectedSubCategories.isEmpty()){
-                    if(withImageOnly)
+                    if(withImageOnly){
+                        Log.d("TAG", "DOOGH TRUE");
                         if(p.hasImage()){
+                            Log.d("TAG", "DOOGH GOOZ");
                             filteredProducts.add(p);
                         }
-                    else
+                    }
+                    else {
+                        Log.d("TAG", "DOOGH FALSE");
                         filteredProducts.add(p);
+                    }
                 }
             }
         }
-        switch (sortType){
-            case "cheapest" :
-                Collections.sort(filteredProducts, productCheapestComparator);
-                break;
-            case "most expensive" :
-                Collections.sort(filteredProducts, productMostExpensiveComparator);
-                break;
+        if(!filteredProducts.isEmpty()){
+            switch (sortType){
+                case "cheapest" :
+                    Collections.sort(filteredProducts, productCheapestComparator);
+                    break;
+                case "most expensive" :
+                    Collections.sort(filteredProducts, productMostExpensiveComparator);
+                    break;
+            }
         }
     }
     private static Comparator<Product> productCheapestComparator = new Comparator<Product>() {
@@ -208,6 +216,14 @@ public class CategoryUtils {
     }
     public static boolean isIsInManageProductsFragment() {
         return isInManageProductsFragment;
+    }
+
+    public static boolean isIsFirstTimeInCategory() {
+        return isFirstTimeInCategory;
+    }
+
+    public static void setIsFirstTimeInCategory(boolean isFirstTimeInCategory) {
+        CategoryUtils.isFirstTimeInCategory = isFirstTimeInCategory;
     }
 
     public static void setIsInHomeFragment() {
