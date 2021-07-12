@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,12 +72,26 @@ public class FilterInCategoryFragment extends Fragment {
                 return currencyFormat.format(value);
             }
         });
+
         price_slider.setValueFrom(0);
         price_slider.setValueTo(CategoryUtils.getMaxPrice());
-        price_slider.setValues((float)(0), (float)CategoryUtils.getMaxPrice());
 
-        price_from_value.setText(String.valueOf((int)price_slider.getValueFrom()));
-        price_to_value.setText(String.valueOf((int)price_slider.getValueTo()));
+        if(CategoryUtils.isIsFirstTimeInCategory()){
+            price_slider.setValues((float)(0), (float)CategoryUtils.getMaxPrice());
+            price_from_value.setText(String.valueOf((int)price_slider.getValueFrom()));
+            price_to_value.setText(String.valueOf((int)price_slider.getValueTo()));
+        }
+        else {
+            price_slider.setValues((float)CategoryUtils.save_price_slider[0], (float)CategoryUtils.save_price_slider[1]);
+            price_from_value.setText(CategoryUtils.save_price_from_value);
+            price_to_value.setText(CategoryUtils.save_price_to_value);
+            only_with_image_checkbox.setChecked(CategoryUtils.save_only_with_image_checkbox);
+            cheapest_rb.setChecked(CategoryUtils.save_cheapest_rb);
+            mostExpensive_rb.setChecked(CategoryUtils.save_mostExpensive_rb);
+            for(CheckBox ch : subCategoriesCheckboxes){
+                ch.setChecked(CategoryUtils.save_subCategoriesCheckboxes.remove());
+            }
+        }
 
         price_slider.addOnSliderTouchListener(new RangeSlider.OnSliderTouchListener() {
             @Override
@@ -101,6 +116,21 @@ public class FilterInCategoryFragment extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onDestroy() {
+        CategoryUtils.save_price_slider[0] = Math.round(price_slider.getValues().get(0));
+        CategoryUtils.save_price_slider[1] = Math.round(price_slider.getValues().get(1));
+        CategoryUtils.save_price_from_value = price_from_value.getText().toString();
+        CategoryUtils.save_price_to_value = price_to_value.getText().toString();
+        for(CheckBox ch : subCategoriesCheckboxes) {
+            CategoryUtils.save_subCategoriesCheckboxes.add(ch.isChecked());
+        }
+        CategoryUtils.save_only_with_image_checkbox = only_with_image_checkbox.isChecked();
+        CategoryUtils.save_mostExpensive_rb = mostExpensive_rb.isChecked();
+        CategoryUtils.save_cheapest_rb = cheapest_rb.isChecked();
+        super.onDestroy();
     }
 
     private void createSubCategoriesCheckbox(LinearLayout linearLayout){
