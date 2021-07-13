@@ -150,52 +150,99 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 PopupMenu popup = new PopupMenu(getContext(), dp_profile);
-                popup.inflate(R.menu.profile_dropdown_menu);
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        String selected_item = null;
-                        switch (item.getItemId()) {
-                            case R.id.edit_profile_item:
-                                selected_item = "Edit your profile";
-                                break;
-                            case R.id.manage_products_item:
-                                selected_item = "Manage your products";
-                                break;
-                            case R.id.setting_item:
-                                selected_item = "Setting";
-                                break;
-                            default : // case R.id.log_out_item:
-                                builder = new AlertDialog.Builder(getActivity());
-                                builder.setIcon(R.drawable.ic_baseline_warning_24);
-                                builder.setTitle(R.string.confirm_log_out_title);
-                                builder.setMessage(R.string.confirm_log_out_message);
-                                builder.setPositiveButton(R.string.confirm_log_out, new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        Intent intent = new Intent(getActivity(), MainActivity.class);
-                                        startActivity(intent);
-                                    }
-                                });
-                                builder.setNegativeButton(R.string.cancel_log_out, new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        //DO NOTHING
-                                    }
-                                });
+                if (ActiveClient.isSeller()) {
+                    popup.inflate(R.menu.profile_dropdown_menu_seller);
+                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            String selected_item = null;
+                            switch (item.getItemId()) {
+                                case R.id.edit_profile_item:
+                                    selected_item = "Edit your profile";
+                                    break;
+                                case R.id.manage_products_item:
+                                    selected_item = "Manage your products";
+                                    break;
+                                case R.id.setting_item:
+                                    selected_item = "Setting";
+                                    break;
+                                default: // case R.id.log_out_item:
+                                    builder = new AlertDialog.Builder(getActivity());
+                                    builder.setIcon(R.drawable.ic_baseline_warning_24);
+                                    builder.setTitle(R.string.confirm_log_out_title);
+                                    builder.setMessage(R.string.confirm_log_out_message);
+                                    builder.setPositiveButton(R.string.confirm_log_out, new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            Intent intent = new Intent(getActivity(), MainActivity.class);
+                                            startActivity(intent);
+                                        }
+                                    });
+                                    builder.setNegativeButton(R.string.cancel_log_out, new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            //DO NOTHING
+                                        }
+                                    });
 
-                                builder.show();
-                                break;
+                                    builder.show();
+                                    break;
+                            }
+                            if (selected_item != null) {
+                                Intent intent = new Intent(getActivity(), SpinnerOptionsActivity.class);
+                                intent.putExtra("Selected Item", selected_item);
+                                startActivity(intent);
+                            }
+                            return true;
                         }
-                        if(selected_item != null){
-                            Intent intent = new Intent(getActivity(), SpinnerOptionsActivity.class);
-                            intent.putExtra("Selected Item", selected_item);
-                            startActivity(intent);
+                    });
+                    popup.show();
+                }
+                else {
+                    popup.inflate(R.menu.profile_dropdown_menu_buyer);
+                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            String selected_item = null;
+                            switch (item.getItemId()) {
+                                case R.id.edit_profile_item:
+                                    selected_item = "Edit your profile";
+                                    break;
+                                case R.id.setting_item:
+                                    selected_item = "Setting";
+                                    break;
+                                default: // case R.id.log_out_item:
+                                    builder = new AlertDialog.Builder(getActivity());
+                                    builder.setIcon(R.drawable.ic_baseline_warning_24);
+                                    builder.setTitle(R.string.confirm_log_out_title);
+                                    builder.setMessage(R.string.confirm_log_out_message);
+                                    builder.setPositiveButton(R.string.confirm_log_out, new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            Intent intent = new Intent(getActivity(), MainActivity.class);
+                                            startActivity(intent);
+                                        }
+                                    });
+                                    builder.setNegativeButton(R.string.cancel_log_out, new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            //DO NOTHING
+                                        }
+                                    });
+
+                                    builder.show();
+                                    break;
+                            }
+                            if (selected_item != null) {
+                                Intent intent = new Intent(getActivity(), SpinnerOptionsActivity.class);
+                                intent.putExtra("Selected Item", selected_item);
+                                startActivity(intent);
+                            }
+                            return true;
                         }
-                        return true;
-                    }
-                });
-                popup.show();
+                    });
+                    popup.show();
+                }
             }
         });
 

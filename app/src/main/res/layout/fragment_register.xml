@@ -141,6 +141,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="30dp"
+            android:foreground="?android:attr/selectableItemBackground"
             android:background="@drawable/bg_buttons1"
             android:fontFamily="@font/montserrat_bold"
             android:text="Sign Up"

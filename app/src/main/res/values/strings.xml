@@ -61,5 +61,6 @@
     <string name="see_users_login_count">See users\' login count</string>
     <string name="prioritize_products">Prioritize products</string>
     <string name="log_out">Log out</string>
+    <string name="get_started">Get started!</string>
 
 </resources>
