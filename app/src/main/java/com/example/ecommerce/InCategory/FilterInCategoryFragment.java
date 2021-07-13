@@ -5,7 +5,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,7 +75,7 @@ public class FilterInCategoryFragment extends Fragment {
         price_slider.setValueFrom(0);
         price_slider.setValueTo(CategoryUtils.getMaxPrice());
 
-        if(CategoryUtils.isIsFirstTimeInCategory()){
+        if(CategoryUtils.isFirstTimeInCategory()){
             price_slider.setValues((float)(0), (float)CategoryUtils.getMaxPrice());
             price_from_value.setText(String.valueOf((int)price_slider.getValueFrom()));
             price_to_value.setText(String.valueOf((int)price_slider.getValueTo()));

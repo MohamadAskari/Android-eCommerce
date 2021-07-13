@@ -55,9 +55,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 break;
             case 1 : // InCategoryFragment
             case 2 : // FavoritesFragment
+            case 3 : // PromotedList
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_in_category_product, parent, false);
                 break;
-            default : // ManageProductsFragment : return 3
+            default : // ManageProductsFragment : return 4
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_in_manage_products, parent, false);
                 break;
         }
@@ -68,14 +69,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public int getItemViewType(int position) {
 
-        if (CategoryUtils.isIsInHomeFragment())
+        if (CategoryUtils.isInHomeFragment())
             return 0;
-        else if (CategoryUtils.isIsInCategoryFragment())
+        else if (CategoryUtils.isInCategoryFragment())
             return 1;
-        else if (CategoryUtils.isIsInFavoritesFragment())
+        else if (CategoryUtils.isInFavoritesFragment())
             return 2;
+        else if (CategoryUtils.isPromotedList())
+            return 3;
         // else if (CategoryUtils.isIsInManageProductsFragment())
-        return 3;
+        return 4;
     }
 
     @Override
@@ -105,7 +108,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         });
 
 
-        if(CategoryUtils.isIsInManageProductsFragment()){
+        if(CategoryUtils.isInManageProductsFragment()){
 
             holder.dp_manage_products.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -142,6 +145,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     popup.show();
                 }
             });
+            holder.product_layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                }
+            });
         }
     }
 
@@ -171,7 +179,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             tv_product_name = itemView.findViewById(R.id.tv_product_name);
             tv_product_price = itemView.findViewById(R.id.tv_product_price);
             product_layout = itemView.findViewById(R.id.one_line_product_layout);
-            if(CategoryUtils.isIsInManageProductsFragment())
+            if(CategoryUtils.isInManageProductsFragment())
                 dp_manage_products = itemView.findViewById(R.id.manage_product_dropdown);
         }
     }

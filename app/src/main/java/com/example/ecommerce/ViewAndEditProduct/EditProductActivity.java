@@ -52,6 +52,7 @@ public class EditProductActivity extends AppCompatActivity {
     private Uri product_pic_url;
     private Product product;
     private Client ActiveClient;
+    private boolean hasImage;
     private static final int CAMERA_PERM_CODE = 101;
     private static final int CAMERA_REQUEST_CODE = 102;
     private static final int GALLERY_REQUEST_CODE = 105;
@@ -67,6 +68,7 @@ public class EditProductActivity extends AppCompatActivity {
         Intent intent = getIntent();
         product = intent.getParcelableExtra("product");
 
+        hasImage = product.hasImage();
         ActiveClient = Client.getActive_client();
 
         inputproductname = findViewById(R.id.edit_product_name);
@@ -150,6 +152,7 @@ public class EditProductActivity extends AppCompatActivity {
                 product_pic_url = Uri.fromFile(f);
                 product_pic.setImageURI(product_pic_url);
                 product.setImageUrl(product_pic_url);
+                hasImage = true;
                 Log.d("tag", "Url Image : " + Uri.fromFile(f));
 
                 // add pic to gallery
@@ -164,10 +167,11 @@ public class EditProductActivity extends AppCompatActivity {
                 Uri contentUri = data.getData();
                 String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
                 String imageFileName = "JPEG_" + timeStamp + "." + getFileExt(contentUri);
-                Log.d("tag", "Uri Gallery Image : " + imageFileName);
                 product_pic_url = contentUri;
                 product_pic.setImageURI(product_pic_url);
                 product.setImageUrl(product_pic_url);
+                hasImage = true;
+                Log.d("tag", "Uri Gallery Image : " + imageFileName);
             }
         }
     }
@@ -220,12 +224,11 @@ public class EditProductActivity extends AppCompatActivity {
         if(TextUtils.isEmpty(inputproductname.getText().toString().trim()) || TextUtils.isEmpty(inputproductprice.getText().toString().trim())){
             Toast.makeText(this, "Please fill out all required fields", Toast.LENGTH_LONG).show();
         }
-        else if(product_pic.getDrawable() == null)
-            Toast.makeText(this, "Please set a photo for your product", Toast.LENGTH_SHORT).show();
         else {
             product.setName(inputproductname.getText().toString());
             product.setPrice(inputproductprice.getText().toString());
             product.setDescription(inputproductdescription.getText().toString());
+            product.setHasImage(hasImage);
             boolean succeed = dataBaseHelper.updateProductValues(product);
             if(succeed) {
                 Toast.makeText(this, "Product edited successfully ", Toast.LENGTH_LONG).show();

@@ -59,11 +59,6 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        CategoryUtils.setIsInHomeFragment();
-
-//        imageSlider = view.findViewById(R.id.image_slider);
-//        setImageSlider(imageSlider);
-
         ActiveClient = Client.getActive_client();
 
         dataBaseHelper = new DataBaseHelper(getActivity());
@@ -97,52 +92,6 @@ public class HomeFragment extends Fragment {
                     setEverythingVisible();
             }
         });
-
-        /*dp_profile = view.findViewById(R.id.profile_dropdown);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(), R.array.profile_dropdown_items, R.layout.support_simple_spinner_dropdown_item);
-        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        dp_profile.setAdapter(adapter);
-        dp_profile.setSelection(0);
-        dp_profile.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ((TextView)view).setText(null);
-                String item = parent.getItemAtPosition(position).toString();
-                if(item.equals("Log out")){
-                    builder = new AlertDialog.Builder(getActivity());
-                    builder.setIcon(R.drawable.ic_baseline_warning_24);
-                    builder.setTitle(R.string.confirm_log_out_title);
-                    builder.setMessage(R.string.confirm_log_out_message);
-                    builder.setPositiveButton(R.string.confirm_log_out, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(getActivity(), MainActivity.class);
-                            startActivity(intent);
-                        }
-                    });
-                    builder.setNegativeButton(R.string.cancel_log_out, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            //DO NOTHING
-                        }
-                    });
-
-                    builder.show();
-                    dp_profile.setSelection(0);
-                }
-                else if(!item.equals("Select")) {
-                    Intent intent = new Intent(getActivity(), SpinnerOptionsActivity.class);
-                    intent.putExtra("Selected Item", item);
-//                    intent.putExtra("Active User", ActiveClient);
-                    startActivity(intent);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });*/
 
         dp_profile = view.findViewById(R.id.profile_dropdown);
         dp_profile.setImageURI(ActiveClient.getImageUrl());
@@ -247,20 +196,10 @@ public class HomeFragment extends Fragment {
         });
 
         recyclerViewPromoted = view.findViewById(R.id.lv_promoted);
-        promotedAdapter = new RecyclerViewAdapter(promotedProducts, getActivity());
-        recyclerViewPromoted.setAdapter(promotedAdapter);
-        recyclerViewPromoted.setHasFixedSize(true);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-        recyclerViewPromoted.setLayoutManager(linearLayoutManager);
-        recyclerViewPromoted.setItemAnimator(new DefaultItemAnimator());
-
         recyclerView = view.findViewById(R.id.lv_productList);
-        mAdapter = new RecyclerViewAdapter(productList, getActivity());
-        recyclerView.setAdapter(mAdapter);
-        recyclerView.setHasFixedSize(true);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false);
-//        layoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(gridLayoutManager);
+
+        setUpPromotedRecyclerView(promotedProducts);
+        setUpHomeRecyclerView(productList);
 
         return view;
     }
@@ -272,13 +211,11 @@ public class HomeFragment extends Fragment {
         productList = dataBaseHelper.getInterestedProducts(Client.getActive_client());
         promotedProducts = dataBaseHelper.getAllPromotedProducts();
 
-        promotedAdapter = new RecyclerViewAdapter(promotedProducts, getActivity());
-        recyclerViewPromoted.setAdapter(promotedAdapter);
-
         search_bar.setText("");
 
-        mAdapter = new RecyclerViewAdapter(productList, getActivity());
-        recyclerView.setAdapter(mAdapter);
+        setUpPromotedRecyclerView(promotedProducts);
+        setUpHomeRecyclerView(productList);
+
         super.onResume();
     }
 
@@ -289,7 +226,7 @@ public class HomeFragment extends Fragment {
 //        slideModels.add(new SlideModel(R.drawable.image3, null, ScaleTypes.CENTER_CROP));
 //        imageSlider.setImageList(slideModels, ScaleTypes.CENTER_CROP);
 //    }
-//
+
     private void filter(String text){
 
         ArrayList<Product> filteredList = new ArrayList<>();
@@ -310,7 +247,25 @@ public class HomeFragment extends Fragment {
             }
             mAdapter.filterList(filteredList);
         }
+    }
 
+    private void setUpPromotedRecyclerView(List<Product> promotedProducts){
+        CategoryUtils.setIsPromotedList();
+        promotedAdapter = new RecyclerViewAdapter(this.promotedProducts, getActivity());
+        recyclerViewPromoted.setAdapter(promotedAdapter);
+        recyclerViewPromoted.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerViewPromoted.setLayoutManager(linearLayoutManager);
+        recyclerViewPromoted.setItemAnimator(new DefaultItemAnimator());
+    }
+
+    private void setUpHomeRecyclerView(List<Product> productList){
+        CategoryUtils.setIsInHomeFragment();
+        mAdapter = new RecyclerViewAdapter(productList, getActivity());
+        recyclerView.setAdapter(mAdapter);
+        recyclerView.setHasFixedSize(true);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(gridLayoutManager);
     }
 
     private void setEverythingVisible(){
