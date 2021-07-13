@@ -341,6 +341,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 client = new Client(c.getUserName(), c.getFirstName(), c.getLastName(),
                         c.getEmail(), c.getPhoneNumber(), c.getPassword(),
                         c.isSeller(), c.getLogin_count(), c.getProduct_count(), c.getInterestedCategories());
+                client.setImageUrl(c.getImageUrl());
                 return client;
             }
         }
