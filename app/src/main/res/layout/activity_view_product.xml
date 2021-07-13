@@ -71,8 +71,8 @@
                         android:background="@drawable/bg_buttons5"
                         android:padding="5dp"
                         android:layout_gravity="center_vertical"
-                        android:text="Categorie"
-                        android:fontFamily="@font/josefinsans__regular" />
+                        android:text="Category"
+                        android:fontFamily="@font/montserrat_regular" />
 
                     <TextView
                         android:id="@+id/view_product_subcategory"
@@ -82,8 +82,8 @@
                         android:layout_marginStart="10dp"
                         android:padding="5dp"
                         android:layout_gravity="center_vertical"
-                        android:text="Sub Categorie"
-                        android:fontFamily="@font/josefinsans__regular" />
+                        android:text="Sub Category"
+                        android:fontFamily="@font/montserrat_regular" />
 
                 </LinearLayout>
 
@@ -97,7 +97,7 @@
                     android:gravity="right"
                     android:text="Price"
                     android:textSize="20dp"
-                    android:fontFamily="@font/josefinsans_bold" />
+                    android:fontFamily="@font/montserrat_bold" />
 
             </RelativeLayout>
 
@@ -110,7 +110,7 @@
                 android:layout_marginEnd="25dp"
                 android:text="Name"
                 android:textSize="25dp"
-                android:fontFamily="@font/josefinsans_bold" />
+                android:fontFamily="@font/montserrat_bold" />
 
             <TextView
                 android:id="@+id/view_product_description"
@@ -119,7 +119,7 @@
                 android:layout_margin="25dp"
                 android:text="Description example 123 brrrrrrr"
                 android:textSize="15dp"
-                android:fontFamily="@font/josefinsans_bold" />
+                android:fontFamily="@font/montserrat_bold" />
 
             <RelativeLayout
                 android:id="@+id/empty_rl"
@@ -142,7 +142,7 @@
         android:text="View Seller Info"
         android:textColor="@color/black"
         android:textSize="20dp"
-        android:fontFamily="@font/josefinsans_bold"
+        android:fontFamily="@font/montserrat_bold"
         android:textAllCaps="false" />
 
 

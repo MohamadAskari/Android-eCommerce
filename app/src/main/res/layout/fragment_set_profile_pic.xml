@@ -42,7 +42,7 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/set_profile_camera_btn"
-                android:layout_width="170dp"
+                android:layout_width="190dp"
                 android:layout_height="55dp"
                 android:text="Take photo"
                 android:textSize="16sp"
@@ -54,7 +54,7 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/set_profile_gallery_btn"
-                android:layout_width="170dp"
+                android:layout_width="190dp"
                 android:layout_height="55dp"
                 android:text="From gallery"
                 android:textSize="16sp"

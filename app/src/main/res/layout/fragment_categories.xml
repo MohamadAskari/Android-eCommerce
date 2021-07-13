@@ -210,7 +210,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:padding="25dp"
-                android:text="@string/real_state"
+                android:text="@string/real_estate"
                 android:textColor="@color/white"
                 android:textSize="30sp"
                 android:fontFamily="@font/montserrat_regular"/>

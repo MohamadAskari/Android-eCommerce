@@ -238,7 +238,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
                     android:padding="25dp"
-                    android:text="@string/real_state"
+                    android:text="@string/real_estate"
                     android:textColor="@color/white"
                     android:textSize="18sp"
                     android:fontFamily="@font/montserrat_regular"/>

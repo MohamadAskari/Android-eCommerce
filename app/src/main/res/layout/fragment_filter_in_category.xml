@@ -17,8 +17,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:textSize="25dp"
-            android:fontFamily="@font/josefinsans__regular"
+            android:textSize="25sp"
+            android:fontFamily="@font/montserrat_regular"
             android:text="In Category :" />
 
         <LinearLayout
@@ -31,8 +31,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="25dp"
-            android:fontFamily="@font/josefinsans__regular"
+            android:textSize="25sp"
+            android:fontFamily="@font/montserrat_regular"
             android:text="Price Range"
             android:layout_marginTop="10dp"
             />
@@ -59,12 +59,12 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:ellipsize="end"
-                android:textSize="18dp"
+                android:textSize="18sp"
                 android:fontFamily="@font/montserrat_medium"
                 android:text="FromValue"
                 android:maxLines="1"
                 android:padding="5dp"
-                android:background="@drawable/blue_out_line"
+                android:background="@drawable/black_out_line"
                 android:drawableStart="@drawable/ic_baseline_attach_money_24"/>
 
             <EditText
@@ -73,12 +73,12 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:ellipsize="end"
-                android:textSize="18dp"
+                android:textSize="18sp"
                 android:fontFamily="@font/montserrat_medium"
                 android:text="ToValue"
                 android:maxLines="1"
                 android:padding="5dp"
-                android:background="@drawable/blue_out_line"
+                android:background="@drawable/black_out_line"
                 android:drawableStart="@drawable/ic_baseline_attach_money_24"/>
         </RelativeLayout>
 
@@ -87,13 +87,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Only show product with image"
-            android:fontFamily="@font/josefinsans__regular" />
+            android:fontFamily="@font/montserrat_regular" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="25dp"
-            android:fontFamily="@font/josefinsans__regular"
+            android:fontFamily="@font/montserrat_regular"
             android:text="Sort by"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"/>
@@ -108,13 +108,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="cheapest"
-                android:fontFamily="@font/josefinsans__regular" />
+                android:fontFamily="@font/montserrat_regular" />
             <RadioButton
                 android:id="@+id/rb_most_expensive"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="most expensive"
-                android:fontFamily="@font/josefinsans__regular" />
+                android:fontFamily="@font/montserrat_regular" />
 
         </RadioGroup>
 
