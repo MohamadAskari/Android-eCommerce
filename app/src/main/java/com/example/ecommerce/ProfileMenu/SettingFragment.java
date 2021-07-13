@@ -1,6 +1,7 @@
 package com.example.ecommerce.ProfileMenu;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
@@ -26,7 +27,7 @@ import java.util.List;
 
 public class SettingFragment extends Fragment {
 
-    private SwitchCompat switchCompat;
+    private AppCompatButton nightModeButton;
     private ImageView back_btn_image_view, back_btn_popup_faq, back_btn_popup_contact_us;
     private AppCompatButton FAQ_btn, contactUs_btn, removeFavs_btn;
     private AlertDialog.Builder dialogBuilder;
@@ -39,7 +40,7 @@ public class SettingFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_setting, container, false);
 
-        switchCompat = view.findViewById(R.id.night_mode_switch);
+        nightModeButton = view.findViewById(R.id.night_mode_btn);
         back_btn_image_view = view.findViewById(R.id.view_setting_back_icon);
         removeFavs_btn = view.findViewById(R.id.remove_favs_btn);
         contactUs_btn = view.findViewById(R.id.contact_us_btn);
@@ -48,6 +49,14 @@ public class SettingFragment extends Fragment {
         String clientPhonenumber = ActiveClient.getPhoneNumber();
         dataBaseHelper = new DataBaseHelper(getActivity());
 
+        int nightModeFlags = getContext().getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        switch (nightModeFlags) {
+            case Configuration.UI_MODE_NIGHT_YES:
+                nightModeButton.setText("Disable");
+                break;
+            case Configuration.UI_MODE_NIGHT_NO:
+                nightModeButton.setText("Enable");
+        }
         back_btn_image_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,10 +68,10 @@ public class SettingFragment extends Fragment {
             }
         });
 
-        switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        nightModeButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked)
+            public void onClick(View v) {
+                if(nightModeFlags == Configuration.UI_MODE_NIGHT_NO)
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                 else
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
