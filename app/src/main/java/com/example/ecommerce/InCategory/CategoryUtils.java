@@ -29,6 +29,7 @@ public class CategoryUtils {
     private static boolean isInCategoryFragment = true;
     private static boolean isInFavoritesFragment = true;
     private static boolean isInManageProductsFragment = true;
+    private static boolean isPromotedList = true;
 
     private CategoryUtils() {
         throw new RuntimeException("Nope!");
@@ -212,20 +213,25 @@ public class CategoryUtils {
         }
     }
 
-    public static boolean isIsInHomeFragment() {
+    public static boolean isInHomeFragment() {
         return isInHomeFragment;
     }
-    public static boolean isIsInCategoryFragment() {
+    public static boolean isInCategoryFragment() {
         return isInCategoryFragment;
     }
-    public static boolean isIsInFavoritesFragment() {
+    public static boolean isInFavoritesFragment() {
         return isInFavoritesFragment;
     }
-    public static boolean isIsInManageProductsFragment() {
+    public static boolean isInManageProductsFragment() {
         return isInManageProductsFragment;
     }
 
-    public static boolean isIsFirstTimeInCategory() {
+    public static boolean isPromotedList(){
+        return isPromotedList;
+    }
+
+
+    public static boolean isFirstTimeInCategory() {
         return isFirstTimeInCategory;
     }
 
@@ -238,6 +244,7 @@ public class CategoryUtils {
         isInCategoryFragment = false;
         isInFavoritesFragment = false;
         isInManageProductsFragment = false;
+        isPromotedList = false;
     }
 
     public static void setIsInCategoryFragment() {
@@ -245,6 +252,7 @@ public class CategoryUtils {
         isInCategoryFragment = true;
         isInFavoritesFragment = false;
         isInManageProductsFragment = false;
+        isPromotedList = false;
     }
 
     public static void setIsInFavoritesFragment() {
@@ -252,11 +260,22 @@ public class CategoryUtils {
         isInCategoryFragment = false;
         isInFavoritesFragment = true;
         isInManageProductsFragment = false;
+        isPromotedList = false;
     }
 
     public static void setIsInManageProductsFragment() {
         isInHomeFragment = false;
         isInCategoryFragment = false;
         isInFavoritesFragment = false;
-        isInManageProductsFragment = true;    }
+        isInManageProductsFragment = true;
+        isPromotedList = false;
+    }
+
+    public static void setIsPromotedList(){
+        isInHomeFragment = false;
+        isInCategoryFragment = false;
+        isInFavoritesFragment = false;
+        isInManageProductsFragment = false;
+        isPromotedList = true;
+    }
 }

@@ -84,7 +84,7 @@ public class InCategoryProductsFragment extends Fragment {
         });
 
 
-        if(CategoryUtils.isIsFirstTimeInCategory()){
+        if(CategoryUtils.isFirstTimeInCategory()){
             inCategoryProductList = CategoryUtils.getAllCategoryProducts(category, dataBaseHelper);
             if(inCategoryProductList.isEmpty())
                 filter_btn.setVisibility(View.GONE);
