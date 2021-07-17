@@ -45,9 +45,10 @@
                 android:layout_height="60dp"
                 android:layout_marginTop="40dp"
                 android:layout_marginEnd="20dp"
-                android:background="@drawable/bg_buttons3"
+                android:background="@drawable/bg_button2"
                 android:fontFamily="@font/montserrat_semibold"
                 android:text="Take photo"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"/>
 
@@ -55,9 +56,10 @@
                 android:id="@+id/fromgallery_btn"
                 android:layout_width="140dp"
                 android:layout_height="60dp"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:layout_marginBottom="40dp"
                 android:layout_marginEnd="20dp"
-                android:background="@drawable/bg_buttons2"
+                android:background="@drawable/bg_button"
                 android:fontFamily="@font/montserrat_semibold"
                 android:text="From gallery"
                 android:layout_alignParentEnd="true"
@@ -127,17 +129,18 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.unstoppable.submitbuttonview.SubmitButton
             android:id="@+id/submit_btn"
-            android:layout_width="140dp"
-            android:layout_height="70dp"
+            android:layout_width="130dp"
+            android:layout_height="50dp"
             android:layout_margin="10dp"
-            android:drawableStart="@drawable/ic_baseline_add_24"
+            app:buttonTextSize="17sp"
             android:paddingStart="15dp"
-            android:paddingEnd="12dp"
-            android:fontFamily="@font/montserrat_semibold"
-            android:textSize="17dp"
-            android:text="Submit" />
+            app:buttonColor="@color/light_blue"
+            app:succeedColor="#00D100"
+            app:failedColor="#FD0202"
+            app:buttonText="Submit"
+            android:paddingEnd="12dp" />
 
     </LinearLayout>
 

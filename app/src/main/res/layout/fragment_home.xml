@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
+    android:id="@+id/home_scrollview"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -36,8 +37,8 @@
                 android:layout_height="40dp"
                 android:layout_alignParentEnd="true"
                 android:layout_margin="20dp"
-                android:background="@drawable/ic_baseline_account_circle_24"
-                android:popupBackground="@drawable/bg_spinner" />
+                android:background="@mipmap/ic_default_pic"
+                android:popupBackground="@drawable/bg_dp_menu" />
 
         </RelativeLayout>
 

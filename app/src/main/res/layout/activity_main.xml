@@ -55,7 +55,7 @@
                 android:fontFamily="@font/montserrat_bold"
                 android:gravity="center"
                 android:text="Log In"
-                android:textColor="@color/white" />
+                android:textColor="@color/black" />
 
             <RadioButton
                 android:id="@+id/register_btn"
@@ -70,7 +70,7 @@
                 android:fontFamily="@font/montserrat_bold"
                 android:gravity="center"
                 android:text="Sign Up"
-                android:textColor="@color/white" />
+                android:textColor="@color/black" />
         </RadioGroup>
 
         <ImageView

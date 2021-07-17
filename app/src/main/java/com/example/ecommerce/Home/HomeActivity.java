@@ -1,8 +1,13 @@
 package com.example.ecommerce.Home;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.Fragment;
 
+import android.content.res.ColorStateList;
+import android.content.res.Configuration;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -35,6 +40,8 @@ public class HomeActivity extends AppCompatActivity {
         setCurrentFragment(new HomeFragment(), ActiveClient);
 
         fab = findViewById(R.id.fab);
+        int nightModeFlags = this.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,6 +54,9 @@ public class HomeActivity extends AppCompatActivity {
             fab.hide();
 
         bottomNav = findViewById(R.id.bottom_nav_bar);
+        if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES)
+            bottomNav.setBackground(AppCompatResources.getDrawable(this, R.drawable.bg_nav_night));
+
         bottomNav.setOnItemSelectedListener(new ChipNavigationBar.OnItemSelectedListener() {
             @Override
             public void onItemSelected(int id) {

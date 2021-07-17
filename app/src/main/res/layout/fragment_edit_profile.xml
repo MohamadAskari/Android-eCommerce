@@ -36,16 +36,17 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="20dp"
-                android:src="@drawable/ic_baseline_account_circle_24" />
+                android:src="@mipmap/ic_default_pic" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/change_picture_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/bg_buttons3"
+                android:background="@drawable/bg_button"
                 android:padding="10dp"
                 android:fontFamily="@font/montserrat_semibold"
                 android:text="Set new photo" />
@@ -160,7 +161,8 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="20dp"
-                android:background="@drawable/bg_buttons2"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:background="@drawable/bg_button2"
                 android:fontFamily="@font/montserrat_semibold"
                 android:padding="10dp"
                 android:text="Change password" />
@@ -173,7 +175,8 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="15dp"
                 android:layout_marginEnd="10dp"
-                android:background="@drawable/bg_buttons1"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:background="@drawable/bg_button"
                 android:fontFamily="@font/montserrat_semibold"
                 android:padding="10dp"
                 android:text="Confirm" />

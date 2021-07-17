@@ -2,9 +2,11 @@ package com.example.ecommerce.ViewAndEditProduct;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -98,6 +100,9 @@ public class ViewProductActivity extends AppCompatActivity {
         });
 
         viewSellerInfo_btn = findViewById(R.id.view_seller_info_btn);
+        int nightModeFlags = this.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES)
+            viewSellerInfo_btn.setBackground(AppCompatResources.getDrawable(this, R.drawable.bg_button_night));
         viewSellerInfo_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,8 +123,10 @@ public class ViewProductActivity extends AppCompatActivity {
 
         Client seller = dataBaseHelper.getClientByPhonenumber(sellerPhonenumber);
         seller_username.setText(seller.getUserName());
+        if (!seller.getImagePath().equals("default"))
+            seller_profile_pic.setImageURI(seller.getImageUrl());
+
         seller_phonenumber.setText(seller.getPhoneNumber());
-        seller_profile_pic.setImageURI(seller.getImageUrl());
 
         dialogBuilder.setView(viewSellerInfo_popupView);
         dialog = dialogBuilder.create();

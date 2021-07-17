@@ -38,7 +38,7 @@
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="20dp"
                 android:padding="0dp"
-                android:src="@drawable/ic_baseline_account_circle_24" />
+                android:src="@mipmap/ic_default_pic" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/set_profile_camera_btn"
@@ -47,7 +47,8 @@
                 android:text="Take photo"
                 android:textSize="16sp"
                 android:fontFamily="@font/montserrat_semibold"
-                android:background="@drawable/bg_buttons3"
+                android:background="@drawable/bg_button"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:padding="15dp"
                 android:layout_below="@id/profile_image"
                 android:layout_centerHorizontal="true" />
@@ -59,7 +60,8 @@
                 android:text="From gallery"
                 android:textSize="16sp"
                 android:fontFamily="@font/montserrat_semibold"
-                android:background="@drawable/bg_buttons2"
+                android:background="@drawable/bg_toggle_item_unchecked"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:padding="15dp"
                 android:layout_marginTop="10dp"
                 android:layout_below="@id/set_profile_camera_btn"

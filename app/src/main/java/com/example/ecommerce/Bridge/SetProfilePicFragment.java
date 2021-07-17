@@ -6,11 +6,13 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -70,6 +72,10 @@ public class SetProfilePicFragment extends Fragment {
         dataBaseHelper = new DataBaseHelper(getActivity());
         hasImage = false;
         next = getResources().getString(R.string.next);
+
+        int nightModeFlags = this.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES)
+            set_pic_camera.setBackground(AppCompatResources.getDrawable(getActivity(), R.drawable.bg_button_night));
 
         set_pic_camera.setOnClickListener(new View.OnClickListener() {
             @Override

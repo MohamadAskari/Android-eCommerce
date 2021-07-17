@@ -1,7 +1,9 @@
 package com.example.ecommerce.Main;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -36,6 +38,10 @@ public class ForgotPasswordFragment extends Fragment {
         confirm = view.findViewById(R.id.confirm_forgotpassword);
         confirm_btn = view.findViewById(R.id.confirm_button_forgotpassword);
         dataBaseHelper = new DataBaseHelper(getActivity());
+
+        int nightModeFlags = this.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES)
+            confirm_btn.setBackground(AppCompatResources.getDrawable(getActivity(), R.drawable.bg_button_night));
 
         ((MainActivity) getActivity()).showBackButton();
 

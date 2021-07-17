@@ -1,8 +1,10 @@
 package com.example.ecommerce.Main;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.Fragment;
 
 import android.text.TextUtils;
@@ -47,7 +49,12 @@ public class RegisterFragment extends Fragment {
         inputconfirmpass = view.findViewById(R.id.password_confirmation_register);
         dataBaseHelper = new DataBaseHelper(getActivity());
 
+        int nightModeFlags = this.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES)
+            signup_btn.setBackground(AppCompatResources.getDrawable(getActivity(), R.drawable.bg_button_night));
+
         signup_btn.setOnClickListener(v -> createAccount());
+
 
         return view;
     }

@@ -67,7 +67,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:background="@drawable/ic_baseline_more_vert_24"
-                android:popupBackground="@drawable/bg_spinner" />
+                android:popupBackground="@drawable/bg_dp_menu" />
 
             <View
                 android:id="@+id/divider"

@@ -3,8 +3,10 @@ package com.example.ecommerce.Main;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -42,6 +44,9 @@ public class LogInFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_log_in, container, false);
 
         login_btn = view.findViewById(R.id.login_btn);
+        int nightModeFlags = this.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES)
+            login_btn.setBackground(AppCompatResources.getDrawable(getActivity(), R.drawable.bg_button_night));
         inputUsername = view.findViewById(R.id.username_login);
         inputPassword = view.findViewById(R.id.password_login);
         remember_me_checkbox = view.findViewById(R.id.remember_me_checkbox);

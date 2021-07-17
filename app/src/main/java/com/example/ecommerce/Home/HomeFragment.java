@@ -2,9 +2,11 @@ package com.example.ecommerce.Home;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -20,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.ecommerce.InCategory.CategoryUtils;
@@ -35,11 +38,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
 public class HomeFragment extends Fragment {
 
 //    private String active_username;
     private EditText search_bar;
+    private ScrollView scrollView;
     private CircleImageView dp_profile;
 //    private ImageSlider imageSlider;
     private List<Product> productList = new ArrayList<>();
@@ -61,6 +66,10 @@ public class HomeFragment extends Fragment {
 
         ActiveClient = Client.getActive_client();
 
+        scrollView = view.findViewById(R.id.home_scrollview);
+
+        OverScrollDecoratorHelper.setUpOverScroll(scrollView);
+
         dataBaseHelper = new DataBaseHelper(getActivity());
         productList = dataBaseHelper.getAllProducts();
         promotedProducts = dataBaseHelper.getAllPromotedProducts();
@@ -76,6 +85,9 @@ public class HomeFragment extends Fragment {
             emptyListView_tv.setVisibility(View.VISIBLE);
 
         search_bar = view.findViewById(R.id.search_bar_main);
+        int nightModeFlags = this.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES)
+            search_bar.setBackground(AppCompatResources.getDrawable(getActivity(), R.drawable.bg_search_night));
         search_bar.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

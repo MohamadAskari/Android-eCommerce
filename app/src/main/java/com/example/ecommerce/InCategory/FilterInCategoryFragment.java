@@ -1,8 +1,10 @@
 package com.example.ecommerce.InCategory;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -105,6 +107,9 @@ public class FilterInCategoryFragment extends Fragment {
         });
 
         apply_btn = view.findViewById(R.id.apply_filter_btn);
+        int nightModeFlags = this.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES)
+            apply_btn.setBackground(AppCompatResources.getDrawable(getActivity(), R.drawable.bg_button_night));
         apply_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

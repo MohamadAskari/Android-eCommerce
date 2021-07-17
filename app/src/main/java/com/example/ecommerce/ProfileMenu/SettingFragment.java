@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
@@ -53,6 +54,7 @@ public class SettingFragment extends Fragment {
         switch (nightModeFlags) {
             case Configuration.UI_MODE_NIGHT_YES:
                 nightModeButton.setText("Disable");
+                nightModeButton.setBackground(AppCompatResources.getDrawable(getActivity(), R.drawable.bg_button_night));
                 break;
             case Configuration.UI_MODE_NIGHT_NO:
                 nightModeButton.setText("Enable");

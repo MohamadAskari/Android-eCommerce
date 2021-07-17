@@ -3,6 +3,7 @@ package com.example.ecommerce.ViewAndEditProduct;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
@@ -13,6 +14,7 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -90,6 +92,11 @@ public class EditProductActivity extends AppCompatActivity {
         inputproductdescription.setText(product.getDescription());
         tv_product_category.setText(product.getCategory());
         tv_product_subcategory.setText(product.getSubCategory());
+        int nightModeFlags = this.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
+            from_gallery_btn.setBackground(AppCompatResources.getDrawable(this, R.drawable.bg_button_night));
+            apply_btn.setBackground(AppCompatResources.getDrawable(this, R.drawable.bg_button_night));
+        }
 
         take_photo_btn.setOnClickListener(new View.OnClickListener() {
             @Override

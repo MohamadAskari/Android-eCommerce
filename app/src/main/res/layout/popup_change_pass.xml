@@ -56,11 +56,11 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="20dp"
-            android:background="@drawable/bg_buttons1"
+            android:background="@drawable/bg_button"
             android:fontFamily="@font/montserrat_semibold"
+            android:foreground="?android:attr/selectableItemBackground"
             android:padding="15dp"
             android:text="Confirm"
-            android:textColor="@color/white"
             android:textSize="16sp" />
 
 

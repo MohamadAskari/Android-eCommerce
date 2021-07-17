@@ -6,15 +6,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Splash.SplashActivity"
-    android:background="@drawable/splash">
+    android:background="@color/white">
 
     <ImageView
-        android:layout_width="414dp"
-        android:layout_height="671dp"
-        android:src="@drawable/online_shop"
+        android:id="@+id/logo_splash"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:src="@mipmap/ic_launcher"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3" />
+
+    <TextView
+        android:id="@+id/app_name_splash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="244dp"
+        android:fontFamily="serif-monospace"
+        android:text="@string/app_name"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

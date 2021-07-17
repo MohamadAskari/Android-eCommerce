@@ -66,6 +66,7 @@
         android:layout_marginTop="30dp"
         android:foreground="?android:attr/selectableItemBackground"
         android:fontFamily="@font/montserrat_bold"
+        android:background="@drawable/bg_button"
         android:text="Log in"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"

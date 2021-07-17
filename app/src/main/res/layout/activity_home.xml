@@ -20,16 +20,17 @@
 
     <com.ismaeldivita.chipnavigation.ChipNavigationBar
         android:id="@+id/bottom_nav_bar"
+        android:background="@drawable/bg_nav"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"
-        android:background="#00022e"
         android:fadingEdge="horizontal"
-        app:cnb_menuResource="@menu/bottom_nav_menu" />
+        app:cnb_menuResource="@menu/bottom_nav_menu"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
@@ -37,10 +38,13 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_margin="16dp"
+        android:tint="@color/black"
+        android:elevation="5dp"
         app:layout_constraintBottom_toBottomOf="@+id/fragment_container"
         app:layout_constraintEnd_toEndOf="parent"
         android:src="@drawable/ic_baseline_add_24"
-        android:backgroundTint="#FF9800"
+        android:backgroundTint="@color/white"
+        app:borderWidth="2dp"
         android:contentDescription="TODO"
         />
 

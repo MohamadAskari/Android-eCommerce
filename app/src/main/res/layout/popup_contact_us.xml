@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text="@string/ContactUs1"
-                android:textSize="30sp"
+                android:textSize="26sp"
                 android:fontFamily="@font/montserrat_semibold"
                 android:layout_marginTop="15dp" />
 

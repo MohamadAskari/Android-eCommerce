@@ -1,7 +1,9 @@
 package com.example.ecommerce.InCategory;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -45,6 +47,10 @@ public class InCategoryProductsFragment extends Fragment {
         category = CategoryUtils.getSelectedCategory();
 
         search_bar_in_category = view.findViewById(R.id.search_bar_in_category);
+        int nightModeFlags = this.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES)
+            search_bar_in_category.setBackground(AppCompatResources.getDrawable(getActivity(), R.drawable.bg_search_night));
+
         search_bar_in_category.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

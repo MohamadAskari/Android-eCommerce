@@ -7,12 +7,14 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.AnyRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
@@ -37,6 +39,7 @@ import com.example.ecommerce.Model.Client;
 import com.example.ecommerce.Model.DataBaseHelper;
 import com.example.ecommerce.Model.Product;
 import com.example.ecommerce.R;
+import com.unstoppable.submitbuttonview.SubmitButton;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -53,6 +56,7 @@ public class AddProductFragment extends Fragment {
     private List<String> subcategories = new ArrayList<>();
     private EditText inputproductname, inputproductprice, inputproductdescription;
     private Button submit_btn, take_photo_btn, from_gallery_btn;
+    private SubmitButton submitButton;
     private ImageView product_pic, back_btn;
     private Uri product_pic_url;
     private Client ActiveClient;
@@ -77,8 +81,9 @@ public class AddProductFragment extends Fragment {
         inputproductname = view.findViewById(R.id.product_name);
         inputproductprice = view.findViewById(R.id.product_price);
         inputproductdescription = view.findViewById(R.id.product_description);
-        submit_btn = view.findViewById(R.id.submit_btn);
+//        submit_btn = view.findViewById(R.id.submit_btn);
         dataBaseHelper = new DataBaseHelper(getActivity());
+        submitButton = view.findViewById(R.id.submit_btn);
 
         List<String> categories = new ArrayList<>();
         categories.add("Electronics");
@@ -189,6 +194,9 @@ public class AddProductFragment extends Fragment {
         product_pic = view.findViewById(R.id.product_image);
         take_photo_btn = view.findViewById(R.id.takephoto_btn);
         from_gallery_btn = view.findViewById(R.id.fromgallery_btn);
+        int nightModeFlags = this.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES)
+            from_gallery_btn.setBackground(AppCompatResources.getDrawable(getActivity(), R.drawable.bg_button_night));
 
         product_pic.setImageResource(R.drawable.default_pic);
         product_pic_url = getUriFromDrawable(getActivity(), R.drawable.default_pic);
@@ -216,7 +224,24 @@ public class AddProductFragment extends Fragment {
             }
         });
 
-        submit_btn.setOnClickListener(v -> submitProduct());
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (submitProduct())
+                    submitButton.doResult(true);
+                else
+                    submitButton.reset();
+            }
+        });
+
+        submitButton.setOnResultEndListener(new SubmitButton.OnResultEndListener() {
+            @Override
+            public void onResultEnd() {
+
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+                ((HomeActivity)getActivity()).showFab();
+            }
+        });
 
         return view;
     }
@@ -326,7 +351,7 @@ public class AddProductFragment extends Fragment {
                 + '/' + context.getResources().getResourceEntryName(drawableId) );
     }
 
-    private void submitProduct() {
+    private boolean submitProduct() {
 
         String product_name = inputproductname.getText().toString();
         String product_price = inputproductprice.getText().toString();
@@ -337,6 +362,7 @@ public class AddProductFragment extends Fragment {
 
         if(TextUtils.isEmpty(product_name) || TextUtils.isEmpty(product_price)){
             Toast.makeText(getActivity(), "Please fill out all required fields", Toast.LENGTH_LONG).show();
+            return false;
         }
         else {
             Product product;
@@ -353,14 +379,17 @@ public class AddProductFragment extends Fragment {
                 boolean updatedProductCount = dataBaseHelper.updateProductCount(client, String.valueOf(product_count));
                 if (updatedProductCount) {
                     Toast.makeText(getActivity(), "Product added successfully ", Toast.LENGTH_LONG).show();
-                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
-                    ((HomeActivity)getActivity()).showFab();
+                    return true;
                 }
-                else
+                else {
                     Toast.makeText(getActivity(), "Task failed, try again", Toast.LENGTH_LONG).show();
+                    return false;
+                }
             }
-            else
+            else {
                 Toast.makeText(getActivity(), "Failed to add", Toast.LENGTH_LONG).show();
+                return false;
+            }
         }
     }
 

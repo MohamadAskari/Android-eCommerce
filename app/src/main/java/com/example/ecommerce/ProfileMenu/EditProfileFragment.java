@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -95,6 +97,11 @@ public class EditProfileFragment extends Fragment {
         username_et.setText(ActiveClient.getUserName());
         email_et.setText(ActiveClient.getEmail());
         phone_et.setText(ActiveClient.getPhoneNumber());
+        int nightModeFlags = this.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
+            changePic_btn.setBackground(AppCompatResources.getDrawable(getActivity(), R.drawable.bg_button_night));
+            confirm_btn.setBackground(AppCompatResources.getDrawable(getActivity(), R.drawable.bg_button_night));
+        }
         phone_et.setFocusable(false);
         phone_et.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -191,6 +198,10 @@ public class EditProfileFragment extends Fragment {
         dialog_new_pass_et = changePassView.findViewById(R.id.password_changepassword);
         dialog_confirm_pass_et = changePassView.findViewById(R.id.confirm_changepassword);
 
+        int nightModeFlags = this.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES)
+            dialog_confirm_btn.setBackground(AppCompatResources.getDrawable(getActivity(), R.drawable.bg_button_night));
+
         dialogBuilder.setView(changePassView);
         dialog = dialogBuilder.create();
         dialog.show();
@@ -227,6 +238,11 @@ public class EditProfileFragment extends Fragment {
 
         dialog_camera_btn = changePicView.findViewById(R.id.change_pic_camera_btn);
         dialog_gallery_btn = changePicView.findViewById(R.id.change_pic_gallery_btn);
+
+        int nightModeFlags = this.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES)
+            dialog_camera_btn.setBackground(AppCompatResources.getDrawable(getActivity(), R.drawable.bg_button_night));
+
 
         dialogBuilder.setView(changePicView);
         dialog = dialogBuilder.create();
