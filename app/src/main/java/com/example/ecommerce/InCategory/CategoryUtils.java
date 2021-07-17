@@ -29,7 +29,6 @@ public class CategoryUtils {
     private static boolean isInCategoryFragment = true;
     private static boolean isInFavoritesFragment = true;
     private static boolean isInManageProductsFragment = true;
-    private static boolean isPromotedList = true;
 
     private CategoryUtils() {
         throw new RuntimeException("Nope!");
@@ -226,11 +225,6 @@ public class CategoryUtils {
         return isInManageProductsFragment;
     }
 
-    public static boolean isPromotedList(){
-        return isPromotedList;
-    }
-
-
     public static boolean isFirstTimeInCategory() {
         return isFirstTimeInCategory;
     }
@@ -244,7 +238,6 @@ public class CategoryUtils {
         isInCategoryFragment = false;
         isInFavoritesFragment = false;
         isInManageProductsFragment = false;
-        isPromotedList = false;
     }
 
     public static void setIsInCategoryFragment() {
@@ -252,7 +245,6 @@ public class CategoryUtils {
         isInCategoryFragment = true;
         isInFavoritesFragment = false;
         isInManageProductsFragment = false;
-        isPromotedList = false;
     }
 
     public static void setIsInFavoritesFragment() {
@@ -260,7 +252,6 @@ public class CategoryUtils {
         isInCategoryFragment = false;
         isInFavoritesFragment = true;
         isInManageProductsFragment = false;
-        isPromotedList = false;
     }
 
     public static void setIsInManageProductsFragment() {
@@ -268,14 +259,5 @@ public class CategoryUtils {
         isInCategoryFragment = false;
         isInFavoritesFragment = false;
         isInManageProductsFragment = true;
-        isPromotedList = false;
-    }
-
-    public static void setIsPromotedList(){
-        isInHomeFragment = false;
-        isInCategoryFragment = false;
-        isInFavoritesFragment = false;
-        isInManageProductsFragment = false;
-        isPromotedList = true;
     }
 }

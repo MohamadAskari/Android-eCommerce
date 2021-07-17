@@ -55,7 +55,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 break;
             case 1 : // InCategoryFragment
             case 2 : // FavoritesFragment
-            case 3 : // PromotedList
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_in_category_product, parent, false);
                 break;
             default : // ManageProductsFragment : return 4
@@ -75,10 +74,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             return 1;
         else if (CategoryUtils.isInFavoritesFragment())
             return 2;
-        else if (CategoryUtils.isPromotedList())
-            return 3;
         // else if (CategoryUtils.isIsInManageProductsFragment())
-        return 4;
+        return 3;
     }
 
     @Override
