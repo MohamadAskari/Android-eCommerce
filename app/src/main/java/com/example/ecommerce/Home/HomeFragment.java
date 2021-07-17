@@ -31,6 +31,7 @@ import com.example.ecommerce.Model.Client;
 import com.example.ecommerce.Model.DataBaseHelper;
 import com.example.ecommerce.Model.Product;
 import com.example.ecommerce.Model.RecyclerViewAdapter;
+import com.example.ecommerce.Model.RecyclerViewAdapterForPromoted;
 import com.example.ecommerce.R;
 import com.example.ecommerce.ProfileMenu.SpinnerOptionsActivity;
 
@@ -54,7 +55,8 @@ public class HomeFragment extends Fragment {
     private RelativeLayout promoted_rl;
     DataBaseHelper dataBaseHelper;
     private RecyclerView recyclerView, recyclerViewPromoted;
-    private RecyclerViewAdapter mAdapter, promotedAdapter;
+    private RecyclerViewAdapter mAdapter;
+    private RecyclerViewAdapterForPromoted promotedAdapter;
 //    private RecyclerView.LayoutManager layoutManager;
     private AlertDialog.Builder builder;
     private Client ActiveClient;
@@ -262,8 +264,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void setUpPromotedRecyclerView(List<Product> promotedProducts){
-        CategoryUtils.setIsPromotedList();
-        promotedAdapter = new RecyclerViewAdapter(this.promotedProducts, getActivity());
+        promotedAdapter = new RecyclerViewAdapterForPromoted(this.promotedProducts, getActivity());
         recyclerViewPromoted.setAdapter(promotedAdapter);
         recyclerViewPromoted.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
