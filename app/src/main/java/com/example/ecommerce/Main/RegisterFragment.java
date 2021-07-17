@@ -50,8 +50,16 @@ public class RegisterFragment extends Fragment {
         dataBaseHelper = new DataBaseHelper(getActivity());
 
         int nightModeFlags = this.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-        if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES)
+        if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
             signup_btn.setBackground(AppCompatResources.getDrawable(getActivity(), R.drawable.bg_button_night));
+            inputfirstname.setBackground(AppCompatResources.getDrawable(getActivity(), R.drawable.white_outline));
+            inputlastname.setBackground(AppCompatResources.getDrawable(getActivity(), R.drawable.white_outline));
+            inputusername.setBackground(AppCompatResources.getDrawable(getActivity(), R.drawable.white_outline));
+            inputemail.setBackground(AppCompatResources.getDrawable(getActivity(), R.drawable.white_outline));
+            inputphonenumber.setBackground(AppCompatResources.getDrawable(getActivity(), R.drawable.white_outline));
+            inputpass.setBackground(AppCompatResources.getDrawable(getActivity(), R.drawable.white_outline));
+            inputconfirmpass.setBackground(AppCompatResources.getDrawable(getActivity(), R.drawable.white_outline));
+        }
 
         signup_btn.setOnClickListener(v -> createAccount());
 

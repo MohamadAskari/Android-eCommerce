@@ -3,8 +3,10 @@ package com.example.ecommerce.Main;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.navigation.Navigation;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -37,6 +39,14 @@ public class MainActivity extends AppCompatActivity {
         register_btn = findViewById(R.id.register_btn);
         back_btn = findViewById(R.id.forgotpassword_back_button);
         hideBackButton();
+
+        int nightModeFlags = this.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES){
+            login_btn.setBackground(AppCompatResources.getDrawable(this, R.drawable.bg_toggle_widget_night));
+            login_btn.setTextColor(AppCompatResources.getColorStateList(this, R.color.white));
+            register_btn.setBackground(AppCompatResources.getDrawable(this, R.drawable.bg_toggle_widget_night));
+            register_btn.setTextColor(AppCompatResources.getColorStateList(this, R.color.white));
+        }
 
         login_btn.setEnabled(false);
         login_btn.setChecked(true);

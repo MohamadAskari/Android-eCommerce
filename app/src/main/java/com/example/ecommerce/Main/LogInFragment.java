@@ -44,11 +44,14 @@ public class LogInFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_log_in, container, false);
 
         login_btn = view.findViewById(R.id.login_btn);
-        int nightModeFlags = this.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-        if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES)
-            login_btn.setBackground(AppCompatResources.getDrawable(getActivity(), R.drawable.bg_button_night));
         inputUsername = view.findViewById(R.id.username_login);
         inputPassword = view.findViewById(R.id.password_login);
+        int nightModeFlags = this.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
+            login_btn.setBackground(AppCompatResources.getDrawable(getActivity(), R.drawable.bg_button_night));
+            inputUsername.setBackground(AppCompatResources.getDrawable(getActivity(), R.drawable.white_outline));
+            inputPassword.setBackground(AppCompatResources.getDrawable(getActivity(), R.drawable.white_outline));
+        }
         remember_me_checkbox = view.findViewById(R.id.remember_me_checkbox);
         forgotPassword = view.findViewById(R.id.forgot_password_textView);
         dataBaseHelper = new DataBaseHelper(getActivity());
