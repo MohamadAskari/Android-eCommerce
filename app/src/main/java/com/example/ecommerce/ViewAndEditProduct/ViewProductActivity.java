@@ -20,13 +20,15 @@ import com.example.ecommerce.Model.Client;
 import com.example.ecommerce.Model.DataBaseHelper;
 import com.example.ecommerce.Model.Product;
 import com.example.ecommerce.R;
+import com.like.LikeButton;
+import com.like.OnLikeListener;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ViewProductActivity extends AppCompatActivity {
 
     private Client active_client;
-    private ToggleButton toggleButton;
+    private LikeButton toggleButton;
     private Button viewSellerInfo_btn;
     private ImageView back_btn, product_pic;
     private TextView product_name, product_price, product_category, product_subcategory, product_description;
@@ -51,6 +53,7 @@ public class ViewProductActivity extends AppCompatActivity {
         product_name = findViewById(R.id.view_product_name);
         product_price = findViewById(R.id.view_product_price);
         product_description = findViewById(R.id.view_product_description);
+        int nightModeFlags = this.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
 
         Intent intent = getIntent();
         Product product = intent.getParcelableExtra("product");
@@ -66,30 +69,45 @@ public class ViewProductActivity extends AppCompatActivity {
 
         toggleButton = findViewById(R.id.add_favorite_icon);
         if(!dataBaseHelper.isProductInFavorites(product, active_client.getPhoneNumber())){
-            toggleButton.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.ic_baseline_favorite_border_24));
-            toggleButton.setChecked(false);
+//            toggleButton.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.ic_baseline_favorite_border_24));
+            toggleButton.setLiked(false);
         }
         else{
-            toggleButton.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.ic_baseline_favorite_24));
-            toggleButton.setChecked(true);
+//            toggleButton.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.ic_baseline_favorite_24));
+            toggleButton.setLiked(true);
         }
-        toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        toggleButton.setOnLikeListener(new OnLikeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
-                    toggleButton.setBackgroundDrawable(ContextCompat.getDrawable(ViewProductActivity.this, R.drawable.ic_baseline_favorite_24));
-                    boolean succeed = dataBaseHelper.addProductToFavorites(product, active_client.getPhoneNumber());
-                    if(succeed)
-                        Toast.makeText(ViewProductActivity.this, "added successfully", Toast.LENGTH_LONG).show();
-                }
-                else{
-                    toggleButton.setBackgroundDrawable(ContextCompat.getDrawable(ViewProductActivity.this, R.drawable.ic_baseline_favorite_border_24));
-                    boolean succeed = dataBaseHelper.removeProductFromFavorites(product, active_client.getPhoneNumber());
-                    if(succeed)
-                        Toast.makeText(ViewProductActivity.this, "removed successfully", Toast.LENGTH_LONG).show();
-                }
+            public void liked(LikeButton likeButton) {
+                boolean succeed = dataBaseHelper.addProductToFavorites(product, active_client.getPhoneNumber());
+                if(succeed)
+                    Toast.makeText(ViewProductActivity.this, "added to favorites", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void unLiked(LikeButton likeButton) {
+                boolean succeed = dataBaseHelper.removeProductFromFavorites(product, active_client.getPhoneNumber());
+                if(succeed)
+                    Toast.makeText(ViewProductActivity.this, "removed from favorites", Toast.LENGTH_LONG).show();
             }
         });
+//        toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if (isChecked){
+//                    toggleButton.setBackgroundDrawable(ContextCompat.getDrawable(ViewProductActivity.this, R.drawable.ic_baseline_favorite_24));
+//                    boolean succeed = dataBaseHelper.addProductToFavorites(product, active_client.getPhoneNumber());
+//                    if(succeed)
+//                        Toast.makeText(ViewProductActivity.this, "added to favorites", Toast.LENGTH_LONG).show();
+//                }
+//                else{
+//                    toggleButton.setBackgroundDrawable(ContextCompat.getDrawable(ViewProductActivity.this, R.drawable.ic_baseline_favorite_border_24));
+//                    boolean succeed = dataBaseHelper.removeProductFromFavorites(product, active_client.getPhoneNumber());
+//                    if(succeed)
+//                        Toast.makeText(ViewProductActivity.this, "removed from favorites", Toast.LENGTH_LONG).show();
+//                }
+//            }
+//        });
         back_btn = findViewById(R.id.view_product_back_icon);
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,7 +118,6 @@ public class ViewProductActivity extends AppCompatActivity {
         });
 
         viewSellerInfo_btn = findViewById(R.id.view_seller_info_btn);
-        int nightModeFlags = this.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
         if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES)
             viewSellerInfo_btn.setBackground(AppCompatResources.getDrawable(this, R.drawable.bg_button_night));
         viewSellerInfo_btn.setOnClickListener(new View.OnClickListener() {

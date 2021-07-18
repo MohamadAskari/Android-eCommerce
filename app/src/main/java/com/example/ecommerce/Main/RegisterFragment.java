@@ -97,7 +97,7 @@ public class RegisterFragment extends Fragment {
             if(!UsernameExists && !PhonenumberExists && !EmailExists){
                 boolean succeed = dataBaseHelper.addClient(newClient);
                 if(succeed) {
-                    Toast.makeText(getActivity(), "Sign in was successful, Welcome " + newClient.getFirstName(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "Sign in was successful", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(getActivity(), BridgeActivity.class);
 
                     // pass the active user

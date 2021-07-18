@@ -9,13 +9,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ScrollView;
 
 import com.example.ecommerce.InCategory.CategoryUtils;
 import com.example.ecommerce.InCategory.InCategoryProductsActivity;
 import com.example.ecommerce.R;
 
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
+
 public class CategoriesFragment extends Fragment {
 
+    private ScrollView scrollView;
     private Button expand_all_electronics, expand_all_fashion, expand_all_sports, expand_all_home, expand_all_motors, expand_all_realstate, expand_all_entertainment;
 
     @Override
@@ -24,6 +28,9 @@ public class CategoriesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_categories, container, false);
 
         CategoryUtils.setIsInCategoryFragment();
+
+        scrollView = view.findViewById(R.id.scrollview_categories);
+        OverScrollDecoratorHelper.setUpOverScroll(scrollView);
 
         expand_all_electronics = view.findViewById(R.id.expand_all_electronics);
         expand_all_electronics.setOnClickListener(new View.OnClickListener() {
