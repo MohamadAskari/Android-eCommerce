@@ -108,6 +108,10 @@ public class LogInFragment extends Fragment {
                         Toast.makeText(getActivity(), "Welcome back " + client.getUserName(), Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(getActivity(), HomeActivity.class);
                         Client.setActive_client(client);
+                        for (Admin admin : admins){
+                            if (admin.getUsername().equalsIgnoreCase("admin"))
+                                Admin.setActive_admin(admin);
+                        }
                         startActivity(intent);
                     }
                     else

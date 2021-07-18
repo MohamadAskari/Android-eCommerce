@@ -118,7 +118,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                             switch (item.getItemId()) {
                                 case R.id.delete_product_item:
                                     DataBaseHelper db = new DataBaseHelper(context);
-                                    boolean removed = db.removeProduct(productList.get(position));
+                                    boolean removed = db.removeProduct(productList.get(position)) && db.removeFromPromotedProducts(productList.get(position).getId(), Admin.getActive_admin());
                                     if(removed){
                                         int product_count = Client.getActive_client().getProduct_count() - 1;
                                         db.updateProductCount(Client.getActive_client(), String.valueOf(product_count));

@@ -166,6 +166,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return updated != -1;
     }
 
+    //Totally useless
     public ArrayList<String> getAdminPromotedProducts(Admin admin){
         List<Product> AllProducts = getAllProducts();
         ArrayList<String> PromotedProducts = new ArrayList<>();
@@ -202,19 +203,23 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return removed;
     }
 
-    private boolean removeFromPromotedProducts(String id, Admin admin) {
+    public boolean removeFromPromotedProducts(String id, Admin admin) {
         SQLiteDatabase DB = this.getWritableDatabase();
         ContentValues CV = new ContentValues();
 
         Gson gson = new Gson();
-        admin.removeFromPromotedProducts(id);
-        String promotedProducts = gson.toJson(admin.getPromotedProductsID());
+        if (admin.getPromotedProductsID().contains(id)) {
+            admin.removeFromPromotedProducts(id);
+            String promotedProducts = gson.toJson(admin.getPromotedProductsID());
 
-        CV.put(ADMIN_PROMOTED_PRODUCTS, promotedProducts);
+            CV.put(ADMIN_PROMOTED_PRODUCTS, promotedProducts);
 
-        long updated =  DB.update(ADMIN_TABLE, CV, ADMIN_USERNAME + " = ?" , new String[] {admin.getUsername()});
+            long updated = DB.update(ADMIN_TABLE, CV, ADMIN_USERNAME + " = ?", new String[]{admin.getUsername()});
 
-        return updated != -1;
+            return updated != -1;
+        }
+        else
+            return true;
     }
 
     // Client methods

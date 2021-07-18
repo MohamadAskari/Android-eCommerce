@@ -76,6 +76,7 @@ public class RegisterFragment extends Fragment {
         String pass = inputpass.getText().toString();
         String confirmpass = inputconfirmpass.getText().toString();
         boolean isSeller = inputcheckbox.isChecked();
+        List<Admin> admins = dataBaseHelper.getAdmins();
 
 
         if(TextUtils.isEmpty(firstname) || TextUtils.isEmpty(lastname) || TextUtils.isEmpty(username) ||
@@ -102,6 +103,10 @@ public class RegisterFragment extends Fragment {
 
                     // pass the active user
                     // intent.putExtra("Active User", newClient);
+                    for (Admin admin : admins){
+                        if (admin.getUsername().equalsIgnoreCase("admin"))
+                            Admin.setActive_admin(admin);
+                    }
                     Client.setActive_client(newClient);
                     startActivity(intent);
                 }
