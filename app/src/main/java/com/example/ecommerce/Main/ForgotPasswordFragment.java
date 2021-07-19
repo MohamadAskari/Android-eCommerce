@@ -40,8 +40,12 @@ public class ForgotPasswordFragment extends Fragment {
         dataBaseHelper = new DataBaseHelper(getActivity());
 
         int nightModeFlags = this.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-        if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES)
+        if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
             confirm_btn.setBackground(AppCompatResources.getDrawable(getActivity(), R.drawable.bg_button_night));
+            username.setBackground(AppCompatResources.getDrawable(getActivity(), R.drawable.white_outline));
+            password.setBackground(AppCompatResources.getDrawable(getActivity(), R.drawable.white_outline));
+            confirm.setBackground(AppCompatResources.getDrawable(getActivity(), R.drawable.white_outline));
+        }
 
         ((MainActivity) getActivity()).showBackButton();
 
@@ -67,6 +71,9 @@ public class ForgotPasswordFragment extends Fragment {
                             if(updated){
                                 Toast.makeText(getActivity(), "Password updated successfully", Toast.LENGTH_LONG).show();
                                 Navigation.findNavController(getActivity(), R.id.fragment_main).navigate(R.id.action_fragment_forgot_password_to_logInFragment);
+                                ((MainActivity)getActivity()).hideBackButton();
+                                ((MainActivity)getActivity()).showButtons();
+                                flag = false;
                             }
                         }
                     }
