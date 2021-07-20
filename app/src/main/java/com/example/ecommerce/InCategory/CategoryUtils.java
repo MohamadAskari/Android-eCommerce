@@ -49,14 +49,11 @@ public class CategoryUtils {
             if (Integer.parseInt(p.getPrice()) <= maxPrice && Integer.parseInt(p.getPrice()) >= minPrice) {
                 if(selectedSubCategories.contains(p.getSubCategory()) || selectedSubCategories.isEmpty()){
                     if(withImageOnly){
-                        Log.d("TAG", "DOOGH TRUE");
                         if(p.hasImage()){
-                            Log.d("TAG", "DOOGH GOOZ");
                             filteredProducts.add(p);
                         }
                     }
                     else {
-                        Log.d("TAG", "DOOGH FALSE");
                         filteredProducts.add(p);
                     }
                 }
@@ -76,13 +73,13 @@ public class CategoryUtils {
     private static Comparator<Product> productCheapestComparator = new Comparator<Product>() {
         @Override
         public int compare(Product p1, Product p2) {
-            return p1.getPrice().compareTo(p2.getPrice());
+            return Integer.parseInt(p1.getPrice()) - Integer.parseInt(p2.getPrice());
         }
     };
     private static Comparator<Product> productMostExpensiveComparator = new Comparator<Product>() {
         @Override
         public int compare(Product p1, Product p2) {
-            return p2.getPrice().compareTo(p1.getPrice());
+            return Integer.parseInt(p2.getPrice()) - Integer.parseInt(p1.getPrice());
         }
     };
 
