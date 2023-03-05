@@ -1,2 +1,2 @@
 # eCommerce
-Advanced Programing | Online Shop Project | Spring 2021
+Online Shop Project | Spring 2021
